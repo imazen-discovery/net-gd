@@ -2,5 +2,8 @@
 
 hello.exe: hello.cs
 	(cd wrapper; make)
-	mcs -lib:wrapper/ -pkg:GD hello.cs
+	mcs -r:wrapper/net-gd.dll hello.cs
+
+clean:
+	rm *.exe
 

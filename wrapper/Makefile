@@ -4,10 +4,11 @@ GDPATH = ../../gd-libgd/src/
 SWIG=swig
 SWIGFLAGS=-v -I$(GDPATH)
 
+.prefixes: .i
 
 all: libgd-wrapper.so net-gd.dll
 
-net-gd.dll:
+net-gd.dll: libgd-wrapper.so
 	mcs -t:library -out:net-gd.dll *.cs
 
 libgd-wrapper.so : libgd-wrapper.c

@@ -1,4 +1,4 @@
-%module GD
+%module LibGD
 %{
 #include "gd.h"
 %}
