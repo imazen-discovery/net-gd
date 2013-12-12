@@ -2,21 +2,21 @@
 GDPATH = ../../gd-libgd/src/
 
 SWIG=swig
-SWIGFLAGS=-v -I$(GDPATH)
+SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so
 
 .prefixes: .i
 
-all: libgd-wrapper.so net-gd.dll
+all: libGDwrap.so net-gd.dll
 
-net-gd.dll: libgd-wrapper.so
+net-gd.dll: libGDwrap.so
 	mcs -t:library -out:net-gd.dll *.cs
 
-libgd-wrapper.so : libgd-wrapper.c
-	gcc -fPIC -g -c -Wall libgd-wrapper.c
-	gcc -shared -Wl,-soname,libgd-wrapper.so -o libgd-wrapper.so libgd-wrapper.o -lc
+libGDwrap.so : GDwrap.c
+	gcc -fPIC -g -c -Wall GDwrap.c
+	gcc -shared -Wl,-soname,GDwrap.so -o libGDwrap.so GDwrap.o -lc -lgd
 
-libgd-wrapper.c: gd.i
-	$(SWIG) $(SWIGFLAGS) -csharp -o libgd-wrapper.c gd.i
+GDwrap.c: gd.i
+	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
 
 clean:
 	-rm *.cs *.c *.so *.o *.dll
