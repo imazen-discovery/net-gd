@@ -1,10 +1,15 @@
 
 
-hello.exe: hello.cs
+hello.exe: hello.cs net-gd.dll
 	(cd wrapper; make)
 	mcs -r:wrapper/net-gd.dll hello.cs
-#	mcs -r:wrapper/net-gd.dll -r:wrapper/libgd-wrapper.so hello.cs
+
+net-gd.dll:
+	(cd wrapper; make)
+	cp wrapper/net-gd.dll .
+	cp wrapper/libGDwrap.so .
 
 clean:
-	rm *.exe
+	rm *.exe *.dll
+	(cd wrapper; make clean)
 
