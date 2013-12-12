@@ -1,0 +1,9 @@
+
+wrapper/*.o
+wrapper/*.cs
+wrapper/*.c
+wrapper/*.so
+
+*.exe
+*.dll
+
