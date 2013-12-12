@@ -1,7 +1,20 @@
 
-SWIG=swig
-SWIGFLAGS=-v
-GD_H = ../gd-libgd/src/gd.h
+GDPATH = ../../gd-libgd/src/
 
-wrapper.c: $(GD_H)
-	$(SWIG) $(SWIGFLAGS) -csharp -module GD -o libgd-wrapper.c ../gd-libgd/src/gd.h
+SWIG=swig
+SWIGFLAGS=-v -I$(GDPATH)
+
+
+all: libgd-wrapper.so
+
+libgd-wrapper.so : libgd-wrapper.c
+	gcc -fPIC -g -c -Wall libgd-wrapper.c
+	gcc -shared -Wl,-soname,libgd-wrapper.so -o libgd-wrapper.so libgd-wrapper.o -lc
+
+libgd-wrapper.c: gd.i
+	$(SWIG) $(SWIGFLAGS) -csharp -o libgd-wrapper.c gd.i
+
+clean:
+	-rm *.cs *.c *.so *.o
+
+
