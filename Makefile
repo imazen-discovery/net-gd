@@ -10,6 +10,6 @@ net-gd.dll:
 	cp wrapper/libGDwrap.so .
 
 clean:
-	rm *.exe *.dll *.so
+	-rm *.exe *.dll *.so
 	(cd wrapper; make clean)
 

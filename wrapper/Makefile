@@ -2,7 +2,7 @@
 GDPATH = ../../gd-libgd/src/
 
 SWIG=swig
-SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal
+SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
 
 .prefixes: .i
 
