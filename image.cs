@@ -7,6 +7,10 @@ using System;
 namespace GD {
   using Internal;
 
+  class GDFailure : Exception {
+    public GDFailure(string message) : base("Null value returned by " + message) {}
+  }
+
   public class Image : IDisposable {
     SWIGTYPE_p_gdImageStruct img = null;
 
@@ -24,8 +28,15 @@ namespace GD {
       img = i;
     }/* Image*/
 
+    private static SWIGTYPE_p_gdImageStruct chkptr(SWIGTYPE_p_gdImageStruct ptr,
+                                                   string apiFunc) {
+      if (ptr != null) return ptr;
+      throw new GDFailure(apiFunc);
+    }/* chkptr*/
+
     public static Image createFromFile(string filename) {
-      return new Image(LibGD.gdImageCreateFromFile(filename));
+      return new Image(chkptr(LibGD.gdImageCreateFromFile(filename),
+                              "gdImageCreateFromFile"));
     }
 
     public virtual void Dispose() {
@@ -46,10 +57,8 @@ namespace GD {
     public static int releaseVersion { get {return LibGD.gdReleaseVersion();} }
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
     public static string versionString {get {return LibGD.gdVersionString();} }
-
-
-
-
   }
 
 }
+
+
