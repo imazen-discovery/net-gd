@@ -9,9 +9,9 @@ class Hello {
         Console.WriteLine ("Hello, World!");
         Console.WriteLine (Image.versionString);
 
-        
-//        gdImage foo = LibGD.gdImageCreate(300, 300);
-//        Console.WriteLine(foo.sx);
+        Image foo = Image.createFromFile("../grlibs-misc/img/greenbox.png");
+        Console.WriteLine(foo.sx);
+        Console.WriteLine(foo.sy);
     }
 }
 

@@ -19,6 +19,15 @@ namespace GD {
       }/* if .. else*/
     }/* Image*/
 
+    // Private constructor for wrapping an existing gdImage struct.
+    private Image(SWIGTYPE_p_gdImageStruct i) {
+      img = i;
+    }/* Image*/
+
+    public static Image createFromFile(string filename) {
+      return new Image(LibGD.gdImageCreateFromFile(filename));
+    }
+
     public virtual void Dispose() {
       lock(this) {
         if (img != null) {
@@ -37,6 +46,9 @@ namespace GD {
     public static int releaseVersion { get {return LibGD.gdReleaseVersion();} }
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
     public static string versionString {get {return LibGD.gdVersionString();} }
+
+
+
 
   }
 
