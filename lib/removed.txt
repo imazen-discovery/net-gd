@@ -1,0 +1,249 @@
+Bindings not (yet?) added to the Image class.
+
+
+    public void gdImageXbmCtx(string file_name, int fg, SWIGTYPE_p_gdIOCtx arg3) {
+      LibGD.gdImageXbmCtx(img, file_name, fg, arg3); }
+    public void gdImageDestroy() {
+      LibGD.gdImageDestroy(img); }
+
+
+    public void gdImageAABlend() { // no-op
+      LibGD.gdImageAABlend(img); }
+
+
+
+
+// for now
+
+    public void gdImageGetClip(SWIGTYPE_p_int x1P, SWIGTYPE_p_int y1P, SWIGTYPE_p_int x2P, SWIGTYPE_p_int y2P) {
+      LibGD.gdImageGetClip(img, x1P, y1P, x2P, y2P); }
+
+
+    public void gdImageChar(SWIGTYPE_p_gdFont f, int x, int y,int c,int color){
+      LibGD.gdImageChar(img, f, x, y, c, color); }
+    public void gdImageCharUp(SWIGTYPE_p_gdFont f, int x, int y, int c, int color) {
+      LibGD.gdImageCharUp(img, f, x, y, c, color); }
+
+
+    public void gdImageString(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_char s, int color) {
+      LibGD.gdImageString(img, f, x, y, s, color); }
+    public void gdImageStringUp(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_char s, int color) {
+      LibGD.gdImageStringUp(img, f, x, y, s, color); }
+    public void gdImageString16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageString16(img, f, x, y, s, color); }
+    public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageStringUp16(img, f, x, y, s, color); }
+    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
+    public string gdImageStringFT(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringFT(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
+    public string gdImageStringFTEx(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8, SWIGTYPE_p_gdFTStringExtraPtr strex) {
+      return LibGD.gdImageStringFTEx(img, brect, fg, fontlist, ptsize, angle, x, y, arg8, strex); }
+    public void gdImagePolygon(SWIGTYPE_p_gdPointPtr p, int n, int c) {
+      LibGD.gdImagePolygon(img, p, n, c); }
+    public void gdImageOpenPolygon(SWIGTYPE_p_gdPointPtr p, int n, int c) {
+      LibGD.gdImageOpenPolygon(img, p, n, c); }
+    public void gdImageFilledPolygon(SWIGTYPE_p_gdPointPtr p, int n, int c) {
+      LibGD.gdImageFilledPolygon(img, p, n, c); }
+
+
+    public SWIGTYPE_p_gdImageStruct gdImageCreatePaletteFromTrueColor(int ditherFlag, int colorsWanted) {
+      return LibGD.gdImageCreatePaletteFromTrueColor(img, ditherFlag, colorsWanted); }
+
+
+
+    public int gdImageColorMatch(SWIGTYPE_p_gdImageStruct im2) {
+      return LibGD.gdImageColorMatch(img, im2); }
+
+    public void gdImagePaletteCopy(SWIGTYPE_p_gdImageStruct src) {
+      LibGD.gdImagePaletteCopy(img, src); }
+
+
+    public int gdImageColorReplaceArray(int len, SWIGTYPE_p_int src, SWIGTYPE_p_int dst) {
+      return LibGD.gdImageColorReplaceArray(img, len, src, dst); }
+
+    public int gdImageColorReplaceCallback(SWIGTYPE_p_f_p_struct_gdImageStruct_int__int callback) {
+      return LibGD.gdImageColorReplaceCallback(img, callback); }
+
+
+    public void gdImageGif(SWIGTYPE_p_FILE arg1) {
+      LibGD.gdImageGif(img, arg1); }
+
+    public void gdImagePng(SWIGTYPE_p_FILE arg1) {
+      LibGD.gdImagePng(img, arg1); }
+
+    public void gdImagePngCtx(SWIGTYPE_p_gdIOCtx arg1) {
+      LibGD.gdImagePngCtx(img, arg1); }
+
+    public void gdImageGifCtx(SWIGTYPE_p_gdIOCtx arg1) {
+      LibGD.gdImageGifCtx(img, arg1); }
+
+    public void gdImageTiff(SWIGTYPE_p_FILE outFile) {
+      LibGD.gdImageTiff(img, outFile); }
+
+    public SWIGTYPE_p_void gdImageTiffPtr(SWIGTYPE_p_int size) {
+      return LibGD.gdImageTiffPtr(img, size); }
+
+    public void gdImageTiffCtx(SWIGTYPE_p_gdIOCtx arg1) {
+      LibGD.gdImageTiffCtx(img, arg1); }
+
+    public SWIGTYPE_p_void gdImageBmpPtr(SWIGTYPE_p_int size, int compression) {
+      return LibGD.gdImageBmpPtr(img, size, compression); }
+
+    public void gdImageBmp(SWIGTYPE_p_FILE outFile, int compression) {
+      LibGD.gdImageBmp(img, outFile, compression); }
+
+    public void gdImageBmpCtx(SWIGTYPE_p_gdIOCtxPtr arg1, int compression) {
+      LibGD.gdImageBmpCtx(img, arg1, compression); }
+
+    public void gdImagePngEx(SWIGTYPE_p_FILE arg1, int level) {
+      LibGD.gdImagePngEx(img, arg1, level); }
+
+    public void gdImagePngCtxEx(SWIGTYPE_p_gdIOCtx arg1, int level) {
+      LibGD.gdImagePngCtxEx(img, arg1, level); }
+
+    public void gdImageWBMP(int fg, SWIGTYPE_p_FILE arg2) {
+      LibGD.gdImageWBMP(img, fg, arg2); }
+
+    public void gdImageWBMPCtx(int fg, SWIGTYPE_p_gdIOCtx arg2) {
+      LibGD.gdImageWBMPCtx(img, fg, arg2); }
+
+
+
+    public SWIGTYPE_p_void gdImageWBMPPtr(SWIGTYPE_p_int size, int fg) {
+      return LibGD.gdImageWBMPPtr(img, size, fg); }
+
+    public void gdImageJpeg(SWIGTYPE_p_FILE arg1, int quality) {
+      LibGD.gdImageJpeg(img, arg1, quality); }
+
+    public void gdImageJpegCtx(SWIGTYPE_p_gdIOCtx arg1, int quality) {
+      LibGD.gdImageJpegCtx(img, arg1, quality); }
+
+    public SWIGTYPE_p_void gdImageJpegPtr(SWIGTYPE_p_int size, int quality) {
+      return LibGD.gdImageJpegPtr(img, size, quality); }
+
+    public void gdImageWebpEx(SWIGTYPE_p_FILE outFile, int quantization) {
+      LibGD.gdImageWebpEx(img, outFile, quantization); }
+
+    public void gdImageWebp(SWIGTYPE_p_FILE outFile) {
+      LibGD.gdImageWebp(img, outFile); }
+
+    public SWIGTYPE_p_void gdImageWebpPtr(SWIGTYPE_p_int size) {
+      return LibGD.gdImageWebpPtr(img, size); }
+
+    public SWIGTYPE_p_void gdImageWebpPtrEx(SWIGTYPE_p_int size, int quantization) {
+      return LibGD.gdImageWebpPtrEx(img, size, quantization); }
+
+    public void gdImageWebpCtx(SWIGTYPE_p_gdIOCtx outfile, int quantization) {
+      LibGD.gdImageWebpCtx(img, outfile, quantization); }
+
+    public void gdImageGifAnimBegin(SWIGTYPE_p_FILE outFile, int GlobalCM, int Loops) {
+      LibGD.gdImageGifAnimBegin(img, outFile, GlobalCM, Loops); }
+
+    public void gdImageGifAnimAdd(SWIGTYPE_p_FILE outFile, int LocalCM, int LeftOfs, int TopOfs, int Delay, int Disposal, SWIGTYPE_p_gdImageStruct previm) {
+      LibGD.gdImageGifAnimAdd(img, outFile, LocalCM, LeftOfs, TopOfs, Delay, Disposal, previm); }
+
+    public void gdImageGifAnimBeginCtx(SWIGTYPE_p_gdIOCtx arg1, int GlobalCM, int Loops) {
+      LibGD.gdImageGifAnimBeginCtx(img, arg1, GlobalCM, Loops); }
+
+    public void gdImageGifAnimAddCtx(SWIGTYPE_p_gdIOCtx arg1, int LocalCM, int LeftOfs, int TopOfs, int Delay, int Disposal, SWIGTYPE_p_gdImageStruct previm) {
+      LibGD.gdImageGifAnimAddCtx(img, arg1, LocalCM, LeftOfs, TopOfs, Delay, Disposal, previm); }
+
+    public SWIGTYPE_p_void gdImageGifAnimBeginPtr(SWIGTYPE_p_int size, int GlobalCM, int Loops) {
+      return LibGD.gdImageGifAnimBeginPtr(img, size, GlobalCM, Loops); }
+
+    public SWIGTYPE_p_void gdImageGifAnimAddPtr(SWIGTYPE_p_int size, int LocalCM, int LeftOfs, int TopOfs, int Delay, int Disposal, SWIGTYPE_p_gdImageStruct previm) {
+      return LibGD.gdImageGifAnimAddPtr(img, size, LocalCM, LeftOfs, TopOfs, Delay, Disposal, previm); }
+
+    public void gdImagePngToSink(SWIGTYPE_p_gdSinkPtr arg1) {
+      LibGD.gdImagePngToSink(img, arg1); }
+
+    public void gdImageGd(SWIGTYPE_p_FILE arg1) {
+      LibGD.gdImageGd(img, arg1); }
+
+    public void gdImageGd2(SWIGTYPE_p_FILE arg1, int cs, int fmt) {
+      LibGD.gdImageGd2(img, arg1, cs, fmt); }
+
+    public SWIGTYPE_p_void gdImageGifPtr(SWIGTYPE_p_int size) {
+      return LibGD.gdImageGifPtr(img, size); }
+
+    public SWIGTYPE_p_void gdImagePngPtr(SWIGTYPE_p_int size) {
+      return LibGD.gdImagePngPtr(img, size); }
+
+    public SWIGTYPE_p_void gdImagePngPtrEx(SWIGTYPE_p_int size, int level) {
+      return LibGD.gdImagePngPtrEx(img, size, level); }
+
+    public SWIGTYPE_p_void gdImageGdPtr(SWIGTYPE_p_int size) {
+      return LibGD.gdImageGdPtr(img, size); }
+
+    public SWIGTYPE_p_void gdImageGd2Ptr(int cs, int fmt, SWIGTYPE_p_int size) {
+      return LibGD.gdImageGd2Ptr(img, cs, fmt, size); }
+
+    public void gdImageCopy(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h) {
+      LibGD.gdImageCopy(img, src, dstX, dstY, srcX, srcY, w, h); }
+
+    public void gdImageCopyMerge(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
+      LibGD.gdImageCopyMerge(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
+
+    public void gdImageCopyMergeGray(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
+      LibGD.gdImageCopyMergeGray(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
+
+    public void gdImageCopyResized(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResized(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
+
+    public void gdImageCopyResampled(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResampled(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
+
+    public void gdImageCopyRotated(SWIGTYPE_p_gdImageStruct src, double dstX, double dstY, int srcX, int srcY, int srcWidth, int srcHeight, int angle) {
+      LibGD.gdImageCopyRotated(img, src, dstX, dstY, srcX, srcY, srcWidth, srcHeight, angle); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageClone() {
+      return LibGD.gdImageClone(img); }
+
+    public void gdImageSetBrush(SWIGTYPE_p_gdImageStruct brush) {
+      LibGD.gdImageSetBrush(img, brush); }
+
+    public void gdImageSetTile(SWIGTYPE_p_gdImageStruct tile) {
+      LibGD.gdImageSetTile(img, tile); }
+
+    public void gdImageSetStyle(SWIGTYPE_p_int style, int noOfPixels) {
+      LibGD.gdImageSetStyle(img, style, noOfPixels); }
+
+
+    public SWIGTYPE_p_gdImageStruct gdImageNeuQuant(int max_color, int sample_factor) {
+      return LibGD.gdImageNeuQuant(img, max_color, sample_factor); }
+
+
+    public int gdImageScatterColor(int sub, int plus, SWIGTYPE_p_int colors, uint num_colors) {
+      return LibGD.gdImageScatterColor(img, sub, plus, colors, num_colors); }
+
+    public int gdImageScatterEx(SWIGTYPE_p_gdScatterPtr s) {
+      return LibGD.gdImageScatterEx(img, s); }
+
+    public int gdImageConvolution(SWIGTYPE_p_a_3__float filter, float filter_div, float offset) {
+      return LibGD.gdImageConvolution(img, filter, filter_div, offset); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCopyGaussianBlurred(int radius, double sigma) {
+      return LibGD.gdImageCopyGaussianBlurred(img, radius, sigma); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCrop(SWIGTYPE_p_gdRect crop) {
+      return LibGD.gdImageCrop(img, crop); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCropAuto(uint mode) {
+      return LibGD.gdImageCropAuto(img, mode); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCropThreshold(uint color, float threshold) {
+      return LibGD.gdImageCropThreshold(img, color, threshold); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageScale(uint new_width, uint new_height) {
+      return LibGD.gdImageScale(img, new_width, new_height); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageRotateInterpolated(float angle, int bgcolor) {
+      return LibGD.gdImageRotateInterpolated(img, angle, bgcolor); }
+
+    public int gdTransformAffineCopy(int dst_x, int dst_y, SWIGTYPE_p_gdImageStruct src, SWIGTYPE_p_gdRectPtr src_region, SWIGTYPE_p_double affine) {
+      return LibGD.gdTransformAffineCopy(img, dst_x, dst_y, src, src_region, affine); }
+
+    public int compare(SWIGTYPE_p_gdImageStruct im2) {
+      return LibGD.gdImageCompare(img, im2); }
+
