@@ -47,18 +47,197 @@ namespace GD {
         }/* if */
       }
     }
-
+    
     public int sx { get {return LibGD.gdImage_sx_get(img);} }
     public int sy { get {return LibGD.gdImage_sy_get(img);} }
-
 
     public static int majorVersion { get {return LibGD.gdMajorVersion();} }
     public static int minorVersion { get {return LibGD.gdMinorVersion();} }
     public static int releaseVersion { get {return LibGD.gdReleaseVersion();} }
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
     public static string versionString {get {return LibGD.gdVersionString();} }
-  }
 
+
+    /* Bindings to LibGD. */
+    public void setPixel(int x, int y, int color) {
+      LibGD.gdImageSetPixel(img, x, y, color); }
+
+    public int getPixel(int x, int y) {
+      return LibGD.gdImageGetPixel(img, x, y); }
+
+    public int getTrueColorPixel(int x, int y) {
+      return LibGD.gdImageGetTrueColorPixel(img, x, y); }
+
+    public void line(int x1, int y1, int x2, int y2, int color) {
+      LibGD.gdImageLine(img, x1, y1, x2, y2, color); }
+
+    public void dashedLine(int x1, int y1, int x2, int y2, int color) {
+      LibGD.gdImageDashedLine(img, x1, y1, x2, y2, color); }
+
+    public void rectangle(int x1, int y1, int x2, int y2, int color) {
+      LibGD.gdImageRectangle(img, x1, y1, x2, y2, color); }
+
+    public void filledRectangle(int x1, int y1, int x2, int y2,
+                                       int color) {
+      LibGD.gdImageFilledRectangle(img, x1, y1, x2, y2, color); }
+
+    public void setClip(int x1, int y1, int x2, int y2) {
+      LibGD.gdImageSetClip(img, x1, y1, x2, y2); }
+
+    public void setResolution(uint res_x, uint res_y) {
+      LibGD.gdImageSetResolution(img, res_x, res_y); }
+
+    public int boundsSafe(int x, int y) {
+      return LibGD.gdImageBoundsSafe(img, x, y); }
+
+    public int colorAllocate(int r, int g, int b) {
+      return LibGD.gdImageColorAllocate(img, r, g, b); }
+
+    public int colorAllocateAlpha(int r, int g, int b, int a) {
+      return LibGD.gdImageColorAllocateAlpha(img, r, g, b, a); }
+
+    public int colorClosest(int r, int g, int b) {
+      return LibGD.gdImageColorClosest(img, r, g, b); }
+
+    public int colorClosestAlpha(int r, int g, int b, int a) {
+      return LibGD.gdImageColorClosestAlpha(img, r, g, b, a); }
+
+    public int colorClosestHWB(int r, int g, int b) {
+      return LibGD.gdImageColorClosestHWB(img, r, g, b); }
+
+    public int colorExact(int r, int g, int b) {
+      return LibGD.gdImageColorExact(img, r, g, b); }
+
+    public int colorExactAlpha(int r, int g, int b, int a) {
+      return LibGD.gdImageColorExactAlpha(img, r, g, b, a); }
+
+    public int colorResolve(int r, int g, int b) {
+      return LibGD.gdImageColorResolve(img, r, g, b); }
+
+    public int colorResolveAlpha(int r, int g, int b, int a) {
+      return LibGD.gdImageColorResolveAlpha(img, r, g, b, a); }
+
+    public void colorDeallocate(int color) {
+      LibGD.gdImageColorDeallocate(img, color); }
+
+    public int trueColorToPalette(int ditherFlag, int colorsWanted) {
+      return LibGD.gdImageTrueColorToPalette(img, ditherFlag, colorsWanted); }
+
+    public int paletteToTrueColor() {
+      return LibGD.gdImagePaletteToTrueColor(img); }
+
+    public int trueColorToPaletteSetMethod(int method, int speed) {
+      return LibGD.gdImageTrueColorToPaletteSetMethod(img, method, speed); }
+
+    public void trueColorToPaletteSetQuality(int min_quality,
+                                                    int max_quality) {
+      LibGD.gdImageTrueColorToPaletteSetQuality(img, min_quality,max_quality);}
+
+    public void colorTransparent(int color) {
+      LibGD.gdImageColorTransparent(img, color); }
+
+    public int colorReplace(int src, int dst) {
+      return LibGD.gdImageColorReplace(img, src, dst); }
+
+    public int colorReplaceThreshold(int src, int dst, float threshold){
+      return LibGD.gdImageColorReplaceThreshold(img, src, dst, threshold); }
+
+    public int file(string filename) {
+      return LibGD.gdImageFile(img, filename); }
+
+    public void filledArc(int cx, int cy, int w, int h, int s, int e,
+                                 int color, int style) {
+      LibGD.gdImageFilledArc(img, cx, cy, w, h, s, e, color, style); }
+
+    public void arc(int cx, int cy, int w, int h, int s, int e,
+                           int color) {
+      LibGD.gdImageArc(img, cx, cy, w, h, s, e, color); }
+
+    public void ellipse(int cx, int cy, int w, int h, int color) {
+      LibGD.gdImageEllipse(img, cx, cy, w, h, color); }
+
+    public void filledEllipse(int cx, int cy, int w, int h, int color) {
+      LibGD.gdImageFilledEllipse(img, cx, cy, w, h, color); }
+
+    public void fillToBorder(int x, int y, int border, int color) {
+      LibGD.gdImageFillToBorder(img, x, y, border, color); }
+
+    public void fill(int x, int y, int color) {
+      LibGD.gdImageFill(img, x, y, color); }
+
+
+    public void setAntiAliased(int c) {
+      LibGD.gdImageSetAntiAliased(img, c); }
+
+    public void setAntiAliasedDontBlend(int c, int dont_blend) {
+      LibGD.gdImageSetAntiAliasedDontBlend(img, c, dont_blend); }
+
+    public void setThickness(int thickness) {
+      LibGD.gdImageSetThickness(img, thickness); }
+
+    public void interlace(int interlaceArg) {
+      LibGD.gdImageInterlace(img, interlaceArg); }
+
+    public void alphaBlending(int alphaBlendingArg) {
+      LibGD.gdImageAlphaBlending(img, alphaBlendingArg); }
+
+    public void saveAlpha(int saveAlphaArg) {
+      LibGD.gdImageSaveAlpha(img, saveAlphaArg); }
+
+    public int pixelate(int block_size, uint mode) {
+      return LibGD.gdImagePixelate(img, block_size, mode); }
+
+    public int scatter(int sub, int plus) {
+      return LibGD.gdImageScatter(img, sub, plus); }
+
+    public int smooth(float weight) {
+      return LibGD.gdImageSmooth(img, weight); }
+
+    public int meanRemoval() {
+      return LibGD.gdImageMeanRemoval(img); }
+
+    public int emboss() {
+      return LibGD.gdImageEmboss(img); }
+
+    public int gaussianBlur() {
+      return LibGD.gdImageGaussianBlur(img); }
+
+    public int edgeDetectQuick() {
+      return LibGD.gdImageEdgeDetectQuick(img); }
+
+    public int selectiveBlur() {
+      return LibGD.gdImageSelectiveBlur(img); }
+
+    public int color(int red, int green, int blue, int alpha) {
+      return LibGD.gdImageColor(img, red, green, blue, alpha); }
+
+    public int contrast(double contrast) {
+      return LibGD.gdImageContrast(img, contrast); }
+
+    public int brightness(int brightness) {
+      return LibGD.gdImageBrightness(img, brightness); }
+
+    public int grayScale() {
+      return LibGD.gdImageGrayScale(img); }
+
+    public int negate() {
+      return LibGD.gdImageNegate(img); }
+
+    public void flipHorizontal() {
+      LibGD.gdImageFlipHorizontal(img); }
+
+    public void flipVertical() {
+      LibGD.gdImageFlipVertical(img); }
+
+    public void flipBoth() {
+      LibGD.gdImageFlipBoth(img); }
+
+    // public int setInterpolationMethod(gdInterpolationMethod id) {
+    //   return LibGD.gdImageSetInterpolationMethod(img, id); }
+
+    // public gdInterpolationMethod getInterpolationMethod() {
+    //   return LibGD.gdImageGetInterpolationMethod(img); }
+  }
 }
 
 

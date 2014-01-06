@@ -14,7 +14,6 @@ while(<>) {
 
   next unless s{\) \s* \{ \s* \z}{}x;
   next unless m{\w+ \( SWIGTYPE_p_gdImageStruct \s}x;
-$DB::single = 1;
   next unless m{^ \s* public \s+ static \s+ (\w+) \s+ (\w+)}x;
   my ($type, $name) = ($1, $2);
 
@@ -27,13 +26,13 @@ $DB::single = 1;
   @passedargs = map {s/^\w+\s*//; $_} @passedargs;
   my $newargs = join(", ", @passedargs);
   my $return = $type eq 'void' ? "" : "return ";
-  my $cma = $args ? "," : "";
+  my $cma = $args ? ", " : "";
+
+  next if $name =~ /_(set|get)$/;
 
   print <<"EOF";
-    private $type $name($args) {
-      ${return}LibGD.$name(img$cma $newargs);
-    }
-
+    public $type $name($args) {
+      ${return}LibGD.$name(img$cma$newargs); }
 EOF
   ;
 }
