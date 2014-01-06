@@ -3,8 +3,6 @@ GDPATH = ../../../gd-libgd/src/
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
 
-MCS=mcs -sdk:4
-
 .prefixes: .i
 
 all: libGDwrap.so net-gd-glue.dll

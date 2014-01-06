@@ -1,5 +1,4 @@
 
-MCS=mcs -sdk:4
 SRC=image_test.cs
 TESTS=tests.dll
 
