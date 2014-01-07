@@ -112,8 +112,8 @@ namespace GD {
     public void setResolution(uint res_x, uint res_y) {
       LibGD.gdImageSetResolution(img, res_x, res_y); }
 
-    public int boundsSafe(int x, int y) {
-      return LibGD.gdImageBoundsSafe(img, x, y); }
+    public bool boundsSafe(int x, int y) {
+      return LibGD.gdImageBoundsSafe(img, x, y) != 0; }
 
     public int colorAllocate(int r, int g, int b) {
       return LibGD.gdImageColorAllocate(img, r, g, b); }
@@ -167,8 +167,8 @@ namespace GD {
     public int colorReplaceThreshold(int src, int dst, float threshold){
       return LibGD.gdImageColorReplaceThreshold(img, src, dst, threshold); }
 
-    public int file(string filename) {
-      return LibGD.gdImageFile(img, filename); }
+    public bool file(string filename) {
+      return LibGD.gdImageFile(img, filename) != 0; }
 
     public void filledArc(int cx, int cy, int w, int h, int s, int e,
                                  int color, int style) {
@@ -208,44 +208,44 @@ namespace GD {
     public void saveAlpha(int saveAlphaArg) {
       LibGD.gdImageSaveAlpha(img, saveAlphaArg); }
 
-    public int pixelate(int block_size, uint mode) {
-      return LibGD.gdImagePixelate(img, block_size, mode); }
+    public bool pixelate(int block_size, uint mode) {
+      return LibGD.gdImagePixelate(img, block_size, mode) != 0; }
 
-    public int scatter(int sub, int plus) {
-      return LibGD.gdImageScatter(img, sub, plus); }
+    public bool scatter(int sub, int plus) {
+      return LibGD.gdImageScatter(img, sub, plus) != 0; }
 
-    public int smooth(float weight) {
-      return LibGD.gdImageSmooth(img, weight); }
+    public bool smooth(float weight) {
+      return LibGD.gdImageSmooth(img, weight) != 0; }
 
-    public int meanRemoval() {
-      return LibGD.gdImageMeanRemoval(img); }
+    public bool meanRemoval() {
+      return LibGD.gdImageMeanRemoval(img) != 0; }
 
-    public int emboss() {
-      return LibGD.gdImageEmboss(img); }
+    public bool emboss() {
+      return LibGD.gdImageEmboss(img) != 0; }
 
-    public int gaussianBlur() {
-      return LibGD.gdImageGaussianBlur(img); }
+    public bool gaussianBlur() {
+      return LibGD.gdImageGaussianBlur(img) != 0; }
 
-    public int edgeDetectQuick() {
-      return LibGD.gdImageEdgeDetectQuick(img); }
+    public bool edgeDetectQuick() {
+      return LibGD.gdImageEdgeDetectQuick(img) != 0; }
 
-    public int selectiveBlur() {
-      return LibGD.gdImageSelectiveBlur(img); }
+    public bool selectiveBlur() {
+      return LibGD.gdImageSelectiveBlur(img) != 0; }
 
     public int color(int red, int green, int blue, int alpha) {
       return LibGD.gdImageColor(img, red, green, blue, alpha); }
 
-    public int contrast(double contrast) {
-      return LibGD.gdImageContrast(img, contrast); }
+    public bool contrast(double contrast) {
+      return LibGD.gdImageContrast(img, contrast) != 0; }
 
-    public int brightness(int brightness) {
-      return LibGD.gdImageBrightness(img, brightness); }
+    public bool brightness(int brightness) {
+      return LibGD.gdImageBrightness(img, brightness) != 0; }
 
-    public int grayScale() {
-      return LibGD.gdImageGrayScale(img); }
+    public bool grayScale() {
+      return LibGD.gdImageGrayScale(img) != 0; }
 
-    public int negate() {
-      return LibGD.gdImageNegate(img); }
+    public bool negate() {
+      return LibGD.gdImageNegate(img) != 0; }
 
     public void flipHorizontal() {
       LibGD.gdImageFlipHorizontal(img); }
@@ -256,8 +256,10 @@ namespace GD {
     public void flipBoth() {
       LibGD.gdImageFlipBoth(img); }
 
-    public int setInterpolationMethod(IMode id) {
-      return LibGD.gdImageSetInterpolationMethod(img, (gdInterpolationMethod)id); }
+    public bool setInterpolationMethod(IMode id) {
+      return LibGD.gdImageSetInterpolationMethod
+        (img, (gdInterpolationMethod)id) != 0;
+    }
 
     public IMode getInterpolationMethod() {
       return (IMode)LibGD.gdImageGetInterpolationMethod(img); }
