@@ -38,11 +38,13 @@ namespace GD {
 
 
   public class Font {
-    internal SWIGTYPE_p_gdFont font;
+    private SWIGTYPE_p_gdFont _fdata;
+    internal SWIGTYPE_p_gdFont fdata { get {return _fdata; } }
 
     private Font(SWIGTYPE_p_gdFont fontData) {
-      font = fontData;
+      _fdata = fontData;
     }/* Font*/
+
 
     // TODO: add support for custom fonts.
 
@@ -296,6 +298,27 @@ namespace GD {
 
     public IMode getInterpolationMethod() {
       return (IMode)LibGD.gdImageGetInterpolationMethod(img); }
+
+
+    public void gdImageChar(Font f, int x, int y, int c, int color) {
+      LibGD.gdImageChar(img, f.fdata, x, y, c, color); }
+
+    public void gdImageCharUp(Font f, int x, int y, int c, int color) {
+      LibGD.gdImageCharUp(img, f.fdata, x, y, c, color); }
+
+#if NOPE
+    public void gdImageString(Font f, int x, int y, SWIGTYPE_p_unsigned_char s, int color) {
+      LibGD.gdImageString(img, f, x, y, s, color); }
+    public void gdImageStringUp(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_char s, int color) {
+      LibGD.gdImageStringUp(img, f, x, y, s, color); }
+    public void gdImageString16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageString16(img, f, x, y, s, color); }
+    public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageStringUp16(img, f, x, y, s, color); }
+    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
+#endif
+
   }
 }
 
