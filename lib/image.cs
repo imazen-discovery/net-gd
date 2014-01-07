@@ -36,6 +36,39 @@ namespace GD {
     public GDFailure(string message) : base("Null value returned by " + message) {}
   }
 
+
+  public class Font {
+    internal SWIGTYPE_p_gdFont font;
+
+    private Font(SWIGTYPE_p_gdFont fontData) {
+      font = fontData;
+    }/* Font*/
+
+    // TODO: add support for custom fonts.
+
+    static private bool fontsInit = false;
+    static private Font _tiny, _small, _mediumBold, _large, _giant;
+
+    private static void _initFonts() {
+      if (fontsInit) return;
+
+      _tiny       = new Font(LibGD.gdFontGetTiny());
+      _small      = new Font(LibGD.gdFontGetSmall());
+      _mediumBold = new Font(LibGD.gdFontGetMediumBold());
+      _large      = new Font(LibGD.gdFontGetLarge());
+      _giant      = new Font(LibGD.gdFontGetGiant());
+
+      fontsInit = true;
+    }
+
+    public static Font tiny       { get {_initFonts(); return _tiny;} }
+    public static Font small      { get {_initFonts(); return _small;} }
+    public static Font mediumBold { get {_initFonts(); return _mediumBold;} }
+    public static Font large      { get {_initFonts(); return _large;} }
+    public static Font giant      { get {_initFonts(); return _giant;} }
+  }
+
+
   public class Image : IDisposable {
     SWIGTYPE_p_gdImageStruct img = null;
 
