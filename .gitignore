@@ -1,9 +1,12 @@
 
-wrapper/*.o
-wrapper/*.cs
-wrapper/*.c
-wrapper/*.so
+lib/wrapper/*.o
+lib/wrapper/*.cs
+lib/wrapper/*.c
+lib/wrapper/*.so
+
+unit-tests/*.xml
 
 *.exe
 *.dll
+*.so
 
