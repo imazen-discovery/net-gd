@@ -1,5 +1,6 @@
 GDPATH = ../../../gd-libgd/src/
 
+MCS=../../mcs.sh
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
 

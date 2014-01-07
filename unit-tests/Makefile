@@ -1,4 +1,5 @@
 
+MCS=../mcs.sh
 SRC=image_test.cs
 TESTS=tests.dll
 

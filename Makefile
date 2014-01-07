@@ -1,7 +1,7 @@
 
 .SUFFIXES: .dll
 
-export MCS=dmcs -sdk:4
+MCS=./mcs.sh
 
 NETGD_SRC=image.cs
 
