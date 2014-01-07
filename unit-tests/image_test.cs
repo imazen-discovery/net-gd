@@ -1,4 +1,6 @@
 
+//#define SAVE
+
 namespace GD {
   using NUnit.Framework;
 
@@ -26,7 +28,15 @@ namespace GD {
       im.filledRectangle(0, 0, 9, 9, red);
       Assert.AreEqual(im.getPixel(5, 5), red);
 
+#if SAVE
+      im.file("BasicCall.png");
+#endif
+
       Assert.IsTrue(im.grayScale());
+
+#if SAVE
+      im.file("BasicCall2.png");
+#endif
 
       im.Dispose();
     }
