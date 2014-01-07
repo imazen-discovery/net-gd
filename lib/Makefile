@@ -1,4 +1,5 @@
 
+MCS=dmcs -sdk:4
 NETGD_SRC=image.cs
 
 net-gd.dll: net-gd-glue.dll $(NETGD_SRC)

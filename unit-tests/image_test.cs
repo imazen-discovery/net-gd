@@ -16,4 +16,15 @@ namespace GD {
       Assert.AreEqual(Image.versionString, mj + "." + mn + "." + rv + ex);
     }
   }
+
+
+  // [Test]
+  // public void BasicCall() {
+  //   Image im = new Image(10, 10);
+
+  //   im.colorClosest(, 0, 0);
+
+
+
+  // }
 }

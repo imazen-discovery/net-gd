@@ -7,7 +7,7 @@ using System;
 namespace GD {
   using Internal;
 
-  public enum InterpolationMethod {
+  public enum IMode {
     Default             = gdInterpolationMethod.GD_DEFAULT,
     Bell                = gdInterpolationMethod.GD_BELL,
     Bessel              = gdInterpolationMethod.GD_BESSEL,
@@ -190,7 +190,6 @@ namespace GD {
     public void fill(int x, int y, int color) {
       LibGD.gdImageFill(img, x, y, color); }
 
-
     public void setAntiAliased(int c) {
       LibGD.gdImageSetAntiAliased(img, c); }
 
@@ -257,11 +256,11 @@ namespace GD {
     public void flipBoth() {
       LibGD.gdImageFlipBoth(img); }
 
-    public int setInterpolationMethod(InterpolationMethod id) {
-      return LibGD.gdImageSetInterpolationMethod(img, (Int)id); }
+    public int setInterpolationMethod(IMode id) {
+      return LibGD.gdImageSetInterpolationMethod(img, (gdInterpolationMethod)id); }
 
-    public InterpolationMethod getInterpolationMethod() {
-      return LibGD.gdImageGetInterpolationMethod(img); }
+    public IMode getInterpolationMethod() {
+      return (IMode)LibGD.gdImageGetInterpolationMethod(img); }
   }
 }
 
