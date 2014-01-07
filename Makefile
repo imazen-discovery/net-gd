@@ -1,8 +1,11 @@
 
+.SUFFIXES: .dll
+
 export MCS=dmcs -sdk:4
 
 NETGD_SRC=image.cs
 
+all: net-gd.dll hello.exe
 
 hello.exe: hello.cs net-gd.dll
 	$(MCS) -r:net-gd.dll hello.cs
