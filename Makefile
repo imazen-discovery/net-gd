@@ -5,12 +5,14 @@ MCS=./mcs.sh
 
 NETGD_SRC=image.cs
 
-all: net-gd.dll hello.exe
+all: libs bins
 
-hello.exe: hello.cs net-gd.dll
+bins: hello.exe
+
+hello.exe: hello.cs
 	$(MCS) -r:net-gd.dll hello.cs
 
-net-gd.dll:
+libs:
 	(cd lib; make)
 	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/libGDwrap.so .
 
