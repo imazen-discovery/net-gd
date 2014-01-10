@@ -36,6 +36,10 @@ namespace GD {
       Font sm = Font.small;
       im.putChar(sm, 10, 10, 'a', white);
       im.putChar(sm, 10 + sm.w , 10 + sm.h, 'b', white);
+      im.putCharUp(sm, 10, 40, 'c', white);
+      im.putCharUp(sm, 10 + sm.h, 40, 'd', white);
+      im.putString(sm, 10, 60, "horizontal", white);
+      im.putStringUp(sm, 80, 80, "vertical", white);
 
       /* There's not an easy way to check this programmatically so I'm
        * punting for now.  Just eyeball the resulting image.*/

@@ -233,3 +233,9 @@ Bindings not (yet?) added to the Image class.
     public int compare(SWIGTYPE_p_gdImageStruct im2) {
       return LibGD.gdImageCompare(img, im2); }
 
+
+// String16 stuff is tricky and obsolete; use TTF instead.  Not implemented.
+    public void gdImageString16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageString16(img, f, x, y, s, color); }
+    public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageStringUp16(img, f, x, y, s, color); }
