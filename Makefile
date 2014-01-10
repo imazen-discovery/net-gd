@@ -16,7 +16,7 @@ libs:
 	(cd lib; make)
 	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/libGDwrap.so .
 
-test: net-gd.dll
+test: libs
 	(cd unit-tests && make test)
 
 clean:

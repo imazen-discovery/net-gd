@@ -1,5 +1,5 @@
 
-//#define SAVE
+#define SAVE
 
 namespace GD {
   using NUnit.Framework;
@@ -20,16 +20,28 @@ namespace GD {
 
     [Test]
     public void BasicCall() {
-      Image im = new Image(10, 10);
+      Image im = new Image(100, 100);
     
       int red = im.colorClosest(255, 0, 0);
       Assert.Greater(red, 0);
 
-      im.filledRectangle(0, 0, 9, 9, red);
-      Assert.AreEqual(im.getPixel(5, 5), red);
+      im.filledRectangle(10, 10, 90, 90, red);
+      Assert.AreEqual(im.getPixel(50, 50), red);
 
 #if SAVE
       im.file("BasicCall.png");
+#endif
+
+      int white = im.colorClosest(255, 255, 255);
+      Font sm = Font.small;
+      im.putChar(sm, 10, 10, 'a', white);
+      im.putChar(sm, 10 + sm.w , 10 + sm.h, 'b', white);
+
+      /* There's not an easy way to check this programmatically so I'm
+       * punting for now.  Just eyeball the resulting image.*/
+
+#if SAVE
+      im.file("BasicCall3.png");
 #endif
 
       Assert.IsTrue(im.grayScale());

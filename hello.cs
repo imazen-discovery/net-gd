@@ -12,6 +12,8 @@ class Hello {
         Image foo = Image.createFromFile("../grlibs-misc/img/greenbox.png");
         Console.WriteLine(foo.sx);
         Console.WriteLine(foo.sy);
+
+        Console.WriteLine(Font.small.w);
     }
 }
 
