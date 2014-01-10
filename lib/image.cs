@@ -45,6 +45,9 @@ namespace GD {
       _fdata = fontData;
     }/* Font*/
 
+    public int w { get {return LibGD.gdFont_w_get(_fdata); } }
+    public int h { get {return LibGD.gdFont_h_get(_fdata); } }
+
 
     // TODO: add support for custom fonts.
 
@@ -300,11 +303,11 @@ namespace GD {
       return (IMode)LibGD.gdImageGetInterpolationMethod(img); }
 
 
-    public void gdImageChar(Font f, int x, int y, int c, int color) {
-      LibGD.gdImageChar(img, f.fdata, x, y, c, color); }
+    public void putChar(Font f, int x, int y, char c, int color) {
+      LibGD.gdImageChar(img, f.fdata, x, y, (int)c, color); }
 
-    public void gdImageCharUp(Font f, int x, int y, int c, int color) {
-      LibGD.gdImageCharUp(img, f.fdata, x, y, c, color); }
+    public void putCharUp(Font f, int x, int y, char c, int color) {
+      LibGD.gdImageCharUp(img, f.fdata, x, y, (int) c, color); }
 
 #if NOPE
     public void gdImageString(Font f, int x, int y, SWIGTYPE_p_unsigned_char s, int color) {
