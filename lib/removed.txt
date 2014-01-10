@@ -239,3 +239,7 @@ Bindings not (yet?) added to the Image class.
       LibGD.gdImageString16(img, f, x, y, s, color); }
     public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
       LibGD.gdImageStringUp16(img, f, x, y, s, color); }
+
+// deprecated
+    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }

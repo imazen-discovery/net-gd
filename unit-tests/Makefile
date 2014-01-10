@@ -1,5 +1,5 @@
 
-MCS=../mcs.sh
+MCS=../mcs.sh -debug+
 SRC=image_test.cs
 TESTS=tests.dll
 

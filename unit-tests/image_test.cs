@@ -1,6 +1,8 @@
 
 #define SAVE
 
+using System;
+
 namespace GD {
   using NUnit.Framework;
 
@@ -16,10 +18,13 @@ namespace GD {
 
       Assert.Greater(mj, 0);
       Assert.AreEqual(Image.versionString, mj + "." + mn + "." + rv + ex);
+
+      //Assert.AreEqual(1, Image.useFontConfig(false));
     }
 
     [Test]
     public void BasicCall() {
+
       Image im = new Image(100, 100);
     
       int red = im.colorClosest(255, 0, 0);
@@ -46,6 +51,26 @@ namespace GD {
 
 #if SAVE
       im.file("BasicCall3.png");
+#endif
+
+      /* Test FT string writing. */
+      string status;
+      Rectangle bounds;
+      string errmsg; 
+      string fontpath =
+        "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf";
+
+      Assert.IsTrue(
+        im.stringFT(white, fontpath, 10.0, 125.0, 20, 10, "whoah!", out bounds,
+          out errmsg)
+        );
+
+      Assert.AreEqual("", errmsg);
+      Assert.Less(bounds.topLeft.y, bounds.bottomRight.y);
+      Assert.Less(bounds.bottomLeft.x, bounds.topRight.x);
+
+#if SAVE
+      im.file("BasicCall4.png");
 #endif
 
       Assert.IsTrue(im.grayScale());

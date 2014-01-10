@@ -73,6 +73,32 @@ namespace GD {
     public static Font giant      { get {_initFonts(); return _giant;} }
   }
 
+  public class Point {
+    private int _x, _y;
+    public int x { get {return _x;} }
+    public int y { get {return _y;} }
+
+    public Point(int x, int y) {
+      _x = x;
+      _y = y;
+    }
+  }
+
+  public class Rectangle {
+    private Point _bottomLeft, _bottomRight,_topRight, _topLeft;
+    public Point bottomLeft  { get {return _bottomLeft; } }
+    public Point bottomRight { get {return _bottomRight; } }
+    public Point topLeft     { get {return _topLeft; } }
+    public Point topRight    { get {return _topRight; } }
+
+    public Rectangle(int[] pts) {
+      _bottomLeft  = new Point(pts[0], pts[1]);
+      _bottomRight = new Point(pts[2], pts[3]);
+      _topRight    = new Point(pts[4], pts[5]);
+      _topLeft     = new Point(pts[6], pts[7]);
+    }
+  }
+
 
   public class Image : IDisposable {
     SWIGTYPE_p_gdImageStruct img = null;
@@ -119,6 +145,30 @@ namespace GD {
     public static int releaseVersion { get {return LibGD.gdReleaseVersion();} }
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
     public static string versionString {get {return LibGD.gdVersionString();} }
+
+    /* Enable or disable fontconfig globally. */
+    private static object _lock = new object(); 
+    public static int useFontConfig(bool useIt) {
+      lock (_lock) {
+        return LibGD.gdFTUseFontConfig(useIt ? 1 : 0);
+      }
+    }
+
+
+    public bool stringFT(int color, string fontlist,
+                         double ptsize, double angle, int x, int y,
+                         string text, out Rectangle bounds, out string msg) {
+      var br = new int[8];
+      string status;
+
+      status = LibGD.gdImageStringFT(img, br, color, fontlist, ptsize, angle,
+                                     x, y, text);
+      bounds = new Rectangle(br);
+      msg = (status == null) ? "" : status;
+
+      return status == null;
+    }
+
 
 
     /* Bindings to LibGD. */
@@ -315,9 +365,11 @@ namespace GD {
     public void putStringUp(Font f, int x, int y, string s, int color) {
       LibGD.gdImageStringUpCharStar(img, f.fdata, x, y, s, color); }
 
+    
+
 #if NOPE
-    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
-      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
+    public string gdImageStringFT(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringFT(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
 #endif
 
   }
