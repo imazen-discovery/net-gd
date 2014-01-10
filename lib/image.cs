@@ -84,8 +84,9 @@ namespace GD {
     }
   }
 
+  // Not actually guaranteed to be a rectangle.
   public class Rectangle {
-    private Point _bottomLeft, _bottomRight,_topRight, _topLeft;
+    protected Point _bottomLeft, _bottomRight,_topRight, _topLeft;
     public Point bottomLeft  { get {return _bottomLeft; } }
     public Point bottomRight { get {return _bottomRight; } }
     public Point topLeft     { get {return _topLeft; } }
@@ -97,24 +98,47 @@ namespace GD {
       _topRight    = new Point(pts[4], pts[5]);
       _topLeft     = new Point(pts[6], pts[7]);
     }
+
+    public Rectangle(Point topLeft, Point topRight, Point bottomLeft,
+                     Point bottomRight) {
+      _topLeft = topLeft;
+      _topRight = topRight;
+      _bottomLeft = bottomLeft;
+      _bottomRight = bottomRight;
+    }
+  }
+
+  // A rectangle guaranteed to have all of its edges be horizontal or
+  // vertical.
+  public class TrueRectangle : Rectangle {
+    public TrueRectangle(Point topLeft, Point bottomRight) 
+    :  base(topLeft,
+            new Point(bottomRight.x, topLeft.y),
+            new Point(topLeft.x, bottomRight.y),
+            bottomRight) { }
+
+    public int width  { get {return _bottomRight.x - _topLeft.x;} }
+    public int height { get {return _bottomLeft.y  - _topLeft.y;} }
   }
 
 
+
   public class Image : IDisposable {
-    SWIGTYPE_p_gdImageStruct img = null;
+    SWIGTYPE_p_gdImageStruct _img = null;
+    internal SWIGTYPE_p_gdImageStruct img { get { return _img; } }
 
     // Constructor.
     public Image(int sx, int sy, bool truecolor = true) {
       if (truecolor) {
-        img = LibGD.gdImageCreateTrueColor(sx, sy);
+        _img = LibGD.gdImageCreateTrueColor(sx, sy);
       } else {
-        img = LibGD.gdImageCreate(sx, sy);
+        _img = LibGD.gdImageCreate(sx, sy);
       }/* if .. else*/
     }/* Image*/
 
     // Private constructor for wrapping an existing gdImage struct.
     private Image(SWIGTYPE_p_gdImageStruct i) {
-      img = i;
+      _img = i;
     }/* Image*/
 
     private static SWIGTYPE_p_gdImageStruct chkptr(SWIGTYPE_p_gdImageStruct ptr,
@@ -130,15 +154,15 @@ namespace GD {
 
     public virtual void Dispose() {
       lock(this) {
-        if (img != null) {
-          LibGD.gdImageDestroy(img);
-          img = null;
+        if (_img != null) {
+          LibGD.gdImageDestroy(_img);
+          _img = null;
         }/* if */
       }
     }
     
-    public int sx { get {return LibGD.gdImage_sx_get(img);} }
-    public int sy { get {return LibGD.gdImage_sy_get(img);} }
+    public int sx { get {return LibGD.gdImage_sx_get(_img);} }
+    public int sy { get {return LibGD.gdImage_sy_get(_img);} }
 
     public static int majorVersion { get {return LibGD.gdMajorVersion();} }
     public static int minorVersion { get {return LibGD.gdMinorVersion();} }
@@ -171,7 +195,7 @@ namespace GD {
       var br = new int[8];
       string status;
 
-      status = LibGD.gdImageStringFT(img, br, color, fontlist, ptsize, angle,
+      status = LibGD.gdImageStringFT(_img, br, color, fontlist, ptsize, angle,
                                      x, y, text);
       bounds = new Rectangle(br);
       msg = (status == null) ? "" : status;
@@ -180,206 +204,210 @@ namespace GD {
     }
 
 
+    public void copyFrom(Image src, int dstX, int dstY, int srcX, int srcY,
+                         int w, int h) {
+      LibGD.gdImageCopy(_img, src.img, dstX, dstY, srcX, srcY, w, h);
+    }/* copyFrom*/
+
+
 
     /* Bindings to LibGD. */
     public void setPixel(int x, int y, int color) {
-      LibGD.gdImageSetPixel(img, x, y, color); }
+      LibGD.gdImageSetPixel(_img, x, y, color); }
 
     public int getPixel(int x, int y) {
-      return LibGD.gdImageGetPixel(img, x, y); }
+      return LibGD.gdImageGetPixel(_img, x, y); }
 
     public int getTrueColorPixel(int x, int y) {
-      return LibGD.gdImageGetTrueColorPixel(img, x, y); }
+      return LibGD.gdImageGetTrueColorPixel(_img, x, y); }
 
     public void line(int x1, int y1, int x2, int y2, int color) {
-      LibGD.gdImageLine(img, x1, y1, x2, y2, color); }
+      LibGD.gdImageLine(_img, x1, y1, x2, y2, color); }
 
     public void dashedLine(int x1, int y1, int x2, int y2, int color) {
-      LibGD.gdImageDashedLine(img, x1, y1, x2, y2, color); }
+      LibGD.gdImageDashedLine(_img, x1, y1, x2, y2, color); }
 
     public void rectangle(int x1, int y1, int x2, int y2, int color) {
-      LibGD.gdImageRectangle(img, x1, y1, x2, y2, color); }
+      LibGD.gdImageRectangle(_img, x1, y1, x2, y2, color); }
 
     public void filledRectangle(int x1, int y1, int x2, int y2,
                                        int color) {
-      LibGD.gdImageFilledRectangle(img, x1, y1, x2, y2, color); }
+      LibGD.gdImageFilledRectangle(_img, x1, y1, x2, y2, color); }
 
     public void setClip(int x1, int y1, int x2, int y2) {
-      LibGD.gdImageSetClip(img, x1, y1, x2, y2); }
+      LibGD.gdImageSetClip(_img, x1, y1, x2, y2); }
 
     public void setResolution(uint res_x, uint res_y) {
-      LibGD.gdImageSetResolution(img, res_x, res_y); }
+      LibGD.gdImageSetResolution(_img, res_x, res_y); }
 
     public bool boundsSafe(int x, int y) {
-      return LibGD.gdImageBoundsSafe(img, x, y) != 0; }
+      return LibGD.gdImageBoundsSafe(_img, x, y) != 0; }
 
     public int colorAllocate(int r, int g, int b) {
-      return LibGD.gdImageColorAllocate(img, r, g, b); }
+      return LibGD.gdImageColorAllocate(_img, r, g, b); }
 
     public int colorAllocateAlpha(int r, int g, int b, int a) {
-      return LibGD.gdImageColorAllocateAlpha(img, r, g, b, a); }
+      return LibGD.gdImageColorAllocateAlpha(_img, r, g, b, a); }
 
     public int colorClosest(int r, int g, int b) {
-      return LibGD.gdImageColorClosest(img, r, g, b); }
+      return LibGD.gdImageColorClosest(_img, r, g, b); }
 
     public int colorClosestAlpha(int r, int g, int b, int a) {
-      return LibGD.gdImageColorClosestAlpha(img, r, g, b, a); }
+      return LibGD.gdImageColorClosestAlpha(_img, r, g, b, a); }
 
     public int colorClosestHWB(int r, int g, int b) {
-      return LibGD.gdImageColorClosestHWB(img, r, g, b); }
+      return LibGD.gdImageColorClosestHWB(_img, r, g, b); }
 
     public int colorExact(int r, int g, int b) {
-      return LibGD.gdImageColorExact(img, r, g, b); }
+      return LibGD.gdImageColorExact(_img, r, g, b); }
 
     public int colorExactAlpha(int r, int g, int b, int a) {
-      return LibGD.gdImageColorExactAlpha(img, r, g, b, a); }
+      return LibGD.gdImageColorExactAlpha(_img, r, g, b, a); }
 
     public int colorResolve(int r, int g, int b) {
-      return LibGD.gdImageColorResolve(img, r, g, b); }
+      return LibGD.gdImageColorResolve(_img, r, g, b); }
 
     public int colorResolveAlpha(int r, int g, int b, int a) {
-      return LibGD.gdImageColorResolveAlpha(img, r, g, b, a); }
+      return LibGD.gdImageColorResolveAlpha(_img, r, g, b, a); }
 
     public void colorDeallocate(int color) {
-      LibGD.gdImageColorDeallocate(img, color); }
+      LibGD.gdImageColorDeallocate(_img, color); }
 
     public int trueColorToPalette(int ditherFlag, int colorsWanted) {
-      return LibGD.gdImageTrueColorToPalette(img, ditherFlag, colorsWanted); }
+      return LibGD.gdImageTrueColorToPalette(_img, ditherFlag, colorsWanted); }
 
     public int paletteToTrueColor() {
-      return LibGD.gdImagePaletteToTrueColor(img); }
+      return LibGD.gdImagePaletteToTrueColor(_img); }
 
     public int trueColorToPaletteSetMethod(int method, int speed) {
-      return LibGD.gdImageTrueColorToPaletteSetMethod(img, method, speed); }
+      return LibGD.gdImageTrueColorToPaletteSetMethod(_img, method, speed); }
 
     public void trueColorToPaletteSetQuality(int min_quality,
                                                     int max_quality) {
-      LibGD.gdImageTrueColorToPaletteSetQuality(img, min_quality,max_quality);}
+      LibGD.gdImageTrueColorToPaletteSetQuality(_img, min_quality,max_quality);}
 
     public void colorTransparent(int color) {
-      LibGD.gdImageColorTransparent(img, color); }
+      LibGD.gdImageColorTransparent(_img, color); }
 
     public int colorReplace(int src, int dst) {
-      return LibGD.gdImageColorReplace(img, src, dst); }
+      return LibGD.gdImageColorReplace(_img, src, dst); }
 
     public int colorReplaceThreshold(int src, int dst, float threshold){
-      return LibGD.gdImageColorReplaceThreshold(img, src, dst, threshold); }
+      return LibGD.gdImageColorReplaceThreshold(_img, src, dst, threshold); }
 
     public bool file(string filename) {
-      return LibGD.gdImageFile(img, filename) != 0; }
+      return LibGD.gdImageFile(_img, filename) != 0; }
 
     public void filledArc(int cx, int cy, int w, int h, int s, int e,
                                  int color, int style) {
-      LibGD.gdImageFilledArc(img, cx, cy, w, h, s, e, color, style); }
+      LibGD.gdImageFilledArc(_img, cx, cy, w, h, s, e, color, style); }
 
     public void arc(int cx, int cy, int w, int h, int s, int e,
                            int color) {
-      LibGD.gdImageArc(img, cx, cy, w, h, s, e, color); }
+      LibGD.gdImageArc(_img, cx, cy, w, h, s, e, color); }
 
     public void ellipse(int cx, int cy, int w, int h, int color) {
-      LibGD.gdImageEllipse(img, cx, cy, w, h, color); }
+      LibGD.gdImageEllipse(_img, cx, cy, w, h, color); }
 
     public void filledEllipse(int cx, int cy, int w, int h, int color) {
-      LibGD.gdImageFilledEllipse(img, cx, cy, w, h, color); }
+      LibGD.gdImageFilledEllipse(_img, cx, cy, w, h, color); }
 
     public void fillToBorder(int x, int y, int border, int color) {
-      LibGD.gdImageFillToBorder(img, x, y, border, color); }
+      LibGD.gdImageFillToBorder(_img, x, y, border, color); }
 
     public void fill(int x, int y, int color) {
-      LibGD.gdImageFill(img, x, y, color); }
+      LibGD.gdImageFill(_img, x, y, color); }
 
     public void setAntiAliased(int c) {
-      LibGD.gdImageSetAntiAliased(img, c); }
+      LibGD.gdImageSetAntiAliased(_img, c); }
 
     public void setAntiAliasedDontBlend(int c, int dont_blend) {
-      LibGD.gdImageSetAntiAliasedDontBlend(img, c, dont_blend); }
+      LibGD.gdImageSetAntiAliasedDontBlend(_img, c, dont_blend); }
 
     public void setThickness(int thickness) {
-      LibGD.gdImageSetThickness(img, thickness); }
+      LibGD.gdImageSetThickness(_img, thickness); }
 
     public void interlace(int interlaceArg) {
-      LibGD.gdImageInterlace(img, interlaceArg); }
+      LibGD.gdImageInterlace(_img, interlaceArg); }
 
     public void alphaBlending(int alphaBlendingArg) {
-      LibGD.gdImageAlphaBlending(img, alphaBlendingArg); }
+      LibGD.gdImageAlphaBlending(_img, alphaBlendingArg); }
 
     public void saveAlpha(int saveAlphaArg) {
-      LibGD.gdImageSaveAlpha(img, saveAlphaArg); }
+      LibGD.gdImageSaveAlpha(_img, saveAlphaArg); }
 
     public bool pixelate(int block_size, uint mode) {
-      return LibGD.gdImagePixelate(img, block_size, mode) != 0; }
+      return LibGD.gdImagePixelate(_img, block_size, mode) != 0; }
 
     public bool scatter(int sub, int plus) {
-      return LibGD.gdImageScatter(img, sub, plus) != 0; }
+      return LibGD.gdImageScatter(_img, sub, plus) != 0; }
 
     public bool smooth(float weight) {
-      return LibGD.gdImageSmooth(img, weight) != 0; }
+      return LibGD.gdImageSmooth(_img, weight) != 0; }
 
     public bool meanRemoval() {
-      return LibGD.gdImageMeanRemoval(img) != 0; }
+      return LibGD.gdImageMeanRemoval(_img) != 0; }
 
     public bool emboss() {
-      return LibGD.gdImageEmboss(img) != 0; }
+      return LibGD.gdImageEmboss(_img) != 0; }
 
     public bool gaussianBlur() {
-      return LibGD.gdImageGaussianBlur(img) != 0; }
+      return LibGD.gdImageGaussianBlur(_img) != 0; }
 
     public bool edgeDetectQuick() {
-      return LibGD.gdImageEdgeDetectQuick(img) != 0; }
+      return LibGD.gdImageEdgeDetectQuick(_img) != 0; }
 
     public bool selectiveBlur() {
-      return LibGD.gdImageSelectiveBlur(img) != 0; }
+      return LibGD.gdImageSelectiveBlur(_img) != 0; }
 
     public int color(int red, int green, int blue, int alpha) {
-      return LibGD.gdImageColor(img, red, green, blue, alpha); }
+      return LibGD.gdImageColor(_img, red, green, blue, alpha); }
 
     public bool contrast(double contrast) {
-      return LibGD.gdImageContrast(img, contrast) != 0; }
+      return LibGD.gdImageContrast(_img, contrast) != 0; }
 
     public bool brightness(int brightness) {
-      return LibGD.gdImageBrightness(img, brightness) != 0; }
+      return LibGD.gdImageBrightness(_img, brightness) != 0; }
 
     public bool grayScale() {
-      return LibGD.gdImageGrayScale(img) != 0; }
+      return LibGD.gdImageGrayScale(_img) != 0; }
 
     public bool negate() {
-      return LibGD.gdImageNegate(img) != 0; }
+      return LibGD.gdImageNegate(_img) != 0; }
 
     public void flipHorizontal() {
-      LibGD.gdImageFlipHorizontal(img); }
+      LibGD.gdImageFlipHorizontal(_img); }
 
     public void flipVertical() {
-      LibGD.gdImageFlipVertical(img); }
+      LibGD.gdImageFlipVertical(_img); }
 
     public void flipBoth() {
-      LibGD.gdImageFlipBoth(img); }
+      LibGD.gdImageFlipBoth(_img); }
 
     public bool setInterpolationMethod(IMode id) {
       return LibGD.gdImageSetInterpolationMethod
-        (img, (gdInterpolationMethod)id) != 0;
+        (_img, (gdInterpolationMethod)id) != 0;
     }
 
     public IMode getInterpolationMethod() {
-      return (IMode)LibGD.gdImageGetInterpolationMethod(img); }
+      return (IMode)LibGD.gdImageGetInterpolationMethod(_img); }
 
 
     public void putChar(Font f, int x, int y, char c, int color) {
-      LibGD.gdImageChar(img, f.fdata, x, y, (int)c, color); }
+      LibGD.gdImageChar(_img, f.fdata, x, y, (int)c, color); }
 
     public void putCharUp(Font f, int x, int y, char c, int color) {
-      LibGD.gdImageCharUp(img, f.fdata, x, y, (int) c, color); }
+      LibGD.gdImageCharUp(_img, f.fdata, x, y, (int) c, color); }
 
     public void putString(Font f, int x, int y, string s, int color) {
-      LibGD.gdImageStringCharStar(img, f.fdata, x, y, s, color); }
+      LibGD.gdImageStringCharStar(_img, f.fdata, x, y, s, color); }
 
     public void putStringUp(Font f, int x, int y, string s, int color) {
-      LibGD.gdImageStringUpCharStar(img, f.fdata, x, y, s, color); }
+      LibGD.gdImageStringUpCharStar(_img, f.fdata, x, y, s, color); }
 
     
 
 #if NOPE
-    public string gdImageStringFT(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
-      return LibGD.gdImageStringFT(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
 #endif
 
   }

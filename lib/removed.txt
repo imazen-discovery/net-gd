@@ -21,10 +21,6 @@ Bindings not (yet?) added to the Image class.
 
 
 
-    public string gdImageStringFT(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
-      return LibGD.gdImageStringFT(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
-    public string gdImageStringFTEx(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8, SWIGTYPE_p_gdFTStringExtraPtr strex) {
-      return LibGD.gdImageStringFTEx(img, brect, fg, fontlist, ptsize, angle, x, y, arg8, strex); }
     public void gdImagePolygon(SWIGTYPE_p_gdPointPtr p, int n, int c) {
       LibGD.gdImagePolygon(img, p, n, c); }
     public void gdImageOpenPolygon(SWIGTYPE_p_gdPointPtr p, int n, int c) {
@@ -51,6 +47,99 @@ Bindings not (yet?) added to the Image class.
     public int gdImageColorReplaceCallback(SWIGTYPE_p_f_p_struct_gdImageStruct_int__int callback) {
       return LibGD.gdImageColorReplaceCallback(img, callback); }
 
+
+
+
+
+
+    public void gdImageCopyMerge(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
+      LibGD.gdImageCopyMerge(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
+
+    public void gdImageCopyMergeGray(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
+      LibGD.gdImageCopyMergeGray(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
+
+    public void gdImageCopyResized(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResized(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
+
+    public void gdImageCopyResampled(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResampled(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
+
+    public void gdImageCopyRotated(SWIGTYPE_p_gdImageStruct src, double dstX, double dstY, int srcX, int srcY, int srcWidth, int srcHeight, int angle) {
+      LibGD.gdImageCopyRotated(img, src, dstX, dstY, srcX, srcY, srcWidth, srcHeight, angle); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageClone() {
+      return LibGD.gdImageClone(img); }
+
+    public void gdImageSetBrush(SWIGTYPE_p_gdImageStruct brush) {
+      LibGD.gdImageSetBrush(img, brush); }
+
+    public void gdImageSetTile(SWIGTYPE_p_gdImageStruct tile) {
+      LibGD.gdImageSetTile(img, tile); }
+
+    public void gdImageSetStyle(SWIGTYPE_p_int style, int noOfPixels) {
+      LibGD.gdImageSetStyle(img, style, noOfPixels); }
+
+
+    public SWIGTYPE_p_gdImageStruct gdImageNeuQuant(int max_color, int sample_factor) {
+      return LibGD.gdImageNeuQuant(img, max_color, sample_factor); }
+
+
+    public int gdImageScatterColor(int sub, int plus, SWIGTYPE_p_int colors, uint num_colors) {
+      return LibGD.gdImageScatterColor(img, sub, plus, colors, num_colors); }
+
+    public int gdImageScatterEx(SWIGTYPE_p_gdScatterPtr s) {
+      return LibGD.gdImageScatterEx(img, s); }
+
+    public int gdImageConvolution(SWIGTYPE_p_a_3__float filter, float filter_div, float offset) {
+      return LibGD.gdImageConvolution(img, filter, filter_div, offset); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCopyGaussianBlurred(int radius, double sigma) {
+      return LibGD.gdImageCopyGaussianBlurred(img, radius, sigma); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCrop(SWIGTYPE_p_gdRect crop) {
+      return LibGD.gdImageCrop(img, crop); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCropAuto(uint mode) {
+      return LibGD.gdImageCropAuto(img, mode); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageCropThreshold(uint color, float threshold) {
+      return LibGD.gdImageCropThreshold(img, color, threshold); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageScale(uint new_width, uint new_height) {
+      return LibGD.gdImageScale(img, new_width, new_height); }
+
+    public SWIGTYPE_p_gdImageStruct gdImageRotateInterpolated(float angle, int bgcolor) {
+      return LibGD.gdImageRotateInterpolated(img, angle, bgcolor); }
+
+    public int gdTransformAffineCopy(int dst_x, int dst_y, SWIGTYPE_p_gdImageStruct src, SWIGTYPE_p_gdRectPtr src_region, SWIGTYPE_p_double affine) {
+      return LibGD.gdTransformAffineCopy(img, dst_x, dst_y, src, src_region, affine); }
+
+    public int compare(SWIGTYPE_p_gdImageStruct im2) {
+      return LibGD.gdImageCompare(img, im2); }
+
+
+
+
+
+
+// String16 stuff is tricky and obsolete; use TTF instead.  Not implemented.
+    public void gdImageString16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageString16(img, f, x, y, s, color); }
+    public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
+      LibGD.gdImageStringUp16(img, f, x, y, s, color); }
+
+// deprecated
+    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
+      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
+
+
+// tricky
+
+    public string gdImageStringFTEx(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8, SWIGTYPE_p_gdFTStringExtraPtr strex) {
+      return LibGD.gdImageStringFTEx(img, brect, fg, fontlist, ptsize, angle, x, y, arg8, strex); }
+
+
+// File stuff
 
     public void gdImageGif(SWIGTYPE_p_FILE arg1) {
       LibGD.gdImageGif(img, arg1); }
@@ -93,8 +182,6 @@ Bindings not (yet?) added to the Image class.
 
     public void gdImageWBMPCtx(int fg, SWIGTYPE_p_gdIOCtx arg2) {
       LibGD.gdImageWBMPCtx(img, fg, arg2); }
-
-
 
     public SWIGTYPE_p_void gdImageWBMPPtr(SWIGTYPE_p_int size, int fg) {
       return LibGD.gdImageWBMPPtr(img, size, fg); }
@@ -165,81 +252,3 @@ Bindings not (yet?) added to the Image class.
     public SWIGTYPE_p_void gdImageGd2Ptr(int cs, int fmt, SWIGTYPE_p_int size) {
       return LibGD.gdImageGd2Ptr(img, cs, fmt, size); }
 
-    public void gdImageCopy(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h) {
-      LibGD.gdImageCopy(img, src, dstX, dstY, srcX, srcY, w, h); }
-
-    public void gdImageCopyMerge(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
-      LibGD.gdImageCopyMerge(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
-
-    public void gdImageCopyMergeGray(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int w, int h, int pct) {
-      LibGD.gdImageCopyMergeGray(img, src, dstX, dstY, srcX, srcY, w, h, pct); }
-
-    public void gdImageCopyResized(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
-      LibGD.gdImageCopyResized(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
-
-    public void gdImageCopyResampled(SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH) {
-      LibGD.gdImageCopyResampled(img, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH); }
-
-    public void gdImageCopyRotated(SWIGTYPE_p_gdImageStruct src, double dstX, double dstY, int srcX, int srcY, int srcWidth, int srcHeight, int angle) {
-      LibGD.gdImageCopyRotated(img, src, dstX, dstY, srcX, srcY, srcWidth, srcHeight, angle); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageClone() {
-      return LibGD.gdImageClone(img); }
-
-    public void gdImageSetBrush(SWIGTYPE_p_gdImageStruct brush) {
-      LibGD.gdImageSetBrush(img, brush); }
-
-    public void gdImageSetTile(SWIGTYPE_p_gdImageStruct tile) {
-      LibGD.gdImageSetTile(img, tile); }
-
-    public void gdImageSetStyle(SWIGTYPE_p_int style, int noOfPixels) {
-      LibGD.gdImageSetStyle(img, style, noOfPixels); }
-
-
-    public SWIGTYPE_p_gdImageStruct gdImageNeuQuant(int max_color, int sample_factor) {
-      return LibGD.gdImageNeuQuant(img, max_color, sample_factor); }
-
-
-    public int gdImageScatterColor(int sub, int plus, SWIGTYPE_p_int colors, uint num_colors) {
-      return LibGD.gdImageScatterColor(img, sub, plus, colors, num_colors); }
-
-    public int gdImageScatterEx(SWIGTYPE_p_gdScatterPtr s) {
-      return LibGD.gdImageScatterEx(img, s); }
-
-    public int gdImageConvolution(SWIGTYPE_p_a_3__float filter, float filter_div, float offset) {
-      return LibGD.gdImageConvolution(img, filter, filter_div, offset); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageCopyGaussianBlurred(int radius, double sigma) {
-      return LibGD.gdImageCopyGaussianBlurred(img, radius, sigma); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageCrop(SWIGTYPE_p_gdRect crop) {
-      return LibGD.gdImageCrop(img, crop); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageCropAuto(uint mode) {
-      return LibGD.gdImageCropAuto(img, mode); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageCropThreshold(uint color, float threshold) {
-      return LibGD.gdImageCropThreshold(img, color, threshold); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageScale(uint new_width, uint new_height) {
-      return LibGD.gdImageScale(img, new_width, new_height); }
-
-    public SWIGTYPE_p_gdImageStruct gdImageRotateInterpolated(float angle, int bgcolor) {
-      return LibGD.gdImageRotateInterpolated(img, angle, bgcolor); }
-
-    public int gdTransformAffineCopy(int dst_x, int dst_y, SWIGTYPE_p_gdImageStruct src, SWIGTYPE_p_gdRectPtr src_region, SWIGTYPE_p_double affine) {
-      return LibGD.gdTransformAffineCopy(img, dst_x, dst_y, src, src_region, affine); }
-
-    public int compare(SWIGTYPE_p_gdImageStruct im2) {
-      return LibGD.gdImageCompare(img, im2); }
-
-
-// String16 stuff is tricky and obsolete; use TTF instead.  Not implemented.
-    public void gdImageString16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
-      LibGD.gdImageString16(img, f, x, y, s, color); }
-    public void gdImageStringUp16(SWIGTYPE_p_gdFont f, int x, int y, SWIGTYPE_p_unsigned_short s, int color) {
-      LibGD.gdImageStringUp16(img, f, x, y, s, color); }
-
-// deprecated
-    public string gdImageStringTTF(SWIGTYPE_p_int brect, int fg, string fontlist, double ptsize, double angle, int x, int y, string arg8) {
-      return LibGD.gdImageStringTTF(img, brect, fg, fontlist, ptsize, angle, x, y, arg8); }
