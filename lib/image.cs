@@ -157,6 +157,16 @@ namespace GD {
 
     public bool stringFT(int color, string fontlist,
                          double ptsize, double angle, int x, int y,
+                         string text) {
+      string msg;
+      Rectangle bounds;
+
+      return stringFT(color, fontlist, ptsize, angle, x, y, text, out bounds,
+                      out msg);
+    }/* stringFT*/
+
+    public bool stringFT(int color, string fontlist,
+                         double ptsize, double angle, int x, int y,
                          string text, out Rectangle bounds, out string msg) {
       var br = new int[8];
       string status;

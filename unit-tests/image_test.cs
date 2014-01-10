@@ -69,6 +69,10 @@ namespace GD {
       Assert.Less(bounds.topLeft.y, bounds.bottomRight.y);
       Assert.Less(bounds.bottomLeft.x, bounds.topRight.x);
 
+      Assert.IsTrue(
+        im.stringFT(white, fontpath, 10.0, 125.0, 20, 10, "whoah!")
+        );
+
 #if SAVE
       im.file("BasicCall4.png");
 #endif
