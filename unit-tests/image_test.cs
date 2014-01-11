@@ -54,7 +54,6 @@ namespace GD {
 #endif
 
       /* Test FT string writing. */
-      string status;
       Rect bounds;
       string errmsg; 
       string fontpath =
@@ -86,7 +85,17 @@ namespace GD {
       im.Dispose();
     }
 
+    [Test]
+    public void TestRect () {
+      TrueRect t = new TrueRect(10, 10, 30, 30);
+      Assert.AreEqual(t.topLeft.x, t.bottomLeft.x);
+      Assert.AreEqual(t.topRight.x, t.bottomRight.x);
+      Assert.AreEqual(t.topLeft.y, t.topRight.y);
+      Assert.AreEqual(t.bottomLeft.y, t.bottomRight.y);
 
+      Assert.AreEqual(20, t.width);
+      Assert.AreEqual(20, t.height);
+    }
 
   }
 

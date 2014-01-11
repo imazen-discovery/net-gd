@@ -112,10 +112,16 @@ namespace GD {
   // vertical.
   public class TrueRect : Rect {
     public TrueRect(Point topLeft, Point bottomRight) 
-    :  base(topLeft,
-            new Point(bottomRight.x, topLeft.y),
-            new Point(topLeft.x, bottomRight.y),
-            bottomRight) { }
+    :  base (topLeft,
+             new Point(bottomRight.x, topLeft.y),
+             new Point(topLeft.x, bottomRight.y),
+             bottomRight) { }
+
+    public TrueRect(int tlx, int tly, int brx, int bry)
+    : base (new Point (tlx, tly),
+            new Point (brx, tly),
+            new Point (tlx, bry),
+            new Point (brx, bry)) {}
 
     public int width  { get {return _bottomRight.x - _topLeft.x;} }
     public int height { get {return _bottomLeft.y  - _topLeft.y;} }
