@@ -213,7 +213,14 @@ namespace GD {
     public void copyFrom(Image src, int dstX, int dstY, int srcX, int srcY,
                          int w, int h) {
       LibGD.gdImageCopy(_img, src.img, dstX, dstY, srcX, srcY, w, h);
-    }/* copyFrom*/
+    }
+
+    // Make the palette of this image closer to the colors in 'other',
+    // which must be truecolor.
+    public bool colorMatchFrom(Image other) {
+      return LibGD.gdImageColorMatch(img, other.img) == 0;
+    }
+
 
 
 

@@ -34,9 +34,6 @@ Bindings not (yet?) added to the Image class.
 
 
 
-    public int gdImageColorMatch(SWIGTYPE_p_gdImageStruct im2) {
-      return LibGD.gdImageColorMatch(img, im2); }
-
     public void gdImagePaletteCopy(SWIGTYPE_p_gdImageStruct src) {
       LibGD.gdImagePaletteCopy(img, src); }
 
