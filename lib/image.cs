@@ -85,21 +85,21 @@ namespace GD {
   }
 
   // Not actually guaranteed to be a rectangle.
-  public class Rectangle {
+  public class Rect {
     protected Point _bottomLeft, _bottomRight,_topRight, _topLeft;
     public Point bottomLeft  { get {return _bottomLeft; } }
     public Point bottomRight { get {return _bottomRight; } }
     public Point topLeft     { get {return _topLeft; } }
     public Point topRight    { get {return _topRight; } }
 
-    public Rectangle(int[] pts) {
+    public Rect(int[] pts) {
       _bottomLeft  = new Point(pts[0], pts[1]);
       _bottomRight = new Point(pts[2], pts[3]);
       _topRight    = new Point(pts[4], pts[5]);
       _topLeft     = new Point(pts[6], pts[7]);
     }
 
-    public Rectangle(Point topLeft, Point topRight, Point bottomLeft,
+    public Rect(Point topLeft, Point topRight, Point bottomLeft,
                      Point bottomRight) {
       _topLeft = topLeft;
       _topRight = topRight;
@@ -110,8 +110,8 @@ namespace GD {
 
   // A rectangle guaranteed to have all of its edges be horizontal or
   // vertical.
-  public class TrueRectangle : Rectangle {
-    public TrueRectangle(Point topLeft, Point bottomRight) 
+  public class TrueRect : Rect {
+    public TrueRect(Point topLeft, Point bottomRight) 
     :  base(topLeft,
             new Point(bottomRight.x, topLeft.y),
             new Point(topLeft.x, bottomRight.y),
@@ -183,7 +183,7 @@ namespace GD {
                          double ptsize, double angle, int x, int y,
                          string text) {
       string msg;
-      Rectangle bounds;
+      Rect bounds;
 
       return stringFT(color, fontlist, ptsize, angle, x, y, text, out bounds,
                       out msg);
@@ -191,13 +191,13 @@ namespace GD {
 
     public bool stringFT(int color, string fontlist,
                          double ptsize, double angle, int x, int y,
-                         string text, out Rectangle bounds, out string msg) {
+                         string text, out Rect bounds, out string msg) {
       var br = new int[8];
       string status;
 
       status = LibGD.gdImageStringFT(_img, br, color, fontlist, ptsize, angle,
                                      x, y, text);
-      bounds = new Rectangle(br);
+      bounds = new Rect(br);
       msg = (status == null) ? "" : status;
 
       return status == null;

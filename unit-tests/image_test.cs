@@ -55,7 +55,7 @@ namespace GD {
 
       /* Test FT string writing. */
       string status;
-      Rectangle bounds;
+      Rect bounds;
       string errmsg; 
       string fontpath =
         "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf";
