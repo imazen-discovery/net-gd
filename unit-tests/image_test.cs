@@ -24,7 +24,6 @@ namespace GD {
 
     [Test]
     public void BasicCall() {
-
       Image im = new Image(100, 100);
     
       int red = im.colorClosest(255, 0, 0);
@@ -36,8 +35,13 @@ namespace GD {
 #if SAVE
       im.file("BasicCall.png");
 #endif
+    }
 
+    [Test]
+    public void BasicCall2() {
+      Image im = new Image(100, 100);
       int white = im.colorClosest(255, 255, 255);
+
       Font sm = Font.small;
       im.putChar(sm, 10, 10, 'a', white);
       im.putChar(sm, 10 + sm.w , 10 + sm.h, 'b', white);
@@ -48,10 +52,6 @@ namespace GD {
 
       /* There's not an easy way to check this programmatically so I'm
        * punting for now.  Just eyeball the resulting image.*/
-
-#if SAVE
-      im.file("BasicCall3.png");
-#endif
 
       /* Test FT string writing. */
       Rect bounds;
@@ -73,16 +73,22 @@ namespace GD {
         );
 
 #if SAVE
-      im.file("BasicCall4.png");
+      im.file("BasicCall2.png");
 #endif
+    }
+    
+    [Test]
+    public void BasicCall3() {
+      Image im = new Image(100, 100);
+    
+      int red = im.colorClosest(255, 0, 0);
+      im.filledRectangle(10, 10, 90, 90, red);
 
       Assert.IsTrue(im.grayScale());
 
 #if SAVE
-      im.file("BasicCall2.png");
+      im.file("BasicCall3.png");
 #endif
-
-      im.Dispose();
     }
 
     [Test]
