@@ -221,7 +221,10 @@ namespace GD {
       return LibGD.gdImageColorMatch(img, other.img) == 0;
     }
 
-
+    // Create an exact copy of this image
+    public Image clone () {
+      return new Image(LibGD.gdImageClone(img));
+    }/* clone */
 
 
     /* Bindings to LibGD. */

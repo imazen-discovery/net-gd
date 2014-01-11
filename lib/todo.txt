@@ -1,0 +1,68 @@
+
+
+
+int gdColorMapLookup(const gdColorMap color_map, const char *color_name, int *r, int *g, int *b);
+gdImagePtr gdImageSquareToCircle(gdImagePtr im, int radius);
+void gdImageSharpen (gdImagePtr im, int pct);
+int gdAlphaBlend (int dest, int src);
+void gdSetErrorMethod(gdErrorMethod);
+void gdClearErrorMethod(void);
+
+
+void gdImageAABlend (gdImagePtr im);
+void gdImageGetClip(gdImagePtr im, int *x1P, int *y1P, int *x2P, int *y2P);
+
+int gdFontCacheSetup (void);
+void gdFontCacheShutdown (void);
+void gdFreeFontCache (void);
+char * gdImageStringTTF (gdImage * im, int *brect, int fg, char *fontlist,
+char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
+void gdImagePolygon (gdImagePtr im, gdPointPtr p, int n, int c);
+void gdImageOpenPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
+void gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
+gdImagePtr gdImageCreatePaletteFromTrueColor (gdImagePtr im, int ditherFlag,
+void gdImagePaletteCopy (gdImagePtr dst, gdImagePtr src);
+int gdImageColorReplaceArray(gdImagePtr im, int len, int *src, int *dst);
+int gdImageColorReplaceCallback(gdImagePtr im, gdCallbackImageColor callback);
+void gdImageCopyMerge (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
+void gdImageCopyMergeGray (gdImagePtr dst, gdImagePtr src, int dstX,
+void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
+void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
+void gdImageCopyRotated (gdImagePtr dst,
+
+void gdImageSetBrush (gdImagePtr im, gdImagePtr brush);
+void gdImageSetTile (gdImagePtr im, gdImagePtr tile);
+void gdImageSetStyle (gdImagePtr im, int *style, int noOfPixels);
+gdImagePtr gdImageNeuQuant(gdImagePtr im, const int max_color, int sample_factor);
+int gdImageScatterColor(gdImagePtr im, int sub, int plus, int colors[], unsigned int num_colors);
+int gdImageScatterEx(gdImagePtr im, gdScatterPtr s);
+int gdImageConvolution(gdImagePtr src, float filter[3][3], float filter_div, float offset);
+gdImagePtr gdImageCopyGaussianBlurred(gdImagePtr src, int radius,
+gdIOCtx * gdNewFileCtx (FILE *);
+gdIOCtx * gdNewDynamicCtx (int size, void *data);
+gdIOCtx * gdNewDynamicCtxEx (int size, void *data, int freeFlag);
+gdIOCtx * gdNewSSCtx (gdSourcePtr in, gdSinkPtr out);
+void * gdDPExtractData (struct gdIOCtx *ctx, int *size);
+int gdImageCompare (gdImagePtr im1, gdImagePtr im2);
+gdImagePtr gdImageCrop(gdImagePtr src, const gdRect *crop);
+gdImagePtr gdImageCropAuto(gdImagePtr im, const unsigned int mode);
+gdImagePtr gdImageCropThreshold(gdImagePtr im, const unsigned int color, const float threshold);
+gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im);
+gdImagePtr gdImageScale(const gdImagePtr src, const unsigned int new_width, const unsigned int new_height);
+gdImagePtr gdImageRotateInterpolated(const gdImagePtr src, const float angle, int bgcolor);
+int gdAffineApplyToPointF (gdPointFPtr dst, const gdPointFPtr src, const double affine[6]);
+int gdAffineInvert (double dst[6], const double src[6]);
+int gdAffineFlip (double dst_affine[6], const double src_affine[6], const int flip_h, const int flip_v);
+int gdAffineConcat (double dst[6], const double m1[6], const double m2[6]);
+int gdAffineIdentity (double dst[6]);
+int gdAffineScale (double dst[6], const double scale_x, const double scale_y);
+int gdAffineRotate (double dst[6], const double angle);
+int gdAffineShearHorizontal (double dst[6], const double angle);
+int gdAffineShearVertical(double dst[6], const double angle);
+int gdAffineTranslate (double dst[6], const double offset_x, const double offset_y);
+double gdAffineExpansion (const double src[6]);
+int gdAffineRectilinear (const double src[6]);
+int gdAffineEqual (const double matrix1[6], const double matrix2[6]);
+int gdTransformAffineGetImage(gdImagePtr *dst, const gdImagePtr src, gdRectPtr src_area, const double affine[6]);
+int gdTransformAffineCopy(gdImagePtr dst, int dst_x, int dst_y, const gdImagePtr src, gdRectPtr src_region, const double affine[6]);
+int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPtr bbox);
