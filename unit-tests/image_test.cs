@@ -91,6 +91,24 @@ namespace GD {
 #endif
     }
 
+
+    [Test]
+    public void Rescale() {
+      Image im = new Image(100, 100);
+    
+      int red = im.colorClosest(255, 0, 0);
+      im.filledRectangle(10, 10, 90, 90, red);
+
+      Image dest = new Image(200, 200);
+
+      dest.copyResizedFrom(im, 0, 0, 0, 0, 40, 40, 20, 20);
+      dest.copyResampledFrom(im, 50, 50, 0, 0, 40, 40, 20, 20);
+
+#if SAVE
+      dest.file("Rescale.png");
+#endif
+    }
+
     [Test]
     public void TestRect () {
       TrueRect t = new TrueRect(10, 10, 30, 30);

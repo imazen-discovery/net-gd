@@ -214,10 +214,7 @@ namespace GD {
     }
 
 
-    public void copyFrom(Image src, int dstX, int dstY, int srcX, int srcY,
-                         int w, int h) {
-      LibGD.gdImageCopy(_img, src.img, dstX, dstY, srcX, srcY, w, h);
-    }
+    /* Less-trivial bindings to GD. */
 
     // Make the palette of this image closer to the colors in 'other',
     // which must be truecolor.
@@ -227,16 +224,31 @@ namespace GD {
 
     // Create an exact copy of this image
     public Image clone () {
-      return new Image(LibGD.gdImageClone(img));
+      return new Image(LibGD.gdImageClone(_img));
     }/* clone */
 
-//     public Image copyResized(int dstX, int dstY, int srcX, int srcY,
-//                              int dstW, int dstH, int srcW, int srcH) {
-//       Image result = new Image(sx, sy, 
-// public static void gdImageCopyResized(SWIGTYPE_p_gdImageStruct dst, SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH)
+    public void copyFrom(Image src, int dstX, int dstY, int srcX, int srcY,
+                         int w, int h) {
+      LibGD.gdImageCopy(_img, src.img, dstX, dstY, srcX, srcY, w, h);
+    }
+
+    // Copy a block from src to this image.
+    public void copyResizedFrom(Image src,
+                                int dstX, int dstY, int srcX, int srcY,
+                                int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResized(_img, src.img, dstX, dstY, srcX, srcY, dstW,
+                               dstH, srcW, srcH);
+    }/* copyResizedFrom*/
+
+    public void copyResampledFrom(Image src,
+                                  int dstX, int dstY, int srcX, int srcY,
+                                  int dstW, int dstH, int srcW, int srcH) {
+      LibGD.gdImageCopyResampled(_img, src.img, dstX, dstY, srcX, srcY,
+                                 dstW, dstH, srcW, srcH);
+    }/* copyResampledFrom*/
 
 
-    /* Bindings to LibGD. */
+    /* Trivial bindings to LibGD. */
     public void setPixel(int x, int y, int color) {
       LibGD.gdImageSetPixel(_img, x, y, color); }
 
@@ -429,7 +441,6 @@ namespace GD {
 
     public void putStringUp(Font f, int x, int y, string s, int color) {
       LibGD.gdImageStringUpCharStar(_img, f.fdata, x, y, s, color); }
-
     
 
 #if NOPE

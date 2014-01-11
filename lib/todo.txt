@@ -22,7 +22,7 @@ int gdImageColorReplaceArray(gdImagePtr im, int len, int *src, int *dst);
 int gdImageColorReplaceCallback(gdImagePtr im, gdCallbackImageColor callback);
 void gdImageCopyMerge (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
 void gdImageCopyMergeGray (gdImagePtr dst, gdImagePtr src, int dstX,
-X void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
+
 void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
 void gdImageCopyRotated (gdImagePtr dst,
 
@@ -69,3 +69,4 @@ int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPt
 X char * gdImageStringTTF (gdImage * im, int *brect, int fg, char *fontlist,
 X char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
 X void gdImageAABlend (gdImagePtr im);
+X void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
