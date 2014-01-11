@@ -133,6 +133,8 @@ namespace GD {
     SWIGTYPE_p_gdImageStruct _img = null;
     internal SWIGTYPE_p_gdImageStruct img { get { return _img; } }
 
+      
+
     // Constructor.
     public Image(int sx, int sy, bool truecolor = true) {
       if (truecolor) {
@@ -169,6 +171,8 @@ namespace GD {
     
     public int sx { get {return LibGD.gdImage_sx_get(_img);} }
     public int sy { get {return LibGD.gdImage_sy_get(_img);} }
+    public bool trueColor {
+      get {return LibGD.gdImage_trueColor_get(_img) != 0; } }
 
     public static int majorVersion { get {return LibGD.gdMajorVersion();} }
     public static int minorVersion { get {return LibGD.gdMinorVersion();} }
@@ -225,6 +229,11 @@ namespace GD {
     public Image clone () {
       return new Image(LibGD.gdImageClone(img));
     }/* clone */
+
+//     public Image copyResized(int dstX, int dstY, int srcX, int srcY,
+//                              int dstW, int dstH, int srcW, int srcH) {
+//       Image result = new Image(sx, sy, 
+// public static void gdImageCopyResized(SWIGTYPE_p_gdImageStruct dst, SWIGTYPE_p_gdImageStruct src, int dstX, int dstY, int srcX, int srcY, int dstW, int dstH, int srcW, int srcH)
 
 
     /* Bindings to LibGD. */

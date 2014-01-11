@@ -97,6 +97,16 @@ namespace GD {
       Assert.AreEqual(20, t.height);
     }
 
+    [Test]
+    public void TestTrueColor () {
+      Image tc = new Image(100, 100, true);
+      Image pc = new Image(100, 100, false);
+      
+      Assert.IsTrue(tc.trueColor);
+      Assert.IsFalse(pc.trueColor);
+    }
+
+
   }
 
 }

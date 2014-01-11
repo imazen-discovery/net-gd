@@ -1,7 +1,6 @@
 
 
 
-int gdColorMapLookup(const gdColorMap color_map, const char *color_name, int *r, int *g, int *b);
 gdImagePtr gdImageSquareToCircle(gdImagePtr im, int radius);
 void gdImageSharpen (gdImagePtr im, int pct);
 int gdAlphaBlend (int dest, int src);
@@ -9,14 +8,11 @@ void gdSetErrorMethod(gdErrorMethod);
 void gdClearErrorMethod(void);
 
 
-void gdImageAABlend (gdImagePtr im);
 void gdImageGetClip(gdImagePtr im, int *x1P, int *y1P, int *x2P, int *y2P);
 
 int gdFontCacheSetup (void);
 void gdFontCacheShutdown (void);
 void gdFreeFontCache (void);
-char * gdImageStringTTF (gdImage * im, int *brect, int fg, char *fontlist,
-char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
 void gdImagePolygon (gdImagePtr im, gdPointPtr p, int n, int c);
 void gdImageOpenPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
 void gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
@@ -26,7 +22,7 @@ int gdImageColorReplaceArray(gdImagePtr im, int len, int *src, int *dst);
 int gdImageColorReplaceCallback(gdImagePtr im, gdCallbackImageColor callback);
 void gdImageCopyMerge (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
 void gdImageCopyMergeGray (gdImagePtr dst, gdImagePtr src, int dstX,
-void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
+X void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
 void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
 void gdImageCopyRotated (gdImagePtr dst,
 
@@ -66,3 +62,10 @@ int gdAffineEqual (const double matrix1[6], const double matrix2[6]);
 int gdTransformAffineGetImage(gdImagePtr *dst, const gdImagePtr src, gdRectPtr src_area, const double affine[6]);
 int gdTransformAffineCopy(gdImagePtr dst, int dst_x, int dst_y, const gdImagePtr src, gdRectPtr src_region, const double affine[6]);
 int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPtr bbox);
+
+
+
+
+X char * gdImageStringTTF (gdImage * im, int *brect, int fg, char *fontlist,
+X char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
+X void gdImageAABlend (gdImagePtr im);
