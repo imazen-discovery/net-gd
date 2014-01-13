@@ -5,12 +5,7 @@ MCS=./mcs.sh
 
 NETGD_SRC=image.cs
 
-all: libs bins
-
-bins: hello.exe
-
-hello.exe: hello.cs
-	$(MCS) -r:net-gd.dll hello.cs
+all: libs test examples
 
 libs:
 	(cd lib; make)
@@ -18,6 +13,9 @@ libs:
 
 test: libs
 	(cd unit-tests && make test)
+
+examples: libs
+	(cd examples && make)
 
 clean:
 	-rm *.exe *.dll *.so

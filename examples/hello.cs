@@ -9,9 +9,10 @@ class Hello {
         Console.WriteLine ("Hello, World!");
         Console.WriteLine (Image.versionString);
 
-        Image foo = Image.createFromFile("../grlibs-misc/img/greenbox.png");
+        Image foo = Image.createFromFile("greenbox.png");
         Console.WriteLine(foo.sx);
         Console.WriteLine(foo.sy);
+
 
         Console.WriteLine(Font.small.w);
     }
