@@ -1,4 +1,5 @@
 
+// If set, save some of the resulting images
 #define SAVE
 
 using System;
@@ -181,6 +182,5 @@ namespace GD {
 #endif
     }
   }
-
 }
 
