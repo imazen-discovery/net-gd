@@ -15,5 +15,5 @@ $(TESTS): $(SRC)
 
 
 clean:
-	-rm *.dll *.xml
+	-rm *.dll *.xml *.png
 

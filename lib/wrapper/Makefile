@@ -1,4 +1,5 @@
-GDPATH = ../../../gd-libgd/src/
+
+GDPATH := $(shell ../../lib-gd-path.sh)
 
 MCS=../../mcs.sh
 SWIG=swig
