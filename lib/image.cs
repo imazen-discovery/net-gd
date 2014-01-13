@@ -32,6 +32,9 @@ namespace GD {
     //Weighted4         = gdInterpolationMethod.GD_WEIGHTED4,   // broken
   }
 
+  public class IOCtx {
+    public delegate int IOCtxGet(SWIGTYPE_p_gdIOCtx ioctx);
+  }
 
   public class Font {
     private SWIGTYPE_p_gdFont _fdata;
