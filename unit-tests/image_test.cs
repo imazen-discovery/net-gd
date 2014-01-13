@@ -19,6 +19,8 @@ namespace GD {
       Assert.Greater(mj, 0);
       Assert.AreEqual(Image.versionString, mj + "." + mn + "." + rv + ex);
 
+      Image.fontCacheSetup();
+
       //Assert.AreEqual(1, Image.useFontConfig(false));
     }
 

@@ -180,15 +180,22 @@ namespace GD {
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
     public static string versionString {get {return LibGD.gdVersionString();} }
 
+    /* Fontconfig:
+       These do their own locking and so should be thread-safe already.
+    */
+
     /* Enable or disable fontconfig globally. */
-    private static object _lock = new object(); 
     public static int useFontConfig(bool useIt) {
-      lock (_lock) {
-        return LibGD.gdFTUseFontConfig(useIt ? 1 : 0);
-      }
+      return LibGD.gdFTUseFontConfig(useIt ? 1 : 0);
     }
+    public static void fontCacheSetup() { LibGD.gdFontCacheSetup(); }
+    public static void freeFontCache()  { LibGD.gdFreeFontCache();  }
 
 
+
+    /*
+      Sophisticated(ish) wrappers:
+     */
     public bool stringFT(int color, string fontlist,
                          double ptsize, double angle, int x, int y,
                          string text) {
@@ -212,9 +219,6 @@ namespace GD {
 
       return status == null;
     }
-
-
-    /* Less-trivial bindings to GD. */
 
     // Make the palette of this image closer to the colors in 'other',
     // which must be truecolor.

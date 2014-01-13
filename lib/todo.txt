@@ -13,6 +13,7 @@ void gdImageGetClip(gdImagePtr im, int *x1P, int *y1P, int *x2P, int *y2P);
 int gdFontCacheSetup (void);
 void gdFontCacheShutdown (void);
 void gdFreeFontCache (void);
+
 void gdImagePolygon (gdImagePtr im, gdPointPtr p, int n, int c);
 void gdImageOpenPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
 void gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
@@ -23,7 +24,6 @@ int gdImageColorReplaceCallback(gdImagePtr im, gdCallbackImageColor callback);
 void gdImageCopyMerge (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
 void gdImageCopyMergeGray (gdImagePtr dst, gdImagePtr src, int dstX,
 
-void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
 void gdImageCopyRotated (gdImagePtr dst,
 
 void gdImageSetBrush (gdImagePtr im, gdImagePtr brush);
@@ -70,3 +70,4 @@ X char * gdImageStringTTF (gdImage * im, int *brect, int fg, char *fontlist,
 X char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
 X void gdImageAABlend (gdImagePtr im);
 X void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
+X void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
