@@ -173,6 +173,15 @@ namespace GD {
     public int sy { get {return LibGD.gdImage_sy_get(_img);} }
     public bool trueColor {
       get {return LibGD.gdImage_trueColor_get(_img) != 0; } }
+    public IMode interpolation_method {
+      get { return (IMode)LibGD.gdImageGetInterpolationMethod(_img); }
+      set {
+        LibGD.gdImageSetInterpolationMethod(_img,
+                                            (gdInterpolationMethod) value);
+      }
+    }
+
+
 
     public static int majorVersion { get {return LibGD.gdMajorVersion();} }
     public static int minorVersion { get {return LibGD.gdMinorVersion();} }
@@ -257,10 +266,26 @@ namespace GD {
       newimg = LibGD.gdImageCopyGaussianBlurred(_img, radius, sigma);
       if (newimg == null) {
         return null;
-      }
+      }/* if */
 
       return new Image(newimg);
     }/* copyGaussianBlurred*/
+
+    public Image scale(uint width, uint height = 0) {
+      SWIGTYPE_p_gdImageStruct newimg;
+
+      if (height <= 0) {
+        height = (uint)( (double)(width * this.sy) / (double)this.sx );
+      }/* if */
+
+      newimg = LibGD.gdImageScale(_img, width, height);
+      if (newimg == null) {
+        return null;
+      }/* if */
+
+      return new Image(newimg);
+    }/* copyScaled*/
+
 
 
     /* Trivial bindings to LibGD. */
@@ -436,15 +461,6 @@ namespace GD {
     public void flipBoth() {
       LibGD.gdImageFlipBoth(_img); }
 
-    public bool setInterpolationMethod(IMode id) {
-      return LibGD.gdImageSetInterpolationMethod
-        (_img, (gdInterpolationMethod)id) != 0;
-    }
-
-    public IMode getInterpolationMethod() {
-      return (IMode)LibGD.gdImageGetInterpolationMethod(_img); }
-
-
     public void putChar(Font f, int x, int y, char c, int color) {
       LibGD.gdImageChar(_img, f.fdata, x, y, (int)c, color); }
 
@@ -456,11 +472,6 @@ namespace GD {
 
     public void putStringUp(Font f, int x, int y, string s, int color) {
       LibGD.gdImageStringUpCharStar(_img, f.fdata, x, y, s, color); }
-    
-
-#if NOPE
-#endif
-
   }
 }
 

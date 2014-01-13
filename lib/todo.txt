@@ -42,8 +42,6 @@ int gdImageCompare (gdImagePtr im1, gdImagePtr im2);
 gdImagePtr gdImageCrop(gdImagePtr src, const gdRect *crop);
 gdImagePtr gdImageCropAuto(gdImagePtr im, const unsigned int mode);
 gdImagePtr gdImageCropThreshold(gdImagePtr im, const unsigned int color, const float threshold);
-gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im);
-gdImagePtr gdImageScale(const gdImagePtr src, const unsigned int new_width, const unsigned int new_height);
 gdImagePtr gdImageRotateInterpolated(const gdImagePtr src, const float angle, int bgcolor);
 int gdAffineApplyToPointF (gdPointFPtr dst, const gdPointFPtr src, const double affine[6]);
 int gdAffineInvert (double dst[6], const double src[6]);
@@ -74,3 +72,5 @@ X int gdFontCacheSetup (void);
 X void gdFontCacheShutdown (void);
 X void gdFreeFontCache (void);
 X gdImagePtr gdImageCopyGaussianBlurred(gdImagePtr src, int radius,
+X gdInterpolationMethod gdImageGetInterpolationMethod(gdImagePtr im);
+X gdImagePtr gdImageScale(const gdImagePtr src, const unsigned int new_width, const unsigned int new_height);

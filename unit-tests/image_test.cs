@@ -148,6 +148,39 @@ namespace GD {
     }
 
 
+    [Test]
+    public void Scale() {
+      Image im = new Image(100, 100);
+      int white = im.colorClosest(255, 255, 255);
+
+      Font sm = Font.small;
+      im.putString(sm, 10, 60, "text!!!", white);
+
+      im.interpolation_method = IMode.Bicubic;
+      Assert.AreEqual(IMode.Bicubic, im.interpolation_method);
+
+      Image half = im.scale(50);
+      Assert.AreEqual(50, half.sx);
+      Assert.AreEqual(50, half.sy);
+#if SAVE
+      half.file("Scale1.png");
+#endif
+
+      Image halfx = im.scale(50, 100);
+      Assert.AreEqual(50, halfx.sx);
+      Assert.AreEqual(100, halfx.sy);
+#if SAVE
+      halfx.file("Scale2.png");
+#endif
+
+      Image dbl = im.scale(200);
+      Assert.AreEqual(200, dbl.sx);
+      Assert.AreEqual(200, dbl.sy);
+#if SAVE
+      dbl.file("Scale3.png");
+#endif
+    }
   }
 
 }
+
