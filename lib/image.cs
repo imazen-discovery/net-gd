@@ -251,6 +251,17 @@ namespace GD {
                                  dstW, dstH, srcW, srcH);
     }/* copyResampledFrom*/
 
+    public Image copyGaussianBlurred(int radius, double sigma = -1.0) {
+      SWIGTYPE_p_gdImageStruct newimg;
+
+      newimg = LibGD.gdImageCopyGaussianBlurred(_img, radius, sigma);
+      if (newimg == null) {
+        return null;
+      }
+
+      return new Image(newimg);
+    }/* copyGaussianBlurred*/
+
 
     /* Trivial bindings to LibGD. */
     public void setPixel(int x, int y, int color) {

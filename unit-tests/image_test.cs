@@ -133,6 +133,21 @@ namespace GD {
     }
 
 
+    [Test]
+    public void Blur() {
+      Image im = new Image(100, 100);
+    
+      int red = im.colorClosest(255, 0, 0);
+      im.filledRectangle(10, 10, 90, 90, red);
+
+      Image dest = im.copyGaussianBlurred(4);
+
+#if SAVE
+      dest.file("Blur.png");
+#endif
+    }
+
+
   }
 
 }

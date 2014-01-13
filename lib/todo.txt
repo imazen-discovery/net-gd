@@ -10,9 +10,6 @@ void gdClearErrorMethod(void);
 
 void gdImageGetClip(gdImagePtr im, int *x1P, int *y1P, int *x2P, int *y2P);
 
-int gdFontCacheSetup (void);
-void gdFontCacheShutdown (void);
-void gdFreeFontCache (void);
 
 void gdImagePolygon (gdImagePtr im, gdPointPtr p, int n, int c);
 void gdImageOpenPolygon (gdImagePtr im, gdPointPtr p, int n, int c);
@@ -33,7 +30,9 @@ gdImagePtr gdImageNeuQuant(gdImagePtr im, const int max_color, int sample_factor
 int gdImageScatterColor(gdImagePtr im, int sub, int plus, int colors[], unsigned int num_colors);
 int gdImageScatterEx(gdImagePtr im, gdScatterPtr s);
 int gdImageConvolution(gdImagePtr src, float filter[3][3], float filter_div, float offset);
-gdImagePtr gdImageCopyGaussianBlurred(gdImagePtr src, int radius,
+
+
+
 gdIOCtx * gdNewFileCtx (FILE *);
 gdIOCtx * gdNewDynamicCtx (int size, void *data);
 gdIOCtx * gdNewDynamicCtxEx (int size, void *data, int freeFlag);
@@ -71,3 +70,7 @@ X char * gdImageStringFTEx (gdImage * im, int *brect, int fg, char *fontlist,
 X void gdImageAABlend (gdImagePtr im);
 X void gdImageCopyResized (gdImagePtr dst, gdImagePtr src, int dstX, int dstY,
 X void gdImageCopyResampled (gdImagePtr dst, gdImagePtr src, int dstX,
+X int gdFontCacheSetup (void);
+X void gdFontCacheShutdown (void);
+X void gdFreeFontCache (void);
+X gdImagePtr gdImageCopyGaussianBlurred(gdImagePtr src, int radius,
