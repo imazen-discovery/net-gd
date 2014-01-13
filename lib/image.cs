@@ -32,10 +32,6 @@ namespace GD {
     //Weighted4         = gdInterpolationMethod.GD_WEIGHTED4,   // broken
   }
 
-  class GDFailure : Exception {
-    public GDFailure(string message) : base("Null value returned by " + message) {}
-  }
-
 
   public class Font {
     private SWIGTYPE_p_gdFont _fdata;
@@ -149,15 +145,13 @@ namespace GD {
       _img = i;
     }/* Image*/
 
-    private static SWIGTYPE_p_gdImageStruct chkptr(SWIGTYPE_p_gdImageStruct ptr,
-                                                   string apiFunc) {
-      if (ptr != null) return ptr;
-      throw new GDFailure(apiFunc);
-    }/* chkptr*/
-
     public static Image createFromFile(string filename) {
-      return new Image(chkptr(LibGD.gdImageCreateFromFile(filename),
-                              "gdImageCreateFromFile"));
+      SWIGTYPE_p_gdImageStruct img = LibGD.gdImageCreateFromFile(filename);
+      if (img == null) {
+        return null;
+      }
+
+      return new Image(img);
     }
 
     public virtual void Dispose() {
