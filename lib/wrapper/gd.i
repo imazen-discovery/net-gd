@@ -26,16 +26,7 @@
 
 %include "fn_ptrs.h"
 
-/* %typemap(csin) int (*)( int ) "$csinput"; */
-/* %typemap(cstype) int (*)( int ) "GetGlueFn"; */
-/* %typemap(imtype) int (*)( int ) "GetGlueFn"; */
-
-/* %pragma(csharp) moduleimports = */
-/* %{ */
-/*      public delegate int getCdelegate(SWIGTYPE_p_gdIOCtx ptr); */
-/* %} */
-
-%typemap(csin)   getCptr "GD.Internal.getCdelegate";
+%typemap(csin)   getCptr "$csinput";
 %typemap(cstype) getCptr "GD.Internal.getCdelegate";
 %typemap(imtype) getCptr "GD.Internal.getCdelegate";
 
