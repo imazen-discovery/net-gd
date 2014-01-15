@@ -10,7 +10,7 @@ SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -nopr
 all: libGDwrap.so net-gd-glue.dll
 
 net-gd-glue.dll: libGDwrap.so
-	$(MCS) -t:library -out:net-gd-glue.dll *.cs
+	$(MCS) -t:library -out:net-gd-glue.dll ../delegates.cs *.cs
 
 libGDwrap.so : GDwrap.c
 	gcc -fPIC -g -c -Wall GDwrap.c

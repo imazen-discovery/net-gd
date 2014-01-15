@@ -7,6 +7,8 @@
 #include "gdfontmb.h"
 #include "gdfonts.h"
 #include "gdfontt.h"
+
+#include "fn_ptrs.h"
 %}
 
 %include "arrays_csharp.i"
@@ -22,9 +24,20 @@
 %include "gdfonts.h"
 %include "gdfontt.h"
 
+%include "fn_ptrs.h"
 
-%typemap(cstype) void (*getC)(struct gdIOCtx *) "IOCtxGet";
-%typemap(imtype) void (*getC)(struct gdIOCtx *) "IOCtxGet";
+/* %typemap(csin) int (*)( int ) "$csinput"; */
+/* %typemap(cstype) int (*)( int ) "GetGlueFn"; */
+/* %typemap(imtype) int (*)( int ) "GetGlueFn"; */
+
+/* %pragma(csharp) moduleimports = */
+/* %{ */
+/*      public delegate int getCdelegate(SWIGTYPE_p_gdIOCtx ptr); */
+/* %} */
+
+%typemap(csin)   getCptr "GD.Internal.getCdelegate";
+%typemap(cstype) getCptr "GD.Internal.getCdelegate";
+%typemap(imtype) getCptr "GD.Internal.getCdelegate";
 
 %inline %{
 
@@ -41,8 +54,31 @@
         gdImageStringUp (im, f, x, y, (unsigned char *)s, color);
     }
 
-    struct gdIOCtx *ctxGlue(int (*IOCtxGet)(struct gdIOCtx *)) {
+
+    struct gdIOCtx *newCtx(getCptr cp) {
+        struct gdIOCtx *result;
+
+        result = calloc(1, sizeof(struct gdIOCtx));
+        if (!result) return NULL;
+
+        result->getC = cp;
+
+        return result;
+    }/* newCtx*/
+
+    int blammo(struct gdIOCtx *ctx) {
+        return 42;
+    }/* foo*/
+
+
+    /* typedef int (*GetGluePtr)(int); */
+    /* int ctxGlue(GetGluePtr fn) {return fn(42);} */
+
+/*
+    BGD_DECLARE(struct gdIOCtx *)ctxGlue(int (*IOCtxGet)(  int)) {//struct gdIOCtx *)) {
         return NULL;
     }
-
+*/
 %}
+
+
