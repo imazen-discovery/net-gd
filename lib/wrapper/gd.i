@@ -8,7 +8,7 @@
 #include "gdfonts.h"
 #include "gdfontt.h"
 
-#include "fn_ptrs.h"
+#include "ctx.h"
 %}
 
 %include "arrays_csharp.i"
@@ -24,7 +24,7 @@
 %include "gdfonts.h"
 %include "gdfontt.h"
 
-%include "fn_ptrs.h"
+%include "ctx.h"
 
 %typemap(csin)   getCptr "$csinput";
 %typemap(cstype) getCptr "GD.Internal.getCdelegate";
@@ -45,31 +45,6 @@
         gdImageStringUp (im, f, x, y, (unsigned char *)s, color);
     }
 
-
-    struct gdIOCtx *newCtx(getCptr cp) {
-        struct gdIOCtx *result;
-
-        result = calloc(1, sizeof(struct gdIOCtx));
-        if (!result) return NULL;
-
-        result->getC = cp;
-
-        return result;
-    }/* newCtx*/
-
-    int blammo(struct gdIOCtx *ctx) {
-        return 42;
-    }/* foo*/
-
-
-    /* typedef int (*GetGluePtr)(int); */
-    /* int ctxGlue(GetGluePtr fn) {return fn(42);} */
-
-/*
-    BGD_DECLARE(struct gdIOCtx *)ctxGlue(int (*IOCtxGet)(  int)) {//struct gdIOCtx *)) {
-        return NULL;
-    }
-*/
 %}
 
 
