@@ -8,5 +8,6 @@
 
 namespace GD.Internal {
   public delegate int getCdelegate(SWIGTYPE_p_gdIOCtx ptr);
-//  public delegate int getBufDelegate(SWIGTYPE_p_gdIOCtx ptr, );
+  public delegate int getBufDelegate(SWIGTYPE_p_gdIOCtx ptr, out byte[] buf,
+                                     int sz);
 }

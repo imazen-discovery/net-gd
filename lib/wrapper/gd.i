@@ -24,11 +24,17 @@
 %include "gdfonts.h"
 %include "gdfontt.h"
 
-%include "ctx.h"
+%include "ctx_types.h"
 
 %typemap(csin)   getCptr "$csinput";
 %typemap(cstype) getCptr "GD.Internal.getCdelegate";
 %typemap(imtype) getCptr "GD.Internal.getCdelegate";
+
+%typemap(csin)   getBufPtr "$csinput";
+%typemap(cstype) getBufPtr "GD.Internal.getCdelegate";
+%typemap(imtype) getBufPtr "GD.Internal.getCdelegate";
+
+%include "ctx.h"
 
 %inline %{
 
