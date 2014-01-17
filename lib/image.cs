@@ -161,10 +161,6 @@ namespace GD {
     }/* copyScaled*/
 
 
-
-    /* Image Ptr data functions */
-//    public 
-
     /* Trivial bindings to LibGD. */
     public void setPixel(int x, int y, int color) {
       LibGD.gdImageSetPixel(_img, x, y, color); }
