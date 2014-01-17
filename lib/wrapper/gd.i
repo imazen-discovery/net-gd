@@ -11,11 +11,8 @@
 
 %include "arrays_csharp.i"
 
-%include "arrays_csharp.i"
-
- // Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C# array
+// Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C# array
 %apply int INOUT[] {int *brect}
-
 
 %include "gd.h"
 %include "gdfontg.h"
@@ -23,8 +20,6 @@
 %include "gdfontmb.h"
 %include "gdfonts.h"
 %include "gdfontt.h"
-
-
 
 %inline %{
 
@@ -40,11 +35,5 @@
                                  char *s, int color) {
         gdImageStringUp (im, f, x, y, (unsigned char *)s, color);
     }
-
-    /* char* gdImageStringFTglue (gdImage * im, int brect[8], int fg, char *fontlist, */
-    /*                            double ptsize, double angle, int x, int y, */
-    /*                            char *text) { */
-    /*     return gdImageStringFT(im, brect, fg, fontlist, ptsize, angle, x, y, text); */
-    /* } */
 
 %}

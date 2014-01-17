@@ -20,6 +20,6 @@ GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
 
 clean:
-	-rm *.cs *.c *.so *.o *.dll
+	-rm *.cs GDwrap.c *.so *.o *.dll
 
 
