@@ -41,6 +41,13 @@ namespace GD {
 
     
     static private FileType[] types = null;
+    static void init_types() {
+      if (types != null) return;
+      types = new FileType[] {
+        new FileType("gif", Enc.GIF, (sz, data) => {}),
+      };
+
+    }
 
   }
 
