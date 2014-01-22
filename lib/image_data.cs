@@ -25,6 +25,7 @@ namespace GD {
     }
   }
 
+  public delegate IntPtr EncFn(Image im, out int sz);
 
   public class ImageData {
     private byte[] data = null;
@@ -36,11 +37,12 @@ namespace GD {
       data = load(reader);
     }
 
-    internal ImageData(Image im) {
+    internal ImageData(Image im, EncFn fn) {
       data = null;
 
       int sz = 0;
-      IntPtr ptr = LibGD.gdImagePngPtr(im.img, out sz);
+//      IntPtr ptr = LibGD.gdImagePngPtr(im.img, out sz);
+      IntPtr ptr = fn(im, out sz);
       if (ptr == IntPtr.Zero) return;
 
       data = new byte[sz];

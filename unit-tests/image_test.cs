@@ -203,13 +203,13 @@ namespace GD {
       Font sm = Font.small;
       im.putString(sm, 10, 60, "text!!!", white);
 
-      Image imcopy = im.encoded(Enc.PNG).decode();
+      Image imcopy = im.png().decode();
       Assert.AreNotEqual(null, imcopy);
       Assert.AreEqual(0, im.compare(imcopy));
 
       MemoryStream ms = new MemoryStream();
       BinaryWriter w = new BinaryWriter(ms);
-      im.encoded(Enc.PNG).save(w);
+      im.png().save(w);
 
       ms.Seek(0, SeekOrigin.Begin);
 
