@@ -18,6 +18,9 @@
 // Marshal size outputs in gdImage*Ptr
 %apply int *OUTPUT{int *size}
 
+// Void pointers should be turned int IntPtr
+%apply void *VOID_INT_PTR { void * }
+
 %include "gd.h"
 %include "gdfontg.h"
 %include "gdfontl.h"
