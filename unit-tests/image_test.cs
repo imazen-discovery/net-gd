@@ -181,6 +181,30 @@ namespace GD {
       dbl.file("Scale3.png");
 #endif
     }
-  }
-}
+
+
+    [Test]
+    public void Compare() {
+      Image im = new Image(100, 100);
+      int white = im.colorClosest(255, 255, 255);
+
+      Font sm = Font.small;
+      im.putString(sm, 10, 60, "text!!!", white);
+
+      Assert.AreEqual(0, im.compare(im));
+    }
+
+#if NOPE
+    [Test]
+    public void ImgData1() {
+      Image im = new Image(100, 100);
+      int white = im.colorClosest(255, 255, 255);
+
+      Font sm = Font.small;
+      im.putString(sm, 10, 60, "text!!!", white);
+    }
+#endif
+
+  }/* class */
+}/* namespace */
 

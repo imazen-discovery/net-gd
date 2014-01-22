@@ -75,6 +75,10 @@ namespace GD {
     public static void freeFontCache()  { LibGD.gdFreeFontCache();  }
 
 
+    public ImageData encoded(Enc fmt) {
+      return new ImageData(this);
+    }
+
 
     /*
       Sophisticated(ish) wrappers:
@@ -159,6 +163,10 @@ namespace GD {
 
       return new Image(newimg);
     }/* copyScaled*/
+
+    public int compare(Image other) {
+      return LibGD.gdImageCompare(_img, other.img);
+    }
 
 
     /* Trivial bindings to LibGD. */
