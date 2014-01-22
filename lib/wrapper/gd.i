@@ -9,10 +9,14 @@
 #include "gdfontt.h"
 %}
 
-%include "arrays_csharp.i"
+%include arrays_csharp.i
+%include typemaps.i
 
 // Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C# array
 %apply int INOUT[] {int *brect}
+
+// Marshal size outputs in gdImage*Ptr
+%apply int *OUTPUT{int *size}
 
 %include "gd.h"
 %include "gdfontg.h"
