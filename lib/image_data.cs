@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -29,32 +30,15 @@ namespace GD {
     private byte[] data = null;
     public Enc type = Enc.UNKNOWN;
 
-    private bool _valid = false;
-    public bool valid { get {return _valid;} }
+    public bool valid { get {return data != null;} }
 
-    public ImageData(Stream instream) {
-
-      /* Files bigger than 4GB don't work due to this stupid word size
-       * mismatch.  Theoretically, we could work around this. */
-      if (instream.Length > Int32.MaxValue) {
-        _valid = false;
-        return;
-      }
-
-      try {
-
-        using (var r = new BinaryReader(instream)) {
-          data = r.ReadBytes(Convert.ToInt32(instream.Length));
-          _valid = true;
-        }/* using */
-
-      } catch (IOException) {
-        _valid = false;
-        data = null;
-      }/* try ... catch */
+    public ImageData(BinaryReader reader) {
+      data = load(reader);
     }
 
-    public ImageData(Image im) {
+    internal ImageData(Image im) {
+      data = null;
+
       int sz = 0;
       IntPtr ptr = LibGD.gdImagePngPtr(im.img, out sz);
       if (ptr == IntPtr.Zero) return;
@@ -63,17 +47,46 @@ namespace GD {
       Marshal.Copy(ptr, data, 0, sz);
 
       LibGD.gdFree(ptr);
-
-      _valid = true;
     }
 
-    public void save(Stream outstream) {
+    private byte[] load(BinaryReader reader) {
+      /* Files bigger than 4GB don't work due to this stupid word size
+       * mismatch.  Theoretically, we could work around this. */
+      if (reader.BaseStream.Length > Int32.MaxValue) {
+        return null;
+      }
+
+      byte[] contents = null;
+      try {
+        contents = reader.ReadBytes(Convert.ToInt32(reader.BaseStream.Length));
+      } catch (IOException) {
+        contents = null;
+      }/* try ... catch */
+
+      return contents;
+    }
+
+
+    public void save(BinaryWriter writer) {
+      if (!valid) throw new GDinvalidImageData();
+      writer.Write(data);
     }
 
 
     public Image decode() {
-      
-      return null;
+      if (!valid) throw new GDinvalidImageData();
+                                                
+      SWIGTYPE_p_gdImageStruct img;
+
+      unsafe {
+        fixed(byte *p = data) {
+          var datap = new IntPtr(p);
+          img = LibGD.gdImageCreateFromPngPtr(data.Length, datap);
+        }
+      }
+
+      if (img == null) return null;
+      return new Image(img);
     }
 
     

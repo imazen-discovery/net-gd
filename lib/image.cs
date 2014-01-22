@@ -20,8 +20,8 @@ namespace GD {
       }/* if .. else*/
     }/* Image*/
 
-    // Private constructor for wrapping an existing gdImage struct.
-    private Image(SWIGTYPE_p_gdImageStruct i) {
+    // Internal constructor for wrapping an existing gdImage struct.
+    internal Image(SWIGTYPE_p_gdImageStruct i) {
       _img = i;
     }/* Image*/
 
