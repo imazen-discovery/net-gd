@@ -166,7 +166,7 @@ namespace GD {
 
     public int compare(Image other) {
       return LibGD.gdImageCompare(_img, other.img);
-    }
+    }/* compare*/
 
 
     /* Trivial bindings to LibGD. */

@@ -26,7 +26,7 @@ namespace GD {
   }
 
 
-  class ImageData {
+  public class ImageData {
     private byte[] data = null;
     public Enc type = Enc.UNKNOWN;
 

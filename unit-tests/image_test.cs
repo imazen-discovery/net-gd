@@ -194,7 +194,6 @@ namespace GD {
       Assert.AreEqual(0, im.compare(im));
     }
 
-#if NOPE
     [Test]
     public void ImgData1() {
       Image im = new Image(100, 100);
@@ -202,8 +201,12 @@ namespace GD {
 
       Font sm = Font.small;
       im.putString(sm, 10, 60, "text!!!", white);
+
+      Image imcopy = im.encoded(Enc.PNG).decode();
+      Assert.AreNotEqual(null, imcopy);
+      Assert.AreEqual(0, im.compare(imcopy));
     }
-#endif
+
 
   }/* class */
 }/* namespace */
