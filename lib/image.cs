@@ -74,12 +74,6 @@ namespace GD {
     public static void fontCacheSetup() { LibGD.gdFontCacheSetup(); }
     public static void freeFontCache()  { LibGD.gdFreeFontCache();  }
 
-/*
-    public ImageData encoded(Enc fmt) {
-      return new ImageData(this);
-    }
-    */
-
     public ImageData png(int level = -1) {
       return
         new ImageData(this, 

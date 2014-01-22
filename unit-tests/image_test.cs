@@ -219,9 +219,6 @@ namespace GD {
 
       Assert.AreNotEqual(null, imcopy2);
       Assert.AreEqual(0, im.compare(imcopy2));
-      
-      
-
     }
 
 
