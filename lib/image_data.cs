@@ -77,7 +77,6 @@ namespace GD {
       if (!valid) throw new GDinvalidImageData();
                                                 
       SWIGTYPE_p_gdImageStruct img;
-
       unsafe {
         fixed(byte *p = data) {
           var datap = new IntPtr(p);

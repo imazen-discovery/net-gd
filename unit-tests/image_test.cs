@@ -3,6 +3,7 @@
 #define SAVE
 
 using System;
+using System.IO;
 
 namespace GD {
   using NUnit.Framework;
@@ -205,6 +206,22 @@ namespace GD {
       Image imcopy = im.encoded(Enc.PNG).decode();
       Assert.AreNotEqual(null, imcopy);
       Assert.AreEqual(0, im.compare(imcopy));
+
+      MemoryStream ms = new MemoryStream();
+      BinaryWriter w = new BinaryWriter(ms);
+      im.encoded(Enc.PNG).save(w);
+
+      ms.Seek(0, SeekOrigin.Begin);
+
+      BinaryReader r = new BinaryReader(ms);
+      ImageData id2  = new ImageData(r);
+      Image imcopy2 = id2.decode();
+
+      Assert.AreNotEqual(null, imcopy2);
+      Assert.AreEqual(0, im.compare(imcopy2));
+      
+      
+
     }
 
 
