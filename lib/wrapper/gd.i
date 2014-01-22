@@ -12,7 +12,12 @@
 %include arrays_csharp.i
 %include typemaps.i
 
-// Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C# array
+// Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C#
+// array.
+//
+// Note: renaming the argument in gd.h will break this.  If this
+// happens, the best option is probably to write a wrapper function
+// below and bind to that.
 %apply int INOUT[] {int *brect}
 
 // Marshal size outputs in gdImage*Ptr
