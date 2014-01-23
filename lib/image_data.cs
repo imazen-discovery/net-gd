@@ -33,12 +33,14 @@ namespace GD {
 
     public bool valid { get {return data != null;} }
 
-    public ImageData(BinaryReader reader) {
+    public ImageData(BinaryReader reader, Enc tp = Enc.PNG) {
       data = load(reader);
+      type = tp;
     }
 
-    internal ImageData(Image im, EncFn fn) {
+    internal ImageData(Image im, EncFn fn, Enc enctype) {
       data = null;
+      type = Enc.UNKNOWN;
 
       int sz = 0;
       IntPtr ptr = fn(im, out sz);
@@ -48,6 +50,8 @@ namespace GD {
       Marshal.Copy(ptr, data, 0, sz);
 
       LibGD.gdFree(ptr);
+
+      type = enctype;
     }
 
     private byte[] load(BinaryReader reader) {
@@ -69,13 +73,13 @@ namespace GD {
 
 
     public void save(BinaryWriter writer) {
-      if (!valid) throw new GDinvalidImageData();
+      if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
       writer.Write(data);
     }
 
 
     public Image decode() {
-      if (!valid) throw new GDinvalidImageData();
+      if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
                                                 
       SWIGTYPE_p_gdImageStruct img;
       unsafe {

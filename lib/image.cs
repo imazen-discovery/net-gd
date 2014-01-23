@@ -78,8 +78,8 @@ namespace GD {
       return
         new ImageData(this, 
                       (Image i, out int sz) =>
-                      LibGD.gdImagePngPtrEx(i.img, out sz, level)
-          );
+                          LibGD.gdImagePngPtrEx(i.img, out sz, level),
+                      Enc.PNG);
     }
 
 
