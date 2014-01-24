@@ -132,7 +132,13 @@ namespace GD {
                       Enc.BMP);
     }/* bmp*/
 
-    // TODO: tiff
+    public ImageData tiff() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageTiffPtr(i.img, out sz),
+                      Enc.TIFF);
+    }/* tiff*/
 
 
     public ImageData encode(Enc format) {
@@ -144,7 +150,7 @@ namespace GD {
       case Enc.BMP:  return bmp();
       case Enc.PNG:  return png();
       case Enc.JPEG: return jpeg();
-//      case Enc.TIFF: return tiff();
+      case Enc.TIFF: return tiff();
       default:
         throw new GDinvalidFormat();
       }/* switch*/
