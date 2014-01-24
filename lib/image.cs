@@ -154,8 +154,6 @@ namespace GD {
       default:
         throw new GDinvalidFormat();
       }/* switch*/
-
-//      return null;  /* Not reached. */
     }/* encode*/
 
 
