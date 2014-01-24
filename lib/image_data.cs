@@ -8,7 +8,10 @@ namespace GD {
 
   public enum Enc {
     UNKNOWN,
-    GIF, GD, GD2, WBMP, BMP, TGA, PNG, JPG, TIFF, WEBP, XPM, 
+    GIF, GD, GD2, WBMP, BMP, PNG, JPG, TIFF, 
+#if BROKEN_FORMATS  // These formats are currently broken in the GD trunk
+    WEBP, XPM, TGA,
+#endif 
   }
 
   internal class FileType {

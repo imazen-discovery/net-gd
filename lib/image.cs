@@ -76,11 +76,36 @@ namespace GD {
 
     public ImageData png(int level = -1) {
       return
-        new ImageData(this, 
+        new ImageData(this,
                       (Image i, out int sz) =>
                           LibGD.gdImagePngPtrEx(i.img, out sz, level),
                       Enc.PNG);
-    }
+    }/* png*/
+
+    public ImageData gif() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                        LibGD.gdImageGifPtr(i.img, out sz),
+                      Enc.GIF);
+    }/* gif*/
+
+    public ImageData gd() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) => LibGD.gdImageGdPtr(i.img,out sz),
+                      Enc.GD);
+    }/* gd*/
+
+    public ImageData gd2(int chunkSize = 0, bool compress = true) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageGd2PtrWRAP(i.img, chunkSize,
+                                                   compress ? 1 : 0,
+                                                   out sz),
+                      Enc.GD);
+    }/* gd2*/
 
 
     /*

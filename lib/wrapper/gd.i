@@ -48,4 +48,14 @@
         gdImageStringUp (im, f, x, y, (unsigned char *)s, color);
     }
 
+    /* Wrapper around gdImageGd2Ptr which uses a boolean for its
+     * second argument.  (There are only two choices--compressed and
+     * not--and the alternative is to import #define's from gd.h.) */
+    void *gdImageGd2PtrWRAP (gdImagePtr im, int cs, int compress, int *size) {
+        return gdImageGd2Ptr(im, cs,
+                             compress ? GD2_FMT_COMPRESSED : GD2_FMT_RAW,
+                             size);
+    }/* gdImageGd2PtrWRAP */
+
+
 %}
