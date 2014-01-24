@@ -82,6 +82,10 @@ namespace GD {
     }
 
 
+//    private delegate SWIGTYPE_p_gdImageStruct DecodeFn(int length, IntPtr ptr);
+//    private 
+
+
     public Image decode() {
       if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
                                                 
