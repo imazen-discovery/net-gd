@@ -100,12 +100,20 @@ namespace GD {
     public ImageData gd2(int chunkSize = 0, bool compress = true) {
       return
         new ImageData(this,
-                      (Image i, out int sz)
-                        => LibGD.gdImageGd2PtrWRAP(i.img, chunkSize,
-                                                   compress ? 1 : 0,
-                                                   out sz),
+                      (Image i, out int sz) =>
+                        LibGD.gdImageGd2PtrWRAP(i.img, chunkSize,
+                                                compress ? 1 : 0,
+                                                out sz),
                       Enc.GD);
     }/* gd2*/
+
+    public ImageData jpeg(int quality = -1) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                        LibGD.gdImageJpegPtr(i.img, out sz, quality),
+                      Enc.GD);
+    }/* jpeg*/
 
 
     /*
