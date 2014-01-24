@@ -10,4 +10,7 @@ namespace GD {
   // Attempted to use an ImageData as valid (i.e. containing valid
   // data) when it wasn't.
   public class GDinvalidImageData : GDException {}
+
+  // Use of UNKNOWN or unsupported image format
+  public class GDinvalidFormat : GDException {}
 }

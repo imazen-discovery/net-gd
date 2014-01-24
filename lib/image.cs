@@ -104,7 +104,7 @@ namespace GD {
                         LibGD.gdImageGd2PtrWRAP(i.img, chunkSize,
                                                 compress ? 1 : 0,
                                                 out sz),
-                      Enc.GD);
+                      Enc.GD2);
     }/* gd2*/
 
     public ImageData jpeg(int quality = -1) {
@@ -112,7 +112,7 @@ namespace GD {
         new ImageData(this,
                       (Image i, out int sz) =>
                         LibGD.gdImageJpegPtr(i.img, out sz, quality),
-                      Enc.GD);
+                      Enc.JPEG);
     }/* jpeg*/
 
     public ImageData wbmp(int fg = 0) {
@@ -120,7 +120,7 @@ namespace GD {
         new ImageData(this,
                       (Image i, out int sz)
                         => LibGD.gdImageWBMPPtr(i.img, out sz, fg),
-                      Enc.GD);
+                      Enc.WBMP);
     }/* wbmp*/
 
     public ImageData bmp(bool compression = true) {
@@ -129,8 +129,30 @@ namespace GD {
                       (Image i, out int sz)
                         => LibGD.gdImageBmpPtr(i.img, out sz,
                                                compression ? 1 : 0),
-                      Enc.GD);
+                      Enc.BMP);
     }/* bmp*/
+
+    // TODO: tiff
+
+
+    public ImageData encode(Enc format) {
+      switch(format) {
+      case Enc.GIF:  return gif();
+      case Enc.GD:   return gd();
+      case Enc.GD2:  return gd2();
+      case Enc.WBMP: return wbmp();
+      case Enc.BMP:  return bmp();
+      case Enc.PNG:  return png();
+      case Enc.JPEG: return jpeg();
+//      case Enc.TIFF: return tiff();
+      default:
+        throw new GDinvalidFormat();
+      }/* switch*/
+
+//      return null;  /* Not reached. */
+    }/* encode*/
+
+
 
     /*
       Sophisticated(ish) wrappers:
