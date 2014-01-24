@@ -9,9 +9,10 @@ namespace GD {
   public enum Enc {
     UNKNOWN,
     GIF, GD, GD2, WBMP, BMP, PNG, JPG, TIFF, 
+    // XPM can only be read from a file
 #if BROKEN_FORMATS  // These formats are currently broken in the GD trunk
-    WEBP, XPM, TGA,
-#endif 
+    WEBP, XBM, TGA,
+#endif
   }
 
   internal class FileType {

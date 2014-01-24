@@ -115,6 +115,22 @@ namespace GD {
                       Enc.GD);
     }/* jpeg*/
 
+    public ImageData wbmp(int fg = 0) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageWBMPPtr(i.img, out sz, fg),
+                      Enc.GD);
+    }/* wbmp*/
+
+    public ImageData bmp(bool compression = true) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageBmpPtr(i.img, out sz,
+                                               compression ? 1 : 0),
+                      Enc.GD);
+    }/* bmp*/
 
     /*
       Sophisticated(ish) wrappers:
