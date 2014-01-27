@@ -15,20 +15,6 @@ namespace GD {
 #endif
   }
 
-  internal class FileType {
-    public delegate void ReaderFn(int size, byte[] data);
-
-    public readonly string extension;
-    public readonly Enc type;
-    public readonly ReaderFn reader;
-    
-    public FileType(string ext, Enc t, ReaderFn fn) {
-      extension = ext;
-      type = t;
-      reader = fn;
-    }
-  }
-
   internal delegate IntPtr EncFn(Image im, out int sz);
 
   public class ImageData {
@@ -82,9 +68,20 @@ namespace GD {
     }
 
 
-//    private delegate SWIGTYPE_p_gdImageStruct DecodeFn(int length, IntPtr ptr);
-//    private 
-
+    private SWIGTYPE_p_gdImageStruct doDecode(IntPtr pdata, int len) {
+      switch (type) {
+      case Enc.GIF:  return LibGD.gdImageCreateFromGifPtr(len, pdata);
+      case Enc.GD:   return LibGD.gdImageCreateFromGdPtr(len, pdata);
+      case Enc.GD2:  return LibGD.gdImageCreateFromGd2Ptr(len, pdata);
+      case Enc.WBMP: return LibGD.gdImageCreateFromWBMPPtr(len, pdata);
+      case Enc.BMP:  return LibGD.gdImageCreateFromBmpPtr(len, pdata);
+      case Enc.PNG:  return LibGD.gdImageCreateFromPngPtr(len, pdata);
+      case Enc.JPEG: return LibGD.gdImageCreateFromJpegPtr(len, pdata);
+      case Enc.TIFF: return LibGD.gdImageCreateFromTiffPtr(len, pdata);
+      default:
+        throw new GDinvalidFormat();
+      }
+    }
 
     public Image decode() {
       if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
@@ -92,8 +89,7 @@ namespace GD {
       SWIGTYPE_p_gdImageStruct img;
       unsafe {
         fixed(byte *p = data) {
-          var datap = new IntPtr(p);
-          img = LibGD.gdImageCreateFromPngPtr(data.Length, datap);
+          img = doDecode(new IntPtr(p), data.Length);
         }
       }
 
@@ -101,18 +97,6 @@ namespace GD {
       return new Image(img);
     }
 
-    
-#if NOPE    
-    static private FileType[] types = null;
-    static void init_types() {
-      if (types != null) return;
-      types = new FileType[] {
-        new FileType("png", Enc.PNG, 
-                     (sz, data) => {LibGD.gdImageCreateFromPngPtr(sz, data);}),
-      };
-
-    }
-#endif
 
   }
 
