@@ -225,7 +225,33 @@ namespace GD {
       Assert.AreEqual(0, im.compare(imcopy2));
     }
 
+    [Test]
+    public void ImgData2() {
+      Image im = mkTestImg();
 
+      foreach (Enc i in (Enc[])Enum.GetValues(typeof(Enc))) {
+        if (i == Enc.UNKNOWN) continue;
+
+        ImageData imd = im.encode(i);
+        Assert.AreNotEqual(imd, null);
+        Assert.AreEqual(i, imd.type);
+
+        Image im2 = imd.decode();
+        Assert.AreNotEqual(im2, null);
+
+#if SAVE
+        im2.file(String.Format("Enc-{0}.png", i));
+#endif
+
+        // Some encodings change the image, so we skip those.
+        if (i == Enc.WBMP || i == Enc.JPEG || i == Enc.GIF) continue;
+
+        // TIFF reading is currently broken in GD.
+        if (i == Enc.TIFF) continue;
+
+        Assert.AreEqual(0, im.compare(im2) & GD.Internal.LibGD.GD_CMP_IMAGE);
+      }/* foreach */
+    }
   }/* class */
 }/* namespace */
 
