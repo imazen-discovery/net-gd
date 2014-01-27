@@ -1,6 +1,6 @@
 
-// If set, save some of the resulting images
-#define SAVE
+// If set, write some of the resulting images to disk.
+//#define SAVE
 
 using System;
 using System.IO;
