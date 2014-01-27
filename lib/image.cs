@@ -20,8 +20,8 @@ namespace GD {
       }/* if .. else*/
     }/* Image*/
 
-    // Private constructor for wrapping an existing gdImage struct.
-    private Image(SWIGTYPE_p_gdImageStruct i) {
+    // Internal constructor for wrapping an existing gdImage struct.
+    internal Image(SWIGTYPE_p_gdImageStruct i) {
       _img = i;
     }/* Image*/
 
@@ -73,6 +73,88 @@ namespace GD {
     }
     public static void fontCacheSetup() { LibGD.gdFontCacheSetup(); }
     public static void freeFontCache()  { LibGD.gdFreeFontCache();  }
+
+    public ImageData png(int level = -1) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                          LibGD.gdImagePngPtrEx(i.img, out sz, level),
+                      Enc.PNG);
+    }/* png*/
+
+    public ImageData gif() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                        LibGD.gdImageGifPtr(i.img, out sz),
+                      Enc.GIF);
+    }/* gif*/
+
+    public ImageData gd() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) => LibGD.gdImageGdPtr(i.img,out sz),
+                      Enc.GD);
+    }/* gd*/
+
+    public ImageData gd2(int chunkSize = 0, bool compress = true) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                        LibGD.gdImageGd2PtrWRAP(i.img, chunkSize,
+                                                compress ? 1 : 0,
+                                                out sz),
+                      Enc.GD2);
+    }/* gd2*/
+
+    public ImageData jpeg(int quality = -1) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz) =>
+                        LibGD.gdImageJpegPtr(i.img, out sz, quality),
+                      Enc.JPEG);
+    }/* jpeg*/
+
+    public ImageData wbmp(int fg = 0) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageWBMPPtr(i.img, out sz, fg),
+                      Enc.WBMP);
+    }/* wbmp*/
+
+    public ImageData bmp(bool compression = true) {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageBmpPtr(i.img, out sz,
+                                               compression ? 1 : 0),
+                      Enc.BMP);
+    }/* bmp*/
+
+    public ImageData tiff() {
+      return
+        new ImageData(this,
+                      (Image i, out int sz)
+                        => LibGD.gdImageTiffPtr(i.img, out sz),
+                      Enc.TIFF);
+    }/* tiff*/
+
+
+    public ImageData encode(Enc format) {
+      switch(format) {
+      case Enc.GIF:  return gif();
+      case Enc.GD:   return gd();
+      case Enc.GD2:  return gd2();
+      case Enc.WBMP: return wbmp();
+      case Enc.BMP:  return bmp();
+      case Enc.PNG:  return png();
+      case Enc.JPEG: return jpeg();
+      case Enc.TIFF: return tiff();
+      default:
+        throw new GDinvalidFormat();
+      }/* switch*/
+    }/* encode*/
 
 
 
@@ -160,6 +242,9 @@ namespace GD {
       return new Image(newimg);
     }/* copyScaled*/
 
+    public int compare(Image other) {
+      return LibGD.gdImageCompare(_img, other.img);
+    }/* compare*/
 
 
     /* Trivial bindings to LibGD. */

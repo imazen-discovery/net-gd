@@ -9,10 +9,22 @@
 #include "gdfontt.h"
 %}
 
-%include "arrays_csharp.i"
+%include arrays_csharp.i
+%include typemaps.i
 
-// Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C# array
+// Marshal the array pointer in gdImageString{FT,FTEx,TTF} into a C#
+// array.
+//
+// Note: renaming the argument in gd.h will break this.  If this
+// happens, the best option is probably to write a wrapper function
+// below and bind to that.
 %apply int INOUT[] {int *brect}
+
+// Marshal size outputs in gdImage*Ptr
+%apply int *OUTPUT{int *size}
+
+// Void pointers should be turned int IntPtr
+%apply void *VOID_INT_PTR { void * }
 
 %include "gd.h"
 %include "gdfontg.h"
@@ -35,5 +47,15 @@
                                  char *s, int color) {
         gdImageStringUp (im, f, x, y, (unsigned char *)s, color);
     }
+
+    /* Wrapper around gdImageGd2Ptr which uses a boolean for its
+     * second argument.  (There are only two choices--compressed and
+     * not--and the alternative is to import #define's from gd.h.) */
+    void *gdImageGd2PtrWRAP (gdImagePtr im, int cs, int compress, int *size) {
+        return gdImageGd2Ptr(im, cs,
+                             compress ? GD2_FMT_COMPRESSED : GD2_FMT_RAW,
+                             size);
+    }/* gdImageGd2PtrWRAP */
+
 
 %}
