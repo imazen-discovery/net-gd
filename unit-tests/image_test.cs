@@ -11,6 +11,26 @@ namespace GD {
   [TestFixture]
   public class SmokeTest {
 
+    private Image mkTestImg() {
+      Image im = new Image(100, 100);
+    
+      int red = im.colorClosest(255, 0, 0);
+      int white = im.colorClosest(255, 255, 255);
+
+      im.filledRectangle(10, 10, 90, 90, red);
+
+      Font sm = Font.small;
+      im.putChar(sm, 10, 10, 'a', white);
+      im.putChar(sm, 10 + sm.w , 10 + sm.h, 'b', white);
+      im.putCharUp(sm, 10, 40, 'c', white);
+      im.putCharUp(sm, 10 + sm.h, 40, 'd', white);
+      im.putString(sm, 10, 60, "horizontal", white);
+      im.putStringUp(sm, 80, 80, "vertical", white);
+
+      return im;
+    }
+
+
     [Test]
     public void GetVersion() {
       int mj = Image.majorVersion;
@@ -83,11 +103,7 @@ namespace GD {
     
     [Test]
     public void BasicCall3() {
-      Image im = new Image(100, 100);
-    
-      int red = im.colorClosest(255, 0, 0);
-      im.filledRectangle(10, 10, 90, 90, red);
-
+      Image im = mkTestImg();
       Assert.IsTrue(im.grayScale());
 
 #if SAVE
@@ -137,12 +153,13 @@ namespace GD {
 
     [Test]
     public void Blur() {
-      Image im = new Image(100, 100);
+      Image im = mkTestImg();
     
       int red = im.colorClosest(255, 0, 0);
       im.filledRectangle(10, 10, 90, 90, red);
 
       Image dest = im.copyGaussianBlurred(4);
+      Assert.AreNotEqual(null, dest);
 
 #if SAVE
       dest.file("Blur.png");
@@ -152,11 +169,7 @@ namespace GD {
 
     [Test]
     public void Scale() {
-      Image im = new Image(100, 100);
-      int white = im.colorClosest(255, 255, 255);
-
-      Font sm = Font.small;
-      im.putString(sm, 10, 60, "text!!!", white);
+      Image im = mkTestImg();
 
       im.interpolation_method = IMode.Bicubic;
       Assert.AreEqual(IMode.Bicubic, im.interpolation_method);
@@ -186,22 +199,13 @@ namespace GD {
 
     [Test]
     public void Compare() {
-      Image im = new Image(100, 100);
-      int white = im.colorClosest(255, 255, 255);
-
-      Font sm = Font.small;
-      im.putString(sm, 10, 60, "text!!!", white);
-
+      Image im = mkTestImg();
       Assert.AreEqual(0, im.compare(im));
     }
 
     [Test]
     public void ImgData1() {
-      Image im = new Image(100, 100);
-      int white = im.colorClosest(255, 255, 255);
-
-      Font sm = Font.small;
-      im.putString(sm, 10, 60, "text!!!", white);
+      Image im = mkTestImg();
 
       Image imcopy = im.png().decode();
       Assert.AreNotEqual(null, imcopy);
