@@ -7,7 +7,7 @@ all:
 	(cd ..; make test)
 
 test: $(TESTS)
-	MONO_PATH=../lib:../lib/wrapper/ \
+	MONO_PATH=.. \
 		mono --debug /usr/lib/nunit/nunit-console.exe -config=Debug tests.dll
 #	We invoke nunit-console.exe directly instead of using the script
 #	because this is the only way to get the backtrace.  Original line:
