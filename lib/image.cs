@@ -10,11 +10,18 @@ namespace GD {
   /// <summary>
   ///   This class contains and manages GD image data.
   /// </summary>
+  /// <remarks>
+  ///   This wraps the gdImage structure and deletes it when the object 
+  ///   is reclaimed.
+  /// </remarks>
   public class Image : IDisposable {
     SWIGTYPE_p_gdImageStruct _img = null;
     internal SWIGTYPE_p_gdImageStruct img { get { return _img; } }
 
-    // Constructor.
+    
+    /// <summary>
+    ///   Creates a new image.
+    /// </summary>
     public Image(int sx, int sy, bool truecolor = true) {
       if (truecolor) {
         _img = LibGD.gdImageCreateTrueColor(sx, sy);
@@ -114,13 +121,18 @@ namespace GD {
        These do their own locking and so should be thread-safe already.
     */
 
-    /* Enable or disable fontconfig globally. */
+    /// <summary> Enable or disable fontconfig (gdFTUserFontConfig())</summary>
     public static int useFontConfig(bool useIt) {
       return LibGD.gdFTUseFontConfig(useIt ? 1 : 0);
     }
+
+    /// <summary> Set up the font cache.  See gdFontCacheSetup(). </summary>
     public static void fontCacheSetup() { LibGD.gdFontCacheSetup(); }
+
+    /// <summary> Frees the font cache.  See gdFreeFontCache(). </summary>
     public static void freeFontCache()  { LibGD.gdFreeFontCache();  }
 
+    /// <summary> Encode the image as a PNG and return it.  </summary>
     public ImageData png(int level = -1) {
       return
         new ImageData(this,
@@ -129,6 +141,7 @@ namespace GD {
                       Enc.PNG);
     }/* png*/
 
+    /// <summary> Encode the image as a GIF and return it.  </summary>
     public ImageData gif() {
       return
         new ImageData(this,
@@ -137,6 +150,7 @@ namespace GD {
                       Enc.GIF);
     }/* gif*/
 
+    /// <summary> Encode the image as a GD and return it.  </summary>
     public ImageData gd() {
       return
         new ImageData(this,
@@ -144,6 +158,7 @@ namespace GD {
                       Enc.GD);
     }/* gd*/
 
+    /// <summary> Encode the image as a GD2 and return it.  </summary>
     public ImageData gd2(int chunkSize = 0, bool compress = true) {
       return
         new ImageData(this,
@@ -154,6 +169,7 @@ namespace GD {
                       Enc.GD2);
     }/* gd2*/
 
+    /// <summary> Encode the image as a JPEG and return it.  </summary>
     public ImageData jpeg(int quality = -1) {
       return
         new ImageData(this,
@@ -162,6 +178,7 @@ namespace GD {
                       Enc.JPEG);
     }/* jpeg*/
 
+    /// <summary> Encode the image as a WBMP and return it.  </summary>
     public ImageData wbmp(int fg = 0) {
       return
         new ImageData(this,
@@ -170,6 +187,7 @@ namespace GD {
                       Enc.WBMP);
     }/* wbmp*/
 
+    /// <summary> Encode the image as a BMP and return it.  </summary>
     public ImageData bmp(bool compression = true) {
       return
         new ImageData(this,
@@ -179,6 +197,7 @@ namespace GD {
                       Enc.BMP);
     }/* bmp*/
 
+    /// <summary> Encode the image as a TIFF and return it.  </summary>
     public ImageData tiff() {
       return
         new ImageData(this,
@@ -187,7 +206,7 @@ namespace GD {
                       Enc.TIFF);
     }/* tiff*/
 
-
+    /// <summary> Encode the image in the given format and return it.</summary>
     public ImageData encode(Enc format) {
       switch(format) {
       case Enc.GIF:  return gif();
@@ -208,6 +227,8 @@ namespace GD {
     /*
       Sophisticated(ish) wrappers:
      */
+
+    /// <summary> Simplfied wrapper for stringFT. </summary>
     public bool stringFT(int color, string fontlist,
                          double ptsize, double angle, int x, int y,
                          string text) {
@@ -218,6 +239,10 @@ namespace GD {
                       out msg);
     }/* stringFT*/
 
+    /// <summary>
+    ///   Draw text on the image using FreeType.  Returns true on
+    ///   success; false on failure.  Wraps gdImageStringFt().
+    /// </summary>
     public bool stringFT(int color, string fontlist,
                          double ptsize, double angle, int x, int y,
                          string text, out Rect bounds, out string msg) {
@@ -232,23 +257,28 @@ namespace GD {
       return status == null;
     }
 
-    // Make the palette of this image closer to the colors in 'other',
-    // which must be truecolor.
+
+    /// <summary>
+    ///   Make the palette of this image closer to the colors in
+    ///   'other', which must be truecolor.  See gdImageColorMatch().
+    /// </summary>
     public bool colorMatchFrom(Image other) {
       return LibGD.gdImageColorMatch(img, other.img) == 0;
     }
 
-    // Create an exact copy of this image
+    /// <summary> Create an exact copy of this image </summary>
     public Image clone () {
       return new Image(LibGD.gdImageClone(_img));
     }/* clone */
 
+    /// <summary> Copy a rectangle in another image into this.
+    /// Wraps gdImageCopy().  </summary>
     public void copyFrom(Image src, int dstX, int dstY, int srcX, int srcY,
                          int w, int h) {
       LibGD.gdImageCopy(_img, src.img, dstX, dstY, srcX, srcY, w, h);
     }
 
-    // Copy a block from src to this image.
+    /// <summary> Copy a block from src to this image. </summary>
     public void copyResizedFrom(Image src,
                                 int dstX, int dstY, int srcX, int srcY,
                                 int dstW, int dstH, int srcW, int srcH) {
@@ -256,6 +286,7 @@ namespace GD {
                                dstH, srcW, srcH);
     }/* copyResizedFrom*/
 
+    /// <summary> Wraps gdImageCopyResampled(). </summary>
     public void copyResampledFrom(Image src,
                                   int dstX, int dstY, int srcX, int srcY,
                                   int dstW, int dstH, int srcW, int srcH) {
@@ -263,6 +294,8 @@ namespace GD {
                                  dstW, dstH, srcW, srcH);
     }/* copyResampledFrom*/
 
+    /// <summary> Wraps gdImageCopyGaussianBlurred(). <param>sigma</param> 
+    /// defaults to -1.  Returns null on error. </summary>
     public Image copyGaussianBlurred(int radius, double sigma = -1.0) {
       SWIGTYPE_p_gdImageStruct newimg;
 
@@ -274,6 +307,12 @@ namespace GD {
       return new Image(newimg);
     }/* copyGaussianBlurred*/
 
+    /// <summary>
+    ///   Returns a copy scaled to the new dimensions.  Wraps
+    ///   gdImageScale().  The second argument defaults to 0, which
+    ///   causes the operation to preserve the aspect ratio.  Returns
+    ///   null on failure.
+    /// </summary>
     public Image scale(uint width, uint height = 0) {
       SWIGTYPE_p_gdImageStruct newimg;
 
@@ -289,12 +328,16 @@ namespace GD {
       return new Image(newimg);
     }/* copyScaled*/
 
+
+    /// <summary> Wraps gdImageCompare(). </summary>
     public int compare(Image other) {
       return LibGD.gdImageCompare(_img, other.img);
     }/* compare*/
 
 
     /* Trivial bindings to LibGD. */
+
+    /// <summary> Wraps gdImageSetPixel(). </summary>
     public void setPixel(int x, int y, int color) {
       LibGD.gdImageSetPixel(_img, x, y, color); }
 
