@@ -21,7 +21,6 @@ namespace GD {
     }
   }
 
-  // Not actually guaranteed to be a rectangle.
 
   /// <summary>
   ///   Represents a quadrilateral, typically the bounding rectangle
@@ -30,7 +29,7 @@ namespace GD {
   ///   rectangle.  This class is rarely used.
   /// </summary>
   public class Rect {
-    protected Point _bottomLeft, _bottomRight,_topRight, _topLeft;
+    private Point _bottomLeft, _bottomRight,_topRight, _topLeft;
     public Point bottomLeft  { get {return _bottomLeft; } }
     public Point bottomRight { get {return _bottomRight; } }
     public Point topLeft     { get {return _topLeft; } }
@@ -76,10 +75,10 @@ namespace GD {
             new Point (brx, bry)) {}
 
     /// <summary> Rectangle width. </summary>
-    public int width  { get {return _bottomRight.x - _topLeft.x;} }
+    public int width  { get {return bottomRight.x - topLeft.x;} }
 
     /// <summary> Rectangle heigth. </summary>
-    public int height { get {return _bottomLeft.y  - _topLeft.y;} }
+    public int height { get {return bottomLeft.y  - topLeft.y;} }
   }
 
 }
