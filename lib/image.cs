@@ -28,6 +28,40 @@ namespace GD {
       _img = i;
     }/* Image*/
 
+
+    /// <summary>
+    ///   Standard C# finalizer.  Just calls Dispose().
+    /// </summary>
+    ~Image() {
+      Dispose(false);
+    }
+
+    /// <summary>
+    ///   IDispose pattern Dispose.  Deletes the underlying GD data.
+    /// </summary>
+    public virtual void Dispose() {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }/* Dispose*/
+
+    /// <summary>
+    ///   IDispose pattern Dispose(bool).  Does the actual freeing.  
+    /// </summary>
+    protected virtual void Dispose(bool calledFromUserCode) {
+      lock(this) {
+        if (_img != null) {
+          LibGD.gdImageDestroy(_img);
+          _img = null;
+        }
+      }
+      // No managed resources to dispose
+    }/* Dispose*/
+
+    
+    /// <summary>
+    ///   Loads an image from the named file and returns an Image or
+    ///   null on failure.  Wraps gdImageCreateFromFile().
+    /// </summary>
     public static Image createFromFile(string filename) {
       SWIGTYPE_p_gdImageStruct img = LibGD.gdImageCreateFromFile(filename);
       if (img == null) {
@@ -37,19 +71,19 @@ namespace GD {
       return new Image(img);
     }
 
-    public virtual void Dispose() {
-      lock(this) {
-        if (_img != null) {
-          LibGD.gdImageDestroy(_img);
-          _img = null;
-        }/* if */
-      }
-    }
-    
+    /// <summary> Image width. </summary>
     public int sx { get {return LibGD.gdImage_sx_get(_img);} }
+
+    /// <summary> Image height. </summary>
     public int sy { get {return LibGD.gdImage_sy_get(_img);} }
+    
+    /// <summary> True if image is truecolor, false if paletted. </summary>
     public bool trueColor {
       get {return LibGD.gdImage_trueColor_get(_img) != 0; } }
+
+    /// <summary>
+    ///   Get or set interpolation method used by gdImageScale et. al.
+    /// </summary>
     public IMode interpolation_method {
       get { return (IMode)LibGD.gdImageGetInterpolationMethod(_img); }
       set {
@@ -59,12 +93,22 @@ namespace GD {
     }
 
 
-
+    /// <summary> GD major version number. </summary>    
     public static int majorVersion { get {return LibGD.gdMajorVersion();} }
+
+    /// <summary>  GD minor version number. </summary>    
     public static int minorVersion { get {return LibGD.gdMinorVersion();} }
+
+    /// <summary> GD release number.  </summary>    
     public static int releaseVersion { get {return LibGD.gdReleaseVersion();} }
+
+    /// <summary> GD version description (e.g. "dev")  </summary>
     public static string extraVersion { get {return LibGD.gdExtraVersion();} }
+
+    /// <summary> Full GD version as a string  </summary>
     public static string versionString {get {return LibGD.gdVersionString();} }
+
+
 
     /* Fontconfig:
        These do their own locking and so should be thread-safe already.
