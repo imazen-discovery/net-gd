@@ -5,7 +5,7 @@ MCS=../../mcs.sh
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
 
-.prefixes: .i
+.SUFFIXES: .i .dll .exe
 
 all: libGDwrap.so net-gd-glue.dll
 

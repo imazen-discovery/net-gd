@@ -7,6 +7,9 @@ using System;
 namespace GD {
   using Internal;
 
+  /// <summary>
+  ///   This class contains and manages GD image data.
+  /// </summary>
   public class Image : IDisposable {
     SWIGTYPE_p_gdImageStruct _img = null;
     internal SWIGTYPE_p_gdImageStruct img { get { return _img; } }
