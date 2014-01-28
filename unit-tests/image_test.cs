@@ -218,7 +218,7 @@ namespace GD {
       ms.Seek(0, SeekOrigin.Begin);
 
       BinaryReader r = new BinaryReader(ms);
-      ImageData id2  = new ImageData(r);
+      ImageData id2  = new ImageData(r, Enc.PNG);
       Image imcopy2 = id2.decode();
 
       Assert.AreNotEqual(null, imcopy2);
