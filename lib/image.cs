@@ -202,7 +202,11 @@ namespace GD {
                       Enc.TIFF);
     }/* tiff*/
 
-    /// <summary> Encode the image in the given format and return it.</summary>
+    /// <summary>
+    ///   Encode the image in the given format and return it.  Throws
+    ///   GDinvalidFormat if the given format is not supported.
+    ///   (Currently, that's only Enc.UNKNOWN).
+    /// </summary>
     public ImageData encode(Enc format) {
       switch(format) {
       case Enc.GIF:  return gif();
