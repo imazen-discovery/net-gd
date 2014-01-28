@@ -67,7 +67,7 @@ namespace GD {
     ///   Constructor; create new file from an image reader.  Type
     ///   must also be set.
     /// </summary>
-    public ImageData(BinaryReader reader, Enc imageType = Enc.PNG) {
+    public ImageData(BinaryReader reader, Enc imageType) {
       data = load(reader);
       type = imageType;
     }
