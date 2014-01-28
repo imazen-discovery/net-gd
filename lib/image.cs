@@ -1,7 +1,3 @@
-/// <summary>
-///   Basic CSharp wrappers around GD data objects.
-/// </summary>
-
 using System;
 
 namespace GD {
@@ -341,184 +337,240 @@ namespace GD {
     public void setPixel(int x, int y, int color) {
       LibGD.gdImageSetPixel(_img, x, y, color); }
 
+    /// <summary> Wraps gdImageGetPixel(). </summary>
     public int getPixel(int x, int y) {
       return LibGD.gdImageGetPixel(_img, x, y); }
 
+    /// <summary> Wraps gdImageGetTrueColorPixel(). </summary>
     public int getTrueColorPixel(int x, int y) {
       return LibGD.gdImageGetTrueColorPixel(_img, x, y); }
 
+    /// <summary> Wraps gdImageLine(). </summary>
     public void line(int x1, int y1, int x2, int y2, int color) {
       LibGD.gdImageLine(_img, x1, y1, x2, y2, color); }
 
+    /// <summary> Wraps gdImageDashedLine(). </summary>
     public void dashedLine(int x1, int y1, int x2, int y2, int color) {
       LibGD.gdImageDashedLine(_img, x1, y1, x2, y2, color); }
 
+    /// <summary> Wraps gdImageRectangle(). </summary>
     public void rectangle(int x1, int y1, int x2, int y2, int color) {
       LibGD.gdImageRectangle(_img, x1, y1, x2, y2, color); }
 
-    public void filledRectangle(int x1, int y1, int x2, int y2,
-                                       int color) {
+    /// <summary> Wraps gdImageFilledRectangle(). </summary>
+    public void filledRectangle(int x1, int y1, int x2, int y2, int color) {
       LibGD.gdImageFilledRectangle(_img, x1, y1, x2, y2, color); }
 
+    /// <summary> Wraps gdImageSetClip(). </summary>
     public void setClip(int x1, int y1, int x2, int y2) {
       LibGD.gdImageSetClip(_img, x1, y1, x2, y2); }
 
+    /// <summary> Wraps gdImageSetResolution(). </summary>
     public void setResolution(uint res_x, uint res_y) {
       LibGD.gdImageSetResolution(_img, res_x, res_y); }
 
+    /// <summary> Wraps gdImageBoundsSafe(). </summary>
     public bool boundsSafe(int x, int y) {
       return LibGD.gdImageBoundsSafe(_img, x, y) != 0; }
 
+    /// <summary> Wraps gdImageColorAllocate(). </summary>
     public int colorAllocate(int r, int g, int b) {
       return LibGD.gdImageColorAllocate(_img, r, g, b); }
 
+    /// <summary> Wraps gdImageColorAllocateAlpha(). </summary>
     public int colorAllocateAlpha(int r, int g, int b, int a) {
       return LibGD.gdImageColorAllocateAlpha(_img, r, g, b, a); }
 
+    /// <summary> Wraps gdImageColorClosest(). </summary>
     public int colorClosest(int r, int g, int b) {
       return LibGD.gdImageColorClosest(_img, r, g, b); }
 
+    /// <summary> Wraps gdImageColorClosestAlpha(). </summary>
     public int colorClosestAlpha(int r, int g, int b, int a) {
       return LibGD.gdImageColorClosestAlpha(_img, r, g, b, a); }
 
+    /// <summary> Wraps gdImageColorClosestHWB(). </summary>
     public int colorClosestHWB(int r, int g, int b) {
       return LibGD.gdImageColorClosestHWB(_img, r, g, b); }
 
+    /// <summary> Wraps gdImageColorExact(). </summary>
     public int colorExact(int r, int g, int b) {
       return LibGD.gdImageColorExact(_img, r, g, b); }
 
+    /// <summary> Wraps gdImageColorExactAlpha(). </summary>
     public int colorExactAlpha(int r, int g, int b, int a) {
       return LibGD.gdImageColorExactAlpha(_img, r, g, b, a); }
 
+    /// <summary> Wraps gdImageColorResolve(). </summary>
     public int colorResolve(int r, int g, int b) {
       return LibGD.gdImageColorResolve(_img, r, g, b); }
 
+    /// <summary> Wraps gdImageColorResolveAlpha(). </summary>
     public int colorResolveAlpha(int r, int g, int b, int a) {
       return LibGD.gdImageColorResolveAlpha(_img, r, g, b, a); }
 
+    /// <summary> Wraps gdImageColorDeallocate(). </summary>
     public void colorDeallocate(int color) {
       LibGD.gdImageColorDeallocate(_img, color); }
 
+    /// <summary> Wraps gdImageTrueColorToPalette(). </summary>
     public int trueColorToPalette(int ditherFlag, int colorsWanted) {
       return LibGD.gdImageTrueColorToPalette(_img, ditherFlag, colorsWanted); }
 
+    /// <summary> Wraps gdImagePaletteToTrueColor(). </summary>
     public int paletteToTrueColor() {
       return LibGD.gdImagePaletteToTrueColor(_img); }
 
+    /// <summary> Wraps gdImageTrueColorToPaletteSetMethod(). </summary>
     public int trueColorToPaletteSetMethod(int method, int speed) {
       return LibGD.gdImageTrueColorToPaletteSetMethod(_img, method, speed); }
 
-    public void trueColorToPaletteSetQuality(int min_quality,
-                                                    int max_quality) {
+    /// <summary> Wraps gdImageTrueColorToPaletteSetQuality(). </summary>
+    public void trueColorToPaletteSetQuality(int min_quality, int max_quality){
       LibGD.gdImageTrueColorToPaletteSetQuality(_img, min_quality,max_quality);}
 
+    /// <summary> Wraps gdImageColorTransparent(). </summary>
     public void colorTransparent(int color) {
       LibGD.gdImageColorTransparent(_img, color); }
 
+    /// <summary> Wraps gdImageColorReplace(). </summary>
     public int colorReplace(int src, int dst) {
       return LibGD.gdImageColorReplace(_img, src, dst); }
 
+    /// <summary> Wraps gdImageColorReplaceThreshold(). </summary>
     public int colorReplaceThreshold(int src, int dst, float threshold){
       return LibGD.gdImageColorReplaceThreshold(_img, src, dst, threshold); }
 
+    /// <summary> Wraps gdImageFile(). </summary>
     public bool file(string filename) {
       return LibGD.gdImageFile(_img, filename) != 0; }
 
+    /// <summary> Wraps gdImageFilledArc(). </summary>
     public void filledArc(int cx, int cy, int w, int h, int s, int e,
-                                 int color, int style) {
+                          int color, int style) {
       LibGD.gdImageFilledArc(_img, cx, cy, w, h, s, e, color, style); }
 
-    public void arc(int cx, int cy, int w, int h, int s, int e,
-                           int color) {
+    /// <summary> Wraps gdImageArc(). </summary>
+    public void arc(int cx, int cy, int w, int h, int s, int e, int color) {
       LibGD.gdImageArc(_img, cx, cy, w, h, s, e, color); }
 
+    /// <summary> Wraps gdImageEllipse(). </summary>
     public void ellipse(int cx, int cy, int w, int h, int color) {
       LibGD.gdImageEllipse(_img, cx, cy, w, h, color); }
 
+    /// <summary> Wraps gdImageFilledEllipse(). </summary>
     public void filledEllipse(int cx, int cy, int w, int h, int color) {
       LibGD.gdImageFilledEllipse(_img, cx, cy, w, h, color); }
 
+    /// <summary> Wraps gdImageFillToBorder(). </summary>
     public void fillToBorder(int x, int y, int border, int color) {
       LibGD.gdImageFillToBorder(_img, x, y, border, color); }
 
+    /// <summary> Wraps gdImageFill(). </summary>
     public void fill(int x, int y, int color) {
       LibGD.gdImageFill(_img, x, y, color); }
 
+    /// <summary> Wraps gdImageSetAntiAliased(). </summary>
     public void setAntiAliased(int c) {
       LibGD.gdImageSetAntiAliased(_img, c); }
 
+    /// <summary> Wraps gdImageSetAntiAliasedDontBlend(). </summary>
     public void setAntiAliasedDontBlend(int c, int dont_blend) {
       LibGD.gdImageSetAntiAliasedDontBlend(_img, c, dont_blend); }
 
+    /// <summary> Wraps gdImageSetThickness(). </summary>
     public void setThickness(int thickness) {
       LibGD.gdImageSetThickness(_img, thickness); }
 
+    /// <summary> Wraps gdImageInterlace(). </summary>
     public void interlace(int interlaceArg) {
       LibGD.gdImageInterlace(_img, interlaceArg); }
 
+    /// <summary> Wraps gdImageAlphaBlending(). </summary>
     public void alphaBlending(int alphaBlendingArg) {
       LibGD.gdImageAlphaBlending(_img, alphaBlendingArg); }
 
+    /// <summary> Wraps gdImageSaveAlpha(). </summary>
     public void saveAlpha(int saveAlphaArg) {
       LibGD.gdImageSaveAlpha(_img, saveAlphaArg); }
 
+    /// <summary> Wraps gdImagePixelate(). </summary>
     public bool pixelate(int block_size, uint mode) {
       return LibGD.gdImagePixelate(_img, block_size, mode) != 0; }
 
+    /// <summary> Wraps gdImageScatter(). </summary>
     public bool scatter(int sub, int plus) {
       return LibGD.gdImageScatter(_img, sub, plus) != 0; }
 
+    /// <summary> Wraps gdImageSmooth(). </summary>
     public bool smooth(float weight) {
       return LibGD.gdImageSmooth(_img, weight) != 0; }
 
+    /// <summary> Wraps gdImageMeanRemoval(). </summary>
     public bool meanRemoval() {
       return LibGD.gdImageMeanRemoval(_img) != 0; }
 
+    /// <summary> Wraps gdImageEmboss(). </summary>
     public bool emboss() {
       return LibGD.gdImageEmboss(_img) != 0; }
 
+    /// <summary> Wraps gdImageGaussianBlur(). </summary>
     public bool gaussianBlur() {
       return LibGD.gdImageGaussianBlur(_img) != 0; }
 
+    /// <summary> Wraps gdImageEdgeDetectQuick(). </summary>
     public bool edgeDetectQuick() {
       return LibGD.gdImageEdgeDetectQuick(_img) != 0; }
 
+    /// <summary> Wraps gdImageSelectiveBlur(). </summary>
     public bool selectiveBlur() {
       return LibGD.gdImageSelectiveBlur(_img) != 0; }
 
+    /// <summary> Wraps gdImageColor(). </summary>
     public int color(int red, int green, int blue, int alpha) {
       return LibGD.gdImageColor(_img, red, green, blue, alpha); }
 
+    /// <summary> Wraps gdImageContrast(). </summary>
     public bool contrast(double contrast) {
       return LibGD.gdImageContrast(_img, contrast) != 0; }
 
+    /// <summary> Wraps gdImageBrightness(). </summary>
     public bool brightness(int brightness) {
       return LibGD.gdImageBrightness(_img, brightness) != 0; }
 
+    /// <summary> Wraps gdImageGrayScale(). </summary>
     public bool grayScale() {
       return LibGD.gdImageGrayScale(_img) != 0; }
 
+    /// <summary> Wraps gdImageNegate(). </summary>
     public bool negate() {
       return LibGD.gdImageNegate(_img) != 0; }
 
+    /// <summary> Wraps gdImageFlipHorizontal(). </summary>
     public void flipHorizontal() {
       LibGD.gdImageFlipHorizontal(_img); }
 
+    /// <summary> Wraps gdImageFlipVertical(). </summary>
     public void flipVertical() {
       LibGD.gdImageFlipVertical(_img); }
 
+    /// <summary> Wraps gdImageFlipBoth(). </summary>
     public void flipBoth() {
       LibGD.gdImageFlipBoth(_img); }
 
+    /// <summary> Wraps gdImageChar(). </summary>
     public void putChar(Font f, int x, int y, char c, int color) {
       LibGD.gdImageChar(_img, f.fdata, x, y, (int)c, color); }
 
+    /// <summary> Wraps gdImageCharUp(). </summary>
     public void putCharUp(Font f, int x, int y, char c, int color) {
       LibGD.gdImageCharUp(_img, f.fdata, x, y, (int) c, color); }
 
+    /// <summary> Wraps gdImageStringCharStar(). </summary>
     public void putString(Font f, int x, int y, string s, int color) {
       LibGD.gdImageStringCharStar(_img, f.fdata, x, y, s, color); }
 
+    /// <summary> Wraps gdImageStringUpCharStar(). </summary>
     public void putStringUp(Font f, int x, int y, string s, int color) {
       LibGD.gdImageStringUpCharStar(_img, f.fdata, x, y, s, color); }
   }
