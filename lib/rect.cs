@@ -30,9 +30,17 @@ namespace GD {
   /// </summary>
   public class Rect {
     private Point _bottomLeft, _bottomRight,_topRight, _topLeft;
+
+    /// <summary> bottom-left corner </summary>
     public Point bottomLeft  { get {return _bottomLeft; } }
+
+    /// <summary> bottom-right corner </summary>
     public Point bottomRight { get {return _bottomRight; } }
+
+    /// <summary> top-left corner </summary>
     public Point topLeft     { get {return _topLeft; } }
+
+    /// <summary> top-right corner </summary>
     public Point topRight    { get {return _topRight; } }
 
     /// <summary> Constructor; creates from list of integer points. </summary>
