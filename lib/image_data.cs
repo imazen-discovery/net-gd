@@ -6,9 +6,35 @@ using System.Runtime.InteropServices;
 namespace GD {
   using Internal;
 
+  /// <summary> All know and supported image types. </summary>  
   public enum Enc {
+    /// <summary> No known type. </summary>
     UNKNOWN,
-    GIF, GD, GD2, WBMP, BMP, PNG, JPEG, TIFF, 
+
+    /// <summary> GIF format </summary>
+    GIF, 
+
+    /// <summary> GD format </summary>
+    GD,
+
+    /// <summary> GD format </summary>
+    GD2,
+
+    /// <summary> WBMP format </summary>
+    WBMP,
+
+    /// <summary> BMP format </summary>
+    BMP,
+
+    /// <summary> PNG format </summary>
+    PNG,
+
+    /// <summary> JPEG format </summary>
+    JPEG,
+
+    /// <summary> TIFF format </summary>
+    TIFF, 
+
     // XPM can only be read from a file
 #if BROKEN_FORMATS  // These formats are currently broken in the GD trunk
     WEBP, XBM, TGA,
@@ -17,15 +43,33 @@ namespace GD {
 
   internal delegate IntPtr EncFn(Image im, out int sz);
 
+  /// <summary>
+  ///   Represents the contents of an image file encoded in one of the
+  ///   preferred formats.  Can be read from or written to a stream
+  ///   and/or converted to an Image.
+  /// </summary>
   public class ImageData {
     private byte[] data = null;
+
+    /// <summary> Type (i.e. file format) of the image data. </summary>
     public Enc type = Enc.UNKNOWN;
 
+    /// <summary>
+    ///   True if this contains an apparently valid image; false
+    ///   otherwise.  Note that this is true if no error was detected
+    ///   when reading or encoding the content; it does not say
+    ///   anything about the actual correctness of the image.  To find
+    ///   that out, you will need to actully decode() it.
+    /// </summary>
     public bool valid { get {return data != null;} }
 
-    public ImageData(BinaryReader reader, Enc tp = Enc.PNG) {
+    /// <summary>
+    ///   Constructor; create new file from an image reader.  Type
+    ///   must also be set.
+    /// </summary>
+    public ImageData(BinaryReader reader, Enc imageType = Enc.PNG) {
       data = load(reader);
-      type = tp;
+      type = imageType;
     }
 
     internal ImageData(Image im, EncFn fn, Enc enctype) {
@@ -61,7 +105,11 @@ namespace GD {
       return contents;
     }
 
-
+    /// <summary>
+    ///   Write the contents to the given BinaryWriter.  Throws
+    ///   GDinvalidImageData if this contains no valid data of a known
+    ///   type.
+    /// </summary>
     public void save(BinaryWriter writer) {
       if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
       writer.Write(data);
@@ -83,6 +131,11 @@ namespace GD {
       }
     }
 
+    /// <summary>
+    ///   Decode the contents and return the resulting image.  Returns
+    ///   null if decoding fails.  Throws GDinvalidImageData if this
+    ///   contains no valid data or has an unknown encoding type.
+    /// </summary>
     public Image decode() {
       if (!valid || type == Enc.UNKNOWN) throw new GDinvalidImageData();
                                                 
@@ -96,8 +149,6 @@ namespace GD {
       if (img == null) return null;
       return new Image(img);
     }
-
-
   }
-
 }
+
