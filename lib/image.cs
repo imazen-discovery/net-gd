@@ -25,6 +25,39 @@ namespace GD {
       _img = i;
     }/* Image*/
 
+    /// <summary>
+    ///   Standard C# finalizer.  Just calls Dispose().
+    /// </summary>
+    ~Image() {
+      Dispose(false);
+    }
+
+    /// <summary>
+    ///   IDispose pattern Dispose.  Deletes the underlying GD data.
+    /// </summary>
+    public virtual void Dispose() {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }/* Dispose*/
+
+    /// <summary>
+    ///   IDispose pattern Dispose(bool).  Does the actual freeing.  
+    /// </summary>
+    protected virtual void Dispose(bool calledFromUserCode) {
+      lock(this) {
+        if (_img != null) {
+          LibGD.gdImageDestroy(_img);
+          _img = null;
+        }/* if */
+      }
+      // No managed resources to dispose
+    }/* Dispose*/
+    
+    
+    /// <summary>
+    ///   Loads an image from the named file and returns an Image or
+    ///   null on failure.  Wraps gdImageCreateFromFile().
+    /// </summary>
     public static Image createFromFile(string filename) {
       SWIGTYPE_p_gdImageStruct img = LibGD.gdImageCreateFromFile(filename);
       if (img == null) {
@@ -34,15 +67,7 @@ namespace GD {
       return new Image(img);
     }
 
-    public virtual void Dispose() {
-      lock(this) {
-        if (_img != null) {
-          LibGD.gdImageDestroy(_img);
-          _img = null;
-        }/* if */
-      }
-    }
-    
+
     public int sx { get {return LibGD.gdImage_sx_get(_img);} }
     public int sy { get {return LibGD.gdImage_sy_get(_img);} }
     public bool trueColor {
