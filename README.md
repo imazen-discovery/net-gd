@@ -23,6 +23,22 @@ I'll likely have it working on some form of Windows relatively soon.
 If everything works, you should now have a DotNet assembly suitable
 for linking against your Mono project.
 
+## Documentation
+
+There is now some basic documentation for GD.  To generate it, enter
+the project root directory and type:
+
+    make docs
+
+This will create HTML documention in the subdirectory html-docs.
+
+Note that this manual is pretty minimal.  It is written with the
+assumption that have the original GD manual on hand an can refer to it
+as needed.
+
+(Unfortunately, the GD manual is currently woefully incomplete, so you
+may need to delve into the GD source code.  Sorry about that.)
+
 
 
 
