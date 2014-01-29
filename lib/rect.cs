@@ -1,3 +1,4 @@
+using System;
 
 namespace GD {
   using Internal;
@@ -6,19 +7,32 @@ namespace GD {
   ///   Represents a point on a plain.  Not heavily used.
   /// </summary>
   public class Point {
-    private int _x, _y;
+    private double _x, _y;
+
+    /// <summary> X coordinate rounded to nearest int </summary>
+    public int x { get {return Convert.ToInt32(_x);} }
+
+    /// <summary> Y coordinate rounded to nearest int </summary>
+    public int y { get {return Convert.ToInt32(_y);} }
 
     /// <summary> X coordinate </summary>
-    public int x { get {return _x;} }
+    public double xd { get {return _x; } }
 
     /// <summary> Y coordinate </summary>
-    public int y { get {return _y;} }
+    public double yd { get {return _y; } }
 
-    /// <summary> Constructor. </summary>
+    /// <summary> Integer constructor. </summary>
     public Point(int x, int y) {
+      _x = (double)x;
+      _y = (double)y;
+    }
+
+    /// <summary> FP constructor. </summary>
+    public Point(double x, double y) {
       _x = x;
       _y = y;
     }
+
   }
 
 
