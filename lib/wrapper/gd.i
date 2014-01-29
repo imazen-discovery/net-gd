@@ -26,6 +26,10 @@
 // Void pointers should be turned int IntPtr
 %apply void *VOID_INT_PTR { void * }
 
+// Affine matrices are stored in arrays of double[6]
+%apply double INOUT[] {double [6]}
+
+
 %include "gd.h"
 %include "gdfontg.h"
 %include "gdfontl.h"

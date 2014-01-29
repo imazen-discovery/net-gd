@@ -4,7 +4,8 @@ namespace GD {
   using Internal;
 
   /// <summary>
-  ///   Represents a point on a plain.  Not heavily used.
+  ///   Represents a point on a plain.  Supports integer or FP
+  ///   coordinates.
   /// </summary>
   public class Point {
     private double _x, _y;
