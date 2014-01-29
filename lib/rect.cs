@@ -22,6 +22,19 @@ namespace GD {
     /// <summary> Y coordinate </summary>
     public double yd { get {return _y; } }
 
+    /// <summary>
+    ///   Translate according to an affine. Wraps
+    ///   gdAffineApplyToPointF().  Returns null on failure.
+    /// </summary>
+    public Point applyAffine(Affine a) {
+      double[] points = new[] {_x, _y};
+
+      int status = LibGD.gdAffineApplyToPointF_WRAP(points, a.matrix);
+      if (status == 0) return null;
+
+      return new Point(points[0], points[1]);
+    }/* applyAffine*/
+
     /// <summary> Integer constructor. </summary>
     public Point(int x, int y) {
       _x = (double)x;

@@ -29,13 +29,16 @@
 // Affine matrices are stored in arrays of double[6]
 %apply double INOUT[] {double [6]}
 
-
 %include "gd.h"
 %include "gdfontg.h"
 %include "gdfontl.h"
 %include "gdfontmb.h"
 %include "gdfonts.h"
 %include "gdfontt.h"
+
+// Arg for gdAffineApplyToPointF_WRAP
+%apply double INOUT[] {double points[2]}
+
 
 %inline %{
 
@@ -60,6 +63,22 @@
                              compress ? GD2_FMT_COMPRESSED : GD2_FMT_RAW,
                              size);
     }/* gdImageGd2PtrWRAP */
+
+    /* Wrapper around gdAffineApplyToPointF so I don't have to proxy
+     * the gdPointFP struct. */
+    int gdAffineApplyToPointF_WRAP(double points[2], const double affine[6]) {
+        gdPointF src, dst;
+        int status;
+
+        src.x = points[0];
+        src.y = points[1];
+        status = gdAffineApplyToPointF(&dst, &src, affine);
+
+        points[0] = dst.x;
+        points[1] = dst.y;
+
+        return status;
+    }/* gdAffineApplyToPointF_WRAP*/
 
 
 %}
