@@ -44,6 +44,23 @@ namespace GD {
       return LibGD.gdAffineEqual(_matrix, a.matrix) != 0;
     }
 
+    
+    /// <summary>
+    ///   Return the bounding box of the this transform on 
+    /// </summary>
+    public TrueRect boundingBoxFor(TrueRect src) {
+      var br = new int[4];
+      
+      int status = LibGD.gdTransformAffineBoundingBox_WRAP(
+        src.topLeft.x, src.topLeft.y, src.width, src.height,
+        _matrix, br);
+      if (status == 0) return null;
+
+      return new TrueRect(new Point(br[0], br[1]),
+                          new Point(br[0]+br[2], br[1]+br[3]));
+    }/* boundingBoxFor*/
+
+
     /// <summary>XXX</summary>
     public static Affine identity() {
       var m = newMatrix();

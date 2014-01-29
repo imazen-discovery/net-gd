@@ -113,7 +113,7 @@ namespace GD {
     /// <summary> Rectangle width. </summary>
     public int width  { get {return bottomRight.x - topLeft.x;} }
 
-    /// <summary> Rectangle heigth. </summary>
+    /// <summary> Rectangle height. </summary>
     public int height { get {return bottomLeft.y  - topLeft.y;} }
   }
 

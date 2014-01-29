@@ -38,7 +38,7 @@
 
 // Arg for gdAffineApplyToPointF_WRAP
 %apply double INOUT[] {double points[2]}
-
+%apply int INOUT[] {int affine_brect[4]}
 
 %inline %{
 
@@ -113,5 +113,28 @@
         return result;
     }/* gdTransformAffineGetImage_WRAP*/
 
+    int gdTransformAffineBoundingBox_WRAP(int src_x, int src_y,
+                                          int src_w, int src_h,
+                                          const double affine[6],
+                                          int affine_brect[4]) {
+        gdRect src, result;
+        int status;
+
+        src.x = src_x;
+        src.y = src_y;
+        src.width = src_w;
+        src.height = src_h;
+
+        status = gdTransformAffineBoundingBox(&src, affine, &result);
+
+        if (status) {
+            affine_brect[0] = result.x;
+            affine_brect[1] = result.y;
+            affine_brect[2] = result.width;
+            affine_brect[3] = result.height;
+        }/* if */
+
+        return status;
+    }
 
 %}
