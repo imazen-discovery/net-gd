@@ -80,5 +80,16 @@
         return status;
     }/* gdAffineApplyToPointF_WRAP*/
 
+    int gdTransformAffineCopy_WRAP(gdImagePtr dst, int dst_x, int dst_y,
+                                   const gdImagePtr src,
+                                   int src_x, int src_y, int src_w, int src_h,
+                                   const double affine[6]) {
+        gdRect srcR;
+        srcR.x = src_x;
+        srcR.y = src_y;
+        srcR.width = src_w;
+        srcR.height = src_h;
 
+        return gdTransformAffineCopy(dst, dst_x, dst_y, src, &srcR, affine);
+    }/* gdTransformAffineCopy_WRAP*/
 %}
