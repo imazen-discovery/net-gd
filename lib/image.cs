@@ -349,6 +349,22 @@ namespace GD {
     }/* copyAffineTransformedFrom*/
 
 
+    /// <summary>
+    ///   Perform an affine transformation on a the given region of
+    ///   this image and return a new Image containing the result.  On
+    ///   error, returns null.  Wraps gdTransformAffineGetImage().
+    /// </summary>
+    public Image copyAffineTransformed(TrueRect region, Affine affine) {
+      SWIGTYPE_p_gdImageStruct newimg =
+        LibGD.gdTransformAffineGetImage_WRAP(_img,
+                                             region.topLeft.x,region.topLeft.y,
+                                             region.width, region.height,
+                                             affine.matrix);
+      if (newimg == null) return null;
+
+      return new Image(newimg);
+    }
+
 
     /* Trivial bindings to LibGD. */
 

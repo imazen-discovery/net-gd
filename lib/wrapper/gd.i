@@ -92,4 +92,26 @@
 
         return gdTransformAffineCopy(dst, dst_x, dst_y, src, &srcR, affine);
     }/* gdTransformAffineCopy_WRAP*/
+
+
+    gdImagePtr gdTransformAffineGetImage_WRAP(gdImagePtr src,
+                                              int area_x, int area_y,
+                                              int area_w, int area_h,
+                                              const double affine[6]) {
+        gdRect area;
+        gdImagePtr result = NULL;
+        int status;
+
+        area.x = area_x;
+        area.y = area_y;
+        area.width = area_w;
+        area.height = area_h;
+
+        status = gdTransformAffineGetImage(&result, src, &area, affine);
+        if (!status) return NULL;
+
+        return result;
+    }/* gdTransformAffineGetImage_WRAP*/
+
+
 %}
