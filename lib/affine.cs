@@ -30,8 +30,8 @@ namespace GD {
     }/* expansion*/
 
     /// <summary>XXX</summary>
-    public double rectilinear() {
-      return LibGD.gdAffineRectilinear(_matrix);
+    public bool rectilinear() {
+      return LibGD.gdAffineRectilinear(_matrix) != 0;
     }/* rectilinear*/
 
     /// <summary>
@@ -46,7 +46,8 @@ namespace GD {
 
     
     /// <summary>
-    ///   Return the bounding box of the this transform on 
+    ///   Return the bounding box of this transform on the given
+    ///   rectangle.
     /// </summary>
     public TrueRect boundingBoxFor(TrueRect src) {
       var br = new int[4];
