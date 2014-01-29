@@ -33,14 +33,16 @@ namespace GD {
 
     [Test]
     public void AffineCreation () {
-//      Image im = mkTestImg();
-
       Affine id = Affine.identity();
       Assert.AreNotEqual(null, id);
       Assert.IsTrue(id.rectilinear());
       Assert.AreEqual(1.0, id.expansion());
       Assert.IsTrue(id.equalish(id));
       Assert.IsFalse(id.equalish(Affine.scale(0.5, 0.5)));
+
+      TrueRect srcbox = new TrueRect(10, 10, 20, 20);
+      TrueRect bb = id.boundingBoxFor(srcbox);
+      Assert.AreNotEqual(null, bb);
       
       Affine rot = Affine.rotate(0.5);
       Assert.IsTrue(rot.equalish(Affine.rotate(0.5)));
@@ -61,9 +63,10 @@ namespace GD {
       Assert.IsFalse(Affine.translate(20,30).
                      equalish(Affine.translate(5.4,11.9)));
 
+
+
     }/* AffineCreation */
 
-    
   }/* class */
 }/* namespace */
 
