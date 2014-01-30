@@ -5,7 +5,7 @@ namespace GD {
 
   /// <summary>
   ///   Represents an affine transformation as implemented in
-  ///   GD. (I.e. an array of 6 doubles.)
+  ///   GD. (I.e. an array of 6 doubles.)  
   /// </summary>
   public class Affine {
     private double[] _matrix = newMatrix();
@@ -23,12 +23,12 @@ namespace GD {
       return new [] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     }
 
-    /// <summary>XXX</summary>
+    /// <summary>Expansion value.  Wraps gdAffineExpansion(). </summary>
     public double expansion() {
       return LibGD.gdAffineExpansion(_matrix);
     }/* expansion*/
 
-    /// <summary>XXX</summary>
+    /// <summary>Test if rectilinear.  Wraps gdAffineRectilinear(). </summary>
     public bool rectilinear() {
       return LibGD.gdAffineRectilinear(_matrix) != 0;
     }/* rectilinear*/
@@ -61,52 +61,49 @@ namespace GD {
     }/* boundingBoxFor*/
 
 
-    /// <summary>XXX</summary>
+    /// <summary>Return an identity Affine. Wraps gdAffineIdentity().</summary>
     public static Affine identity() {
       var m = newMatrix();
       LibGD.gdAffineIdentity(m);
       return new Affine(m);
-    }
+    }/* identity*/
 
-    /// <summary>XXX</summary>
+    /// <summary>Return a scale Affine. Wraps gdAffineScale(). </summary>
     public static Affine scale(double scale_x, double scale_y) {
       var m = newMatrix();
       LibGD.gdAffineScale(m, scale_x, scale_y);
       return new Affine(m);
-    }
+    }/* scale*/
 
-    /// <summary>XXX</summary>
+    /// <summary>Return a rotate Affine. Wraps gdAffineRotate(). </summary>
     public static Affine rotate(double angle) {
       var m = newMatrix();
       LibGD.gdAffineRotate(m, angle);
       return new Affine(m);
-    }
+    }/* rotate*/
     
-    /// <summary>XXX</summary>
+    /// <summary>Return a horizontal shear affine.
+    /// Wraps gdAffineShearHorizontal().</summary>
     public static Affine shearHorizontal(double angle) {
       var m = newMatrix();
       LibGD.gdAffineShearHorizontal(m, angle);
       return new Affine(m);
     }/* shearHorizontal*/
       
-    /// <summary>XXX</summary>
+    /// <summary>Return a vertical shear affine.
+    /// Wraps gdAffineShearVertical().</summary>
     public static Affine shearVertical(double angle) {
       var m = newMatrix();
       LibGD.gdAffineShearVertical(m, angle);
       return new Affine(m);
     }/* shearVertical*/
       
-    /// <summary>XXX</summary>
+    /// <summary>Return a translation Affine. See gdAffineTranslate().</summary>
     public static Affine translate(double offset_x, double offset_y) {
       var m = newMatrix();
       LibGD.gdAffineTranslate(m, offset_x, offset_y);
       return new Affine(m);
     }/* translate*/
-      
-    
-
   }
-
-
-
 }
+
