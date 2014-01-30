@@ -11,15 +11,14 @@ namespace GD {
     private double[] _matrix = newMatrix();
     internal double[] matrix { get {return _matrix;} }
 
-    /// <summary>XXX</summary>
-    public Affine(double[] coeffs) {
+    // Affine coeffs are not externally defined.
+    private Affine(double[] coeffs) {
       if (coeffs.Length != 6) {
         throw new ArgumentException("Affine coefficient list length not 6."); 
       }
       _matrix = (double[])coeffs.Clone();
     }
 
-    /// <summary>XXX</summary>
     static private double[] newMatrix() {
       return new [] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     }
