@@ -67,6 +67,35 @@ namespace GD {
 
     }/* AffineCreation */
 
+
+    [Test]
+    public void AffineCreation3 () {
+      Image im = mkTestImg();
+      Affine id = Affine.identity();
+
+      Image im2 = im.copyAffineTransformed(new TrueRect(0,0,im.sx,im.sy), id);
+      Assert.AreNotEqual(null, im2);
+      // Not comparing because the new image is a bit smaller.
+      // Assert.AreEqual(0, im.compare(im2));
+
+#if SAVE
+      im.file("AffineOrig.png");
+      im2.file("AffineIdentityXform.png");
+#endif
+
+      Image dest = im.clone();
+      Assert.IsTrue(
+        dest.copyAffineTransformedFrom(im, 30, 30,
+                                       new TrueRect(0, 0, 20, 20),
+                                       Affine.rotate(40))
+        );
+
+#if SAVE
+      dest.file("Rotated.png");
+#endif
+      
+    }/* AffineCreation */
+    
   }/* class */
 }/* namespace */
 
