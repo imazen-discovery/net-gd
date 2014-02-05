@@ -89,9 +89,17 @@ namespace GD {
                                        new TrueRect(0, 0, 20, 20),
                                        Affine.rotate(40))
         );
+      Assert.AreNotEqual(0, im.compare(dest));
 
+
+      Image dest2 = im.copyAffineTransformed(new TrueRect(0,0,20,20),
+                                             Affine.rotate(40));
+      Assert.AreNotEqual(0, im.compare(dest2));
+      Assert.AreEqual(0, dest.compare(dest2));
+      
 #if SAVE
       dest.file("Rotated.png");
+      dest2.file("Rotated2.png");
 #endif
       
     }/* AffineCreation */
