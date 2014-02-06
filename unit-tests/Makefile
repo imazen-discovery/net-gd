@@ -1,6 +1,6 @@
 
 MCS=../mcs.sh -debug+
-SRC=image_test.cs
+SRC=image_test.cs affine_test.cs
 TESTS=tests.dll
 
 all:

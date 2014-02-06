@@ -26,12 +26,19 @@
 // Void pointers should be turned int IntPtr
 %apply void *VOID_INT_PTR { void * }
 
+// Affine matrices are stored in arrays of double[6]
+%apply double INOUT[] {double [6]}
+
 %include "gd.h"
 %include "gdfontg.h"
 %include "gdfontl.h"
 %include "gdfontmb.h"
 %include "gdfonts.h"
 %include "gdfontt.h"
+
+// Arg for gdAffineApplyToPointF_WRAP
+%apply double INOUT[] {double points[2]}
+%apply int INOUT[] {int affine_brect[4]}
 
 %inline %{
 
@@ -57,5 +64,77 @@
                              size);
     }/* gdImageGd2PtrWRAP */
 
+    /* Wrapper around gdAffineApplyToPointF so I don't have to proxy
+     * the gdPointFP struct. */
+    int gdAffineApplyToPointF_WRAP(double points[2], const double affine[6]) {
+        gdPointF src, dst;
+        int status;
+
+        src.x = points[0];
+        src.y = points[1];
+        status = gdAffineApplyToPointF(&dst, &src, affine);
+
+        points[0] = dst.x;
+        points[1] = dst.y;
+
+        return status;
+    }/* gdAffineApplyToPointF_WRAP*/
+
+    int gdTransformAffineCopy_WRAP(gdImagePtr dst, int dst_x, int dst_y,
+                                   const gdImagePtr src,
+                                   int src_x, int src_y, int src_w, int src_h,
+                                   const double affine[6]) {
+        gdRect srcR;
+        srcR.x = src_x;
+        srcR.y = src_y;
+        srcR.width = src_w;
+        srcR.height = src_h;
+
+        return gdTransformAffineCopy(dst, dst_x, dst_y, src, &srcR, affine);
+    }/* gdTransformAffineCopy_WRAP*/
+
+
+    gdImagePtr gdTransformAffineGetImage_WRAP(gdImagePtr src,
+                                              int area_x, int area_y,
+                                              int area_w, int area_h,
+                                              const double affine[6]) {
+        gdRect area;
+        gdImagePtr result = NULL;
+        int status;
+
+        area.x = area_x;
+        area.y = area_y;
+        area.width = area_w;
+        area.height = area_h;
+
+        status = gdTransformAffineGetImage(&result, src, &area, affine);
+        if (!status) return NULL;
+
+        return result;
+    }/* gdTransformAffineGetImage_WRAP*/
+
+    int gdTransformAffineBoundingBox_WRAP(int src_x, int src_y,
+                                          int src_w, int src_h,
+                                          const double affine[6],
+                                          int affine_brect[4]) {
+        gdRect src, result;
+        int status;
+
+        src.x = src_x;
+        src.y = src_y;
+        src.width = src_w;
+        src.height = src_h;
+
+        status = gdTransformAffineBoundingBox(&src, affine, &result);
+
+        if (status) {
+            affine_brect[0] = result.x;
+            affine_brect[1] = result.y;
+            affine_brect[2] = result.width;
+            affine_brect[3] = result.height;
+        }/* if */
+
+        return status;
+    }
 
 %}

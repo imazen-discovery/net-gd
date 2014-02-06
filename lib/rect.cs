@@ -1,24 +1,52 @@
+using System;
 
 namespace GD {
   using Internal;
 
   /// <summary>
-  ///   Represents a point on a plain.  Not heavily used.
+  ///   Represents a point on a plain.  Supports integer or FP
+  ///   coordinates.
   /// </summary>
   public class Point {
-    private int _x, _y;
+    private double _x, _y;
+
+    /// <summary> X coordinate rounded to nearest int </summary>
+    public int x { get {return Convert.ToInt32(_x);} }
+
+    /// <summary> Y coordinate rounded to nearest int </summary>
+    public int y { get {return Convert.ToInt32(_y);} }
 
     /// <summary> X coordinate </summary>
-    public int x { get {return _x;} }
+    public double xd { get {return _x; } }
 
     /// <summary> Y coordinate </summary>
-    public int y { get {return _y;} }
+    public double yd { get {return _y; } }
 
-    /// <summary> Constructor. </summary>
+    /// <summary>
+    ///   Translate according to an affine. Wraps
+    ///   gdAffineApplyToPointF().  Returns null on failure.
+    /// </summary>
+    public Point applyAffine(Affine a) {
+      double[] points = new[] {_x, _y};
+
+      int status = LibGD.gdAffineApplyToPointF_WRAP(points, a.matrix);
+      if (status == 0) return null;
+
+      return new Point(points[0], points[1]);
+    }/* applyAffine*/
+
+    /// <summary> Integer constructor. </summary>
     public Point(int x, int y) {
+      _x = (double)x;
+      _y = (double)y;
+    }
+
+    /// <summary> FP constructor. </summary>
+    public Point(double x, double y) {
       _x = x;
       _y = y;
     }
+
   }
 
 
@@ -63,7 +91,7 @@ namespace GD {
 
   /// <summary>
   ///  A rectangle guaranteed to have all of its edges be horizontal
-  ///  or vertical.  This is not currently used by the supported API.
+  ///  or vertical.
   /// </summary>
   public class TrueRect : Rect {
 
@@ -85,7 +113,7 @@ namespace GD {
     /// <summary> Rectangle width. </summary>
     public int width  { get {return bottomRight.x - topLeft.x;} }
 
-    /// <summary> Rectangle heigth. </summary>
+    /// <summary> Rectangle height. </summary>
     public int height { get {return bottomLeft.y  - topLeft.y;} }
   }
 

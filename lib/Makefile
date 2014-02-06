@@ -2,7 +2,8 @@
 .SUFFIXES: .dll .exe
 
 MCS=../mcs.sh
-NETGD_SRC=image.cs font.cs rect.cs imode.cs image_data.cs exceptions.cs
+NETGD_SRC=image.cs font.cs rect.cs imode.cs image_data.cs exceptions.cs \
+	affine.cs
 
 DOCDIR=net-gd
 HTMLDOCDIR=$(DOCDIR)-html

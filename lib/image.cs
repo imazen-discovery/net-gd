@@ -327,11 +327,43 @@ namespace GD {
       return new Image(newimg);
     }/* copyScaled*/
 
-
     /// <summary> Wraps gdImageCompare(). </summary>
     public int compare(Image other) {
       return LibGD.gdImageCompare(_img, other.img);
     }/* compare*/
+
+
+    /// <summary>
+    ///   Select the rectangle defined by 'region' in 'src', perform
+    ///   the affine transformation described by 'affine' on it and
+    ///   then copy it to this image at dst_x, dst_y.
+    /// </summary>
+    public bool copyAffineTransformedFrom(Image src, int dst_x, int dst_y,
+                                          TrueRect region, Affine affine) {
+      int status =
+        LibGD.gdTransformAffineCopy_WRAP(_img, dst_x, dst_y, src.img,
+                                         region.topLeft.x, region.topLeft.y,
+                                         region.width, region.height,
+                                         affine.matrix);
+      return status != 0;
+    }/* copyAffineTransformedFrom*/
+
+
+    /// <summary>
+    ///   Perform an affine transformation on a the given region of
+    ///   this image and return a new Image containing the result.  On
+    ///   error, returns null.  Wraps gdTransformAffineGetImage().
+    /// </summary>
+    public Image copyAffineTransformed(TrueRect region, Affine affine) {
+      SWIGTYPE_p_gdImageStruct newimg =
+        LibGD.gdTransformAffineGetImage_WRAP(_img,
+                                             region.topLeft.x,region.topLeft.y,
+                                             region.width, region.height,
+                                             affine.matrix);
+      if (newimg == null) return null;
+
+      return new Image(newimg);
+    }
 
 
     /* Trivial bindings to LibGD. */
