@@ -22,16 +22,19 @@ MONO_MCS='dmcs -sdk:4'
 # containing the GD source tree we're using.
 GD_DIR=../gd-libgd/
 
-
 # ---------------------------------------------------------------------------
+
+NUNIT_DIR=/usr/lib/nunit/nunit-console.exe
 
 # Set per-platform values
 if [ "$PLATFORM" = 'Msys' ]; then
     PATHVAL="$DOTNET_PATH/Bin:$PATH"
     MCS=csc
+    NUNIT="$NUNIT_DIR"  # probably doesn't work
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS="$MONO_MCS"
+    NUNIT="MONO_PATH=.. mono --debug $NUNIT_DIR"
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -47,6 +50,9 @@ case $* in
         ;;
     gdpath)
         (cd `dirname $0`; readlink -m "$GD_DIR")
+        ;;
+    nunit)
+        echo $NUNIT
         ;;
     *)
         echo "Invalid argument."
