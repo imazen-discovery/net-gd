@@ -1,6 +1,13 @@
 
 GDPATH := $(shell ../../lib-gd-path.sh)
 
+CC=gcc
+CFLAGS=-I$(GDPATH) -fPIC -g
+
+LD=gcc
+LDFLAGS=-shared -Wl,-soname,GDwrap.so
+LIBS=-lc -lgd
+
 MCS=../../mcs.sh
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
@@ -12,12 +19,14 @@ all: libGDwrap.so net-gd-glue.dll
 net-gd-glue.dll: libGDwrap.so
 	$(MCS) -t:library -out:net-gd-glue.dll *.cs
 
-libGDwrap.so : GDwrap.c
-	gcc -I$(GDPATH) -fPIC -g -c -Wall GDwrap.c
-	gcc -shared -Wl,-soname,GDwrap.so -o libGDwrap.so GDwrap.o -lc -lgd
+libGDwrap.so : GDwrap.o webp_stubs.o
+	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o webp_stubs.o $(LIGS)
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
+
+webp_stubs.o : webp_stubs.c
+GDwrap.o : GDwrap.c
 
 clean:
 	-rm *.cs GDwrap.c *.so *.o *.dll

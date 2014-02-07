@@ -5,7 +5,6 @@
  * them here.
  */
 
-
 #include "gd.h"
 
 #ifndef HAVE_LIBVPX
