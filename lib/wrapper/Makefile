@@ -2,7 +2,7 @@
 GDPATH := $(shell ../../lib-gd-path.sh)
 
 CC=gcc
-CFLAGS=-I$(GDPATH) -fPIC -g
+CFLAGS=-I$(GDPATH) -fPIC -g -Wall
 
 LD=gcc
 LDFLAGS=-shared -Wl,-soname,GDwrap.so
@@ -20,7 +20,7 @@ net-gd-glue.dll: libGDwrap.so
 	$(MCS) -t:library -out:net-gd-glue.dll *.cs
 
 libGDwrap.so : GDwrap.o webp_stubs.o
-	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o webp_stubs.o $(LIGS)
+	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o webp_stubs.o $(LIBS)
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
