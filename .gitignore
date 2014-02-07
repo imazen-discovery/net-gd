@@ -1,7 +1,7 @@
 
 lib/wrapper/*.o
 lib/wrapper/*.cs
-lib/wrapper/*.c
+lib/wrapper/GDwrap.c
 lib/wrapper/*.so
 
 unit-tests/*.xml
