@@ -1,5 +1,5 @@
 
-GDPATH := $(shell ../../lib-gd-path.sh)
+GDPATH := $(shell ../../cfg.sh gdpath)/src
 
 CC=gcc
 CFLAGS=-I$(GDPATH) -fPIC -g -Wall
@@ -8,7 +8,7 @@ LD=gcc
 LDFLAGS=-shared -Wl,-soname,GDwrap.so
 LIBS=-lc -lgd
 
-MCS=../../mcs.sh
+MCS := $(shell ../../cfg.sh compiler)
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport GDwrap.so -namespace GD.Internal -noproxy
 

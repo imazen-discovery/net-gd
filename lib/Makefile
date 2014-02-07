@@ -1,7 +1,7 @@
 
 .SUFFIXES: .dll .exe
 
-MCS=../mcs.sh
+MCS := $(shell ../cfg.sh compiler)
 NETGD_SRC=image.cs font.cs rect.cs imode.cs image_data.cs exceptions.cs \
 	affine.cs
 

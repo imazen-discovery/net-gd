@@ -1,5 +1,5 @@
 
-MCS=../mcs.sh -debug+
+MCS := $(shell ../cfg.sh compiler)
 SRC=image_test.cs affine_test.cs
 TESTS=tests.dll
 
