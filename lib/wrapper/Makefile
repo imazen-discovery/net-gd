@@ -19,13 +19,12 @@ all: libGDwrap.so net-gd-glue.dll
 net-gd-glue.dll: libGDwrap.so
 	$(MCS) -t:library -out:net-gd-glue.dll *.cs
 
-libGDwrap.so : GDwrap.o webp_stubs.o
-	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o webp_stubs.o $(LIBS)
+libGDwrap.so : GDwrap.o
+	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o $(LIBS)
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
 
-webp_stubs.o : webp_stubs.c
 GDwrap.o : GDwrap.c
 
 clean:
