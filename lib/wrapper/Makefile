@@ -13,7 +13,7 @@ net-gd-glue.dll: libGDwrap.so
 	$(MCS) -t:library -out:net-gd-glue.dll *.cs
 
 libGDwrap.so : GDwrap.c
-	gcc -fPIC -g -c -Wall GDwrap.c
+	gcc -I$(GDPATH) -fPIC -g -c -Wall GDwrap.c
 	gcc -shared -Wl,-soname,GDwrap.so -o libGDwrap.so GDwrap.o -lc -lgd
 
 GDwrap.c: gd.i
@@ -21,5 +21,4 @@ GDwrap.c: gd.i
 
 clean:
 	-rm *.cs GDwrap.c *.so *.o *.dll
-
 
