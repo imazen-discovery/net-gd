@@ -7,7 +7,14 @@
 
 #include "gd.h"
 
-#ifndef HAVE_LIBVPX
+
+/* Mono+Linux tolerates missing functions in a shared library if
+ * they're not used, so we only need these when building under
+ * Windows. */
+#if defined(_WIN32) || defined(CYGWIN) || defined(_WIN32_WCE)
+
+// Diagnostic.
+#warning "****** Using WebP stubs. ******"
 
 BGD_DECLARE(gdImagePtr) gdImageCreateFromWebp (FILE * inFile) {
     return NULL;
