@@ -6,7 +6,7 @@ CFLAGS=-I$(GDPATH) -fPIC -g -Wall
 
 LD=gcc
 LDFLAGS=-shared -Wl,-soname,GDwrap.so
-LIBS=-lc -lgd
+LIBS= -lgd -L. # -lc -lgd
 
 MCS := $(shell ../../cfg.sh compiler)
 SWIG=swig
@@ -21,6 +21,8 @@ net-gd-glue.dll: libGDwrap.so
 
 libGDwrap.so : GDwrap.o
 	$(LD) $(LDFLAGS) -o libGDwrap.so GDwrap.o $(LIBS)
+
+#gcc -shared -Wl,-soname,GDwrap.so -o libGDwrap.so GDwrap.o  -lgd.3.0.1 -L ../../../gd-libgd/src/
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
