@@ -31,10 +31,14 @@ if [ "$PLATFORM" = 'Msys' ]; then
     PATHVAL="$DOTNET_PATH/Bin:$PATH"
     MCS=csc
     NUNIT="$NUNIT_DIR"  # probably doesn't work
+    SO=dll
+    CFLAGS='-g -Wall'
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS="$MONO_MCS"
     NUNIT="MONO_PATH=.. mono --debug $NUNIT_DIR"
+    SO=so
+    CFLAGS='-fPIC -g -Wall'
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -53,6 +57,12 @@ case $* in
         ;;
     nunit)
         echo $NUNIT
+        ;;
+    sharedobjext)
+        echo $SO
+        ;;
+    cflags)
+        echo $CFLAGS
         ;;
     *)
         echo "Invalid argument."
