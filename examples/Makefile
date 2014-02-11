@@ -1,7 +1,9 @@
 
 .SUFFIXES: .dll
 
-MCS=../mcs.sh
+PATH		:= $(shell ../cfg.sh path)
+MCS			:= $(shell ../cfg.sh compiler)
+SO			:= $(shell ../cfg.sh sharedobjext)
 
 all: libs bins
 
@@ -12,7 +14,8 @@ hello.exe: hello.cs
 
 libs:
 	(cd ../lib && make)
-	cp ../lib/net-gd.dll ../lib/wrapper/net-gd-glue.dll ../lib/wrapper/libGDwrap.so .
+	cp  ../lib/net-gd.dll ../lib/wrapper/net-gd-glue.dll \
+		../lib/wrapper/GDwrap.$(SO) .
 
 clean:
-	-rm *.exe *.dll *.so
+	-rm *.exe *.dll *.$(SO)
