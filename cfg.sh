@@ -33,12 +33,14 @@ if [ "$PLATFORM" = 'Msys' ]; then
     NUNIT="$NUNIT_DIR"  # probably doesn't work
     SO=dll
     CFLAGS='-g -Wall'
+    LIB_PFX=""
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS="$MONO_MCS"
     NUNIT="MONO_PATH=.. mono --debug $NUNIT_DIR"
     SO=so
     CFLAGS='-fPIC -g -Wall'
+    LIB_PFX="lib"
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -47,22 +49,32 @@ fi
 # Figure out what the caller wants and output it
 case $* in
     path)
+        # the required PATH
         echo $PATHVAL
         ;;
     compiler)
+        # Name and default args of the C# compiler
         echo $MCS
         ;;
     gdpath)
+        # Path to the GD installation.
         (cd `dirname $0`; readlink -m "$GD_DIR")
         ;;
     nunit)
+        # Command-line prefix for the nunit runner
         echo $NUNIT
         ;;
     sharedobjext)
+        # Extension for shared object file (.so or .dll)
         echo $SO
         ;;
     cflags)
+        # C compiler flags for building the wrapper shared lib
         echo $CFLAGS
+        ;;
+    lib)
+        # Required prefix for library name
+        echo $LIB_PFX
         ;;
     *)
         echo "Invalid argument."

@@ -2,6 +2,7 @@
 .SUFFIXES: .dll
 
 SO			:= $(shell ./cfg.sh sharedobjext)
+LIBPF		:= $(shell ./cfg.sh lib)
 
 DOCDIR=html-docs/
 
@@ -9,7 +10,7 @@ all: libs test examples
 
 libs:
 	(cd lib; make)
-	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/GDwrap.$(SO) .
+	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/$(LIBPF)GDwrap.$(SO) .
 
 doc:
 	(cd lib; make doc)
