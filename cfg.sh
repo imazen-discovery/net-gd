@@ -29,7 +29,8 @@ NUNIT_DIR=/usr/lib/nunit/nunit-console.exe
 # Set per-platform values
 if [ "$PLATFORM" = 'Msys' ]; then
     PATHVAL="$DOTNET_PATH/Bin:$PATH"
-    MCS=csc
+#    MCS=csc
+    MCS='csc -unsafe -checked-'
     NUNIT="$NUNIT_DIR"  # probably doesn't work
     SO=dll
     CFLAGS='-g -Wall'
