@@ -22,23 +22,53 @@ MONO_MCS='dmcs -sdk:4'
 # containing the GD source tree we're using.
 GD_DIR=../gd-libgd/
 
+# Path to the installation directory of nunit on Windows.  Needs to be
+# a Windows-style filename.
+WIN_NUNIT_PATH='C:\\Program Files\\NUnit 2.6.3'
+
+# Path to nunit-console on Linux.  (It's safe to just put
+# 'nunit-console' here.  However, this is a wrapper script on most
+# *nixes and on some (e.g. Ubuntu 12.04), it breaks the
+# filename/line-number reporting in the backtrace.  This command
+# bypasses that and fixes the problem.)
+LINUX_NUNIT_PATH='mono --debug /usr/lib/nunit/nunit-console.exe -config=Debug'
+
 # ---------------------------------------------------------------------------
 
-NUNIT_DIR=/usr/lib/nunit/nunit-console.exe
+# MSys doesn't have cygpath, so I need to do this idiocy:
+WIN_NUNIT_PATH_MSYS=$(echo $WIN_NUNIT_PATH | \
+    perl -npe 's{^(\w)\:}{/\L$1\E/}g; s{\\}{/}g; s{/+}{/}g')
+
 
 # Set per-platform values
 if [ "$PLATFORM" = 'Msys' ]; then
-    PATHVAL="$DOTNET_PATH/Bin:$PATH"
-#    MCS=csc
-    MCS='csc -unsafe -checked-'
-    NUNIT="$NUNIT_DIR"  # probably doesn't work
+P2="$DOTNET_PATH/Bin:$WIN_NUNIT_PATH_MSYS/bin:$WIN_NUNIT_PATH_MSYS/bin/lib:$WIN_NUNIT_PATH_MSYS/bin/framework:$PATH"
+
+    WUP=""
+    for p in 'bin' 'bin/lib' 'bin/framework'; do
+        WUP="$WUP:$WIN_NUNIT_PATH_MSYS/$p"
+    done
+    PATHVAL="$DOTNET_PATH/Bin$WUP:$PATH"
+    unset WUP
+
+    PATHVAL=$P2
+
+    MCS='csc -unsafe -checked- -nologo'
+    MCS_TEST_FLAGS="
+-r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.dll\"
+-r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.util.dll\"
+-r:\"$WIN_NUNIT_PATH\\bin\\framework\\nunit.framework.dll\"
+-r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.interfaces.dll\"
+"
+    NUNIT="$WIN_NUNIT_PATH\\bin\\nunit-console.exe"
     SO=dll
     CFLAGS='-g -Wall'
     LIB_PFX=""
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
-    MCS="$MONO_MCS"
-    NUNIT="MONO_PATH=.. mono --debug $NUNIT_DIR"
+    MCS=$MONO_MCS
+    MCS_TEST_FLAGS="-pkg:nunit"   # Yay, pkg-config!
+    NUNIT=$LINUX_NUNIT_PATH
     SO=so
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
@@ -56,6 +86,10 @@ case $* in
     compiler)
         # Name and default args of the C# compiler
         echo $MCS
+        ;;
+    csflags_test)
+        # C# compile command for compiling unit tests
+        echo $MCS_TEST_FLAGS
         ;;
     gdpath)
         # Path to the GD installation.
