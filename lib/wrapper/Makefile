@@ -7,7 +7,7 @@ MCS			:= $(shell ../../cfg.sh compiler)
 LIBPF		:= $(shell ../../cfg.sh lib)
 
 CC=gcc
-CFLAGS=-I$(GDPATH) $(CF_EXTRA)
+CFLAGS=-I$(GDPATH) $(CF_EXTRA) -DSWIGSTDCALL=""
 
 LD=gcc
 LDFLAGS=-shared -Wl,-soname,GDwrap.$(SO)
