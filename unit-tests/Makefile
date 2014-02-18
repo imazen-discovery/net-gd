@@ -1,15 +1,15 @@
 
 PATH		:= $(shell ../cfg.sh path)
 MCS			:= $(shell ../cfg.sh compiler)
-CSFLAGS		:= $(shell ../cfg.sh csflags_test)	
+CSFLAGS		:= $(shell ../cfg.sh csflags_test)
 SO			:= $(shell ../cfg.sh sharedobjext)
 NUNIT		:= $(shell ../cfg.sh nunit)
 
 SRC=image_test.cs affine_test.cs
 TESTS=tests.dll
 
-all:
-	(cd ..; make $(TESTS))
+all: test
+#	(cd ..; make $(TESTS))
 
 test: $(TESTS)
 	"$(NUNIT)" $(TESTS)

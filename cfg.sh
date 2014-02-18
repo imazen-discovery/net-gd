@@ -49,7 +49,8 @@ if [ "$PLATFORM" = 'Msys' ]; then
     PATHVAL="$DOTNET_PATH/Bin$WUP:$PATH"
     unset WUP
 
-    MCS='csc -unsafe -checked- -nologo'
+    MCS='csc -unsafe -checked- -nologo -platform:x86'
+#    MCS_TEST_FLAGS="-r:nunit.core.dll -r:nunit.util.dll -r:nunit.framework.dll -r:nunit.core.interfaces.dll -lib:\"$WIN_NUNIT_PATH\\bin\\lib\" -lib:\"$WIN_NUNIT_PATH\\bin\\framework\" "
     MCS_TEST_FLAGS="
 -r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.dll\"
 -r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.util.dll\"
@@ -57,6 +58,7 @@ if [ "$PLATFORM" = 'Msys' ]; then
 -r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.interfaces.dll\"
 "
     NUNIT="$WIN_NUNIT_PATH\\bin\\nunit-console.exe"
+
     SO=dll
     CFLAGS='-g -Wall'
     LIB_PFX=""

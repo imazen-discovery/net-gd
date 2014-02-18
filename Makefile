@@ -6,7 +6,7 @@ LIBPF		:= $(shell ./cfg.sh lib)
 
 DOCDIR=html-docs/
 
-all: libs test examples
+all: libs examples
 
 libs:
 	(cd lib; make)
