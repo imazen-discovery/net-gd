@@ -42,16 +42,12 @@ WIN_NUNIT_PATH_MSYS=$(echo $WIN_NUNIT_PATH | \
 
 # Set per-platform values
 if [ "$PLATFORM" = 'Msys' ]; then
-P2="$DOTNET_PATH/Bin:$WIN_NUNIT_PATH_MSYS/bin:$WIN_NUNIT_PATH_MSYS/bin/lib:$WIN_NUNIT_PATH_MSYS/bin/framework:$PATH"
-
     WUP=""
     for p in 'bin' 'bin/lib' 'bin/framework'; do
         WUP="$WUP:$WIN_NUNIT_PATH_MSYS/$p"
     done
     PATHVAL="$DOTNET_PATH/Bin$WUP:$PATH"
     unset WUP
-
-    PATHVAL=$P2
 
     MCS='csc -unsafe -checked- -nologo'
     MCS_TEST_FLAGS="
