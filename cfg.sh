@@ -42,13 +42,8 @@ WIN_NUNIT_PATH_MSYS=$(echo $WIN_NUNIT_PATH | \
 
 # Set per-platform values
 if [ "$PLATFORM" = 'Msys' ]; then
-    WUP=""
-    for p in 'bin' 'bin/lib' 'bin/framework'; do
-        WUP="$WUP:$WIN_NUNIT_PATH_MSYS/$p"
-    done
-    PATHVAL="$DOTNET_PATH/Bin$WUP:$PATH"
-    unset WUP
-
+    TEST_DEPS=$(find "$WIN_NUNIT_PATH_MSYS" -name '*.dll')
+    PATHVAL="$DOTNET_PATH/Bin:$PATH"
     MCS='csc -unsafe -checked- -nologo -platform:x86'
 #    MCS_TEST_FLAGS="-r:nunit.core.dll -r:nunit.util.dll -r:nunit.framework.dll -r:nunit.core.interfaces.dll -lib:\"$WIN_NUNIT_PATH\\bin\\lib\" -lib:\"$WIN_NUNIT_PATH\\bin\\framework\" "
     MCS_TEST_FLAGS="
@@ -70,6 +65,7 @@ elif [ "$PLATFORM" = "GNU/Linux" ]; then
     SO=so
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
+    TEST_DEPS-""
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -108,6 +104,10 @@ case $* in
     lib)
         # Required prefix for library name
         echo $LIB_PFX
+        ;;
+    test_deps)
+        # Files to copy into the test directory.
+        echo "$TEST_DEPS"
         ;;
     *)
         echo "Invalid argument."
