@@ -12,7 +12,6 @@ TESTS=tests.dll
 
 
 all: test
-#	(cd ..; make $(TESTS))
 
 test: localdeps $(TESTS)
 	$(NUNIT) $(TESTS)
