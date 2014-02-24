@@ -61,7 +61,7 @@ elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS=$MONO_MCS
     MCS_TEST_FLAGS="-pkg:nunit"   # Yay, pkg-config!
-    NUNIT=$LINUX_NUNIT_PATH
+    NUNIT="MONO_PATH=.. $LINUX_NUNIT_PATH"
     SO=so
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
