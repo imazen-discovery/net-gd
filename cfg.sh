@@ -52,7 +52,7 @@ if [ "$PLATFORM" = 'Msys' ]; then
 -r:\"$WIN_NUNIT_PATH\\bin\\framework\\nunit.framework.dll\"
 -r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.interfaces.dll\"
 "
-    NUNIT="$WIN_NUNIT_PATH\\bin\\nunit-console.exe"
+    NUNIT="\"$WIN_NUNIT_PATH\\bin\\nunit-console.exe\""
 
     SO=dll
     CFLAGS='-g -Wall'
