@@ -65,7 +65,7 @@ elif [ "$PLATFORM" = "GNU/Linux" ]; then
     SO=so
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
-    TEST_DEPS-""
+    TEST_DEPS=""
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1

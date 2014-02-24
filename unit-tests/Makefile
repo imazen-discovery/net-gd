@@ -15,7 +15,7 @@ all: test
 #	(cd ..; make $(TESTS))
 
 test: localdeps $(TESTS)
-	"$(NUNIT)" $(TESTS)
+	$(NUNIT) $(TESTS)
 #	We invoke nunit-console.exe directly instead of using the script
 #	because this is the only way to get the backtrace.  Original line:
 #	MONO_PATH=../lib:../lib/wrapper/ nunit-console $(TESTS)
