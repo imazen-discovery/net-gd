@@ -29,6 +29,16 @@
 // Affine matrices are stored in arrays of double[6]
 %apply double INOUT[] {double [6]}
 
+// WebP is unsupported (also, broken)
+%ignore gdImageCreateFromWebp;
+%ignore gdImageCreateFromWebpPtr;
+%ignore gdImageCreateFromWebpCtx;
+%ignore gdImageWebpEx;
+%ignore gdImageWebp;
+%ignore gdImageWebpPtr;
+%ignore gdImageWebpPtrEx;
+%ignore gdImageWebpCtx;
+
 %include "gd.h"
 %include "gdfontg.h"
 %include "gdfontl.h"

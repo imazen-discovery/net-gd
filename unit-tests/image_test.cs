@@ -81,8 +81,11 @@ namespace GD {
       Rect bounds;
       string errmsg; 
       string fontpath =
+#if __MonoCS__      // We assume mono == Linux, which is wrong but works for now
         "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf";
-
+#else
+        @"C:\Windows\Fonts\cour.ttf";
+#endif
       Assert.IsTrue(
         im.stringFT(white, fontpath, 10.0, 125.0, 20, 10, "whoah!", out bounds,
           out errmsg)

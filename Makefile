@@ -1,15 +1,16 @@
 
 .SUFFIXES: .dll
 
-MCS=./mcs.sh
+SO			:= $(shell ./cfg.sh sharedobjext)
+LIBPF		:= $(shell ./cfg.sh lib)
 
 DOCDIR=html-docs/
 
-all: libs test examples
+all: libs examples
 
 libs:
 	(cd lib; make)
-	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/libGDwrap.so .
+	cp lib/net-gd.dll lib/wrapper/net-gd-glue.dll lib/wrapper/$(LIBPF)GDwrap.$(SO) .
 
 doc:
 	(cd lib; make doc)
@@ -23,7 +24,7 @@ examples: libs
 	(cd examples && make)
 
 clean:
-	-rm *.exe *.dll *.so
+	-rm *.exe *.dll *.$(SO)
 	-rm -rf $(DOCDIR)
 	(cd lib && make clean)
 	(cd unit-tests && make clean)

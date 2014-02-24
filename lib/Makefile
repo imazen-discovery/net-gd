@@ -1,7 +1,10 @@
 
 .SUFFIXES: .dll .exe
 
-MCS=../mcs.sh
+PATH		:= $(shell ../cfg.sh path)
+MCS			:= $(shell ../cfg.sh compiler)
+SO			:= $(shell ../cfg.sh sharedobjext)
+
 NETGD_SRC=image.cs font.cs rect.cs imode.cs image_data.cs exceptions.cs \
 	affine.cs
 
@@ -22,7 +25,7 @@ net-gd-glue.dll:
 	(cp wrapper/net-gd-glue.dll .)
 
 clean:
-	-rm *.exe *.dll *.so *.xml
+	-rm *.exe *.dll *.$(SO) *.xml
 	-rm -rf $(DOCDIR) $(HTMLDOCDIR)
 	(cd wrapper && make clean)
 
