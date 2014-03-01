@@ -9,13 +9,16 @@ LIBPF		:= $(shell ../cfg.sh lib)
 
 all: libs bins
 
-bins: hello.exe
+bins: hello.exe loadimg.exe
 
 run: bins
 	(export PATH="$(PATH):$(GDPATH)/src/"; echo $$PATH) #./hello.exe)
 
 hello.exe: hello.cs
 	$(MCS) -r:net-gd.dll hello.cs
+
+loadimg.exe: loadimg.cs
+	$(MCS) -r:net-gd.dll loadimg.cs
 
 libs:
 	(cd ../lib && make)
