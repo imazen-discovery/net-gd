@@ -114,7 +114,6 @@ namespace GD {
 #endif
     }
 
-
     [Test]
     public void Rescale() {
       Image im = new Image(100, 100);
@@ -199,12 +198,27 @@ namespace GD {
 #endif
     }
 
-
     [Test]
     public void Compare() {
       Image im = mkTestImg();
       Assert.AreEqual(0, im.compare(im));
     }
+
+
+
+    private Image copyViaStream(Image im, Enc type) {
+      MemoryStream ms = new MemoryStream();
+      BinaryWriter w = new BinaryWriter(ms);
+      im.encode(type).save(w);
+
+      ms.Seek(0, SeekOrigin.Begin);
+
+      BinaryReader r = new BinaryReader(ms);
+      ImageData id2  = new ImageData(r, type);
+      Image imcopy2 = id2.decode();
+
+      return imcopy2;
+    } 
 
     [Test]
     public void ImgData1() {
@@ -214,18 +228,19 @@ namespace GD {
       Assert.AreNotEqual(null, imcopy);
       Assert.AreEqual(0, im.compare(imcopy));
 
-      MemoryStream ms = new MemoryStream();
-      BinaryWriter w = new BinaryWriter(ms);
-      im.png().save(w);
+      var fmts = new Enc[] {Enc.GIF, Enc.GD, Enc.GD2, Enc.WBMP, Enc.BMP,
+                            Enc.PNG, Enc.JPEG, Enc.TIFF};
+      foreach (Enc fmt in fmts) {
+        Image imcopy2 = copyViaStream(im, Enc.PNG);
 
-      ms.Seek(0, SeekOrigin.Begin);
+        Assert.AreNotEqual(null, imcopy2);
+        Assert.AreEqual(im.sx, imcopy.sx);
+        Assert.AreEqual(im.sy, imcopy.sy);
 
-      BinaryReader r = new BinaryReader(ms);
-      ImageData id2  = new ImageData(r, Enc.PNG);
-      Image imcopy2 = id2.decode();
-
-      Assert.AreNotEqual(null, imcopy2);
-      Assert.AreEqual(0, im.compare(imcopy2));
+        if (fmt != Enc.JPEG && fmt != Enc.WBMP) {
+          Assert.AreEqual(0, im.compare(imcopy2));
+        }
+      }
     }
 
     [Test]
