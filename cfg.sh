@@ -53,10 +53,10 @@ if [ "$PLATFORM" = 'Msys' ]; then
 -r:\"$WIN_NUNIT_PATH\\bin\\lib\\nunit.core.interfaces.dll\"
 "
     NUNIT="\"$WIN_NUNIT_PATH\\bin\\nunit-console.exe\""
-
     SO=dll
     CFLAGS='-g -Wall'
     LIB_PFX=""
+    LDFLAG='-Wl,--add-stdcall-alias,--kill-at,--export-all-symbols'
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS=$MONO_MCS
@@ -66,6 +66,7 @@ elif [ "$PLATFORM" = "GNU/Linux" ]; then
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
     TEST_DEPS=""
+    LDFLAG=''
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -108,6 +109,10 @@ case $* in
     test_deps)
         # Files to copy into the test directory.
         echo "$TEST_DEPS"
+        ;;
+    ldflags)
+        # Extra linker options
+        echo "$LDFLAGS"
         ;;
     *)
         echo "Invalid argument."

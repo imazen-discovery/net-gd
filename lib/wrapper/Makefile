@@ -5,12 +5,13 @@ SO			:= $(shell ../../cfg.sh sharedobjext)
 CF_EXTRA	:= $(shell ../../cfg.sh cflags)
 MCS			:= $(shell ../../cfg.sh compiler)
 LIBPF		:= $(shell ../../cfg.sh lib)
+LDFLAGS		:= $(shell ../../cfg.sh ldflags)
 
 CC=gcc
 CFLAGS=-I$(GDPATH) $(CF_EXTRA) # -DSWIGSTDCALL=""
 
 LD=gcc
-LDFLAGS=-shared -Wl,--add-stdcall-alias,--kill-at,--export-all-symbols,-soname,GDwrap.$(SO)
+LDFLAGS=-shared -Wl,-soname,GDwrap.$(SO) 
 LIBS= -lgd -L ../../../gd-libgd/src/ # -lc -lgd
 
 SWIG=swig
