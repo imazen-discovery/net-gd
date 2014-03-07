@@ -54,7 +54,7 @@ if [ "$PLATFORM" = 'Msys' ]; then
 "
     NUNIT="\"$WIN_NUNIT_PATH\\bin\\nunit-console.exe\""
     SO=dll
-    CFLAGS='-g -Wall'
+    CFLAGS='-g -Wall -static-libgcc'
     LIB_PFX=""
     SO_LDFLAGS='-Wl,--add-stdcall-alias,--kill-at,--export-all-symbols'
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
