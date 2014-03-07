@@ -40,5 +40,5 @@ localdeps:
 	./fetch_deps.sh
 
 clean:
-	-rm *.dll *.xml *.png *.mdb *.a $(DIST)
+	-rm *.$(SO) *.dll *.xml *.png *.mdb *.a $(DIST)
 
