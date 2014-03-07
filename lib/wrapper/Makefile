@@ -7,10 +7,10 @@ MCS			:= $(shell ../../cfg.sh compiler)
 LIBPF		:= $(shell ../../cfg.sh lib)
 
 CC=gcc
-CFLAGS=-I$(GDPATH) $(CF_EXTRA) -DSWIGSTDCALL=""
+CFLAGS=-I$(GDPATH) $(CF_EXTRA) # -DSWIGSTDCALL=""
 
 LD=gcc
-LDFLAGS=-shared -Wl,-soname,GDwrap.$(SO)
+LDFLAGS=-shared -Wl,--add-stdcall-alias,--kill-at,--export-all-symbols,-soname,GDwrap.$(SO)
 LIBS= -lgd -L ../../../gd-libgd/src/ # -lc -lgd
 
 SWIG=swig
@@ -26,8 +26,6 @@ net-gd-glue.dll: $(LIBPF)GDwrap.$(SO)
 
 $(LIBPF)GDwrap.$(SO) : GDwrap.o
 	$(LD) $(LDFLAGS) -o $(LIBPF)GDwrap.$(SO) GDwrap.o $(LIBS)
-
-#gcc -shared -Wl,-soname,GDwrap.$(SO) -o libGDwrap.$(SO) GDwrap.o  -lgd.3.0.1 -L ../../../gd-libgd/src/
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i
