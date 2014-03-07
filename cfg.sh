@@ -56,7 +56,7 @@ if [ "$PLATFORM" = 'Msys' ]; then
     SO=dll
     CFLAGS='-g -Wall'
     LIB_PFX=""
-    LDFLAG='-Wl,--add-stdcall-alias,--kill-at,--export-all-symbols'
+    SO_LDFLAGS='-Wl,--add-stdcall-alias,--kill-at,--export-all-symbols'
 elif [ "$PLATFORM" = "GNU/Linux" ]; then
     PATHVAL="$PATH"
     MCS=$MONO_MCS
@@ -66,7 +66,7 @@ elif [ "$PLATFORM" = "GNU/Linux" ]; then
     CFLAGS='-fPIC -g -Wall'
     LIB_PFX="lib"
     TEST_DEPS=""
-    LDFLAG=''
+    SO_LDFLAGS=''
 else
     echo "Unknown platform: '$PLATFORM'.  Edit cfg.sh to match your platform."
     exit 1
@@ -110,9 +110,9 @@ case $* in
         # Files to copy into the test directory.
         echo "$TEST_DEPS"
         ;;
-    ldflags)
+    so_ldflags)
         # Extra linker options
-        echo "$LDFLAGS"
+        echo "$SO_LDFLAGS"
         ;;
     *)
         echo "Invalid argument."
