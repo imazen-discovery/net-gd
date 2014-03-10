@@ -30,7 +30,7 @@ $(TESTS): $(SRC)
 $(DIST): localdeps
 	cp ../*.dll .
 	-cp ../*.so .	# only *nix builds create .so files
-	$(ZIP) $(DIST) $$(ls -1 *.dll *.so | grep -v '^nunit')
+	$(ZIP) $(DIST) $$(ls -1 *.dll *.so | grep -v '^nunit' | grep -v '^tests\.dll')
 
 # dotnet can't find the test framework for some reason, so we copy
 # them here.  (After wasting several days trying to track down the
@@ -40,5 +40,5 @@ localdeps:
 	./fetch_deps.sh
 
 clean:
-	-rm *.dll *.xml *.png *.mdb *.a $(DIST)
+	-rm *.$(SO) *.dll *.xml *.png *.mdb *.a $(DIST)
 

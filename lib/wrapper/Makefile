@@ -5,13 +5,14 @@ SO			:= $(shell ../../cfg.sh sharedobjext)
 CF_EXTRA	:= $(shell ../../cfg.sh cflags)
 MCS			:= $(shell ../../cfg.sh compiler)
 LIBPF		:= $(shell ../../cfg.sh lib)
+SO_LDFLAGS	:= $(shell ../../cfg.sh so_ldflags)
 
 CC=gcc
-CFLAGS=-I$(GDPATH) $(CF_EXTRA) -DSWIGSTDCALL=""
+CFLAGS=-I$(GDPATH) $(CF_EXTRA)
 
 LD=gcc
-LDFLAGS=-shared -Wl,-soname,GDwrap.$(SO)
-LIBS= -lgd -L ../../../gd-libgd/src/ # -lc -lgd
+LDFLAGS=-shared $(SO_LDFLAGS) -Wl,-soname,GDwrap.$(SO) 
+LIBS= -lgd -L ../../../gd-libgd/src/
 
 SWIG=swig
 SWIGFLAGS=-v -Wall -I$(GDPATH) -dllimport $(LIBPF)GDwrap.$(SO) \
@@ -26,8 +27,6 @@ net-gd-glue.dll: $(LIBPF)GDwrap.$(SO)
 
 $(LIBPF)GDwrap.$(SO) : GDwrap.o
 	$(LD) $(LDFLAGS) -o $(LIBPF)GDwrap.$(SO) GDwrap.o $(LIBS)
-
-#gcc -shared -Wl,-soname,GDwrap.$(SO) -o libGDwrap.$(SO) GDwrap.o  -lgd.3.0.1 -L ../../../gd-libgd/src/
 
 GDwrap.c: gd.i
 	$(SWIG) $(SWIGFLAGS) -csharp -o GDwrap.c gd.i

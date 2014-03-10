@@ -59,6 +59,8 @@ namespace GD {
 #if SAVE
       im.file("BasicCall.png");
 #endif
+
+      im.Dispose();     // force gdImageDestroy() call.
     }
 
     [Test]
@@ -102,6 +104,8 @@ namespace GD {
 #if SAVE
       im.file("BasicCall2.png");
 #endif
+
+      im.Dispose();     // force gdImageDestroy() call.
     }
     
     [Test]
@@ -112,6 +116,8 @@ namespace GD {
 #if SAVE
       im.file("BasicCall3.png");
 #endif
+
+      im.Dispose();     // force gdImageDestroy() call.
     }
 
     [Test]
@@ -129,6 +135,8 @@ namespace GD {
 #if SAVE
       dest.file("Rescale.png");
 #endif
+
+      im.Dispose();     // force gdImageDestroy() call.
     }
 
     [Test]
